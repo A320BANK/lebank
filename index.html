@@ -47,13 +47,30 @@
   </main>
 
   <!-- RESULTS -->
-  <section id="results" class="hidden">
-    <div class="question-card">
-      <h2 id="finalTitle">Finished!</h2>
-      <p id="finalScore">You scored 0/0</p>
+<section id="results" class="hidden">
+  <div class="question-card">
+    <h2 id="finalTitle">Finished!</h2>
+    <p id="finalScore">You scored 0/0</p>
+
+    <div class="quiz-actions" style="margin-top:8px">
+      <button id="reviewBtn" class="secondary hidden">Review incorrect</button>
+      <button id="retryBtn" class="hidden">Retry incorrect</button>
       <button id="playAgainBtn">Play again</button>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- REVIEW (list of missed questions) -->
+<section id="review" class="hidden">
+  <div class="question-card">
+    <h2>Incorrect questions</h2>
+    <div id="reviewList" class="answers-grid" style="margin-top:10px"></div>
+    <div class="quiz-actions" style="margin-top:12px">
+      <button id="backToResultsBtn" class="secondary">Back</button>
+      <button id="retryFromReviewBtn">Retry these</button>
+    </div>
+  </div>
+</section>
 
   <!-- Data then app logic -->
   <script src="questions.js?v=10"></script>
