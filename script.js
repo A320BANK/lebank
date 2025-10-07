@@ -19,6 +19,14 @@ const resultsEl = document.getElementById("results");
 const finalTitle = document.getElementById("finalTitle");
 const finalScore = document.getElementById("finalScore");
 const playAgainBtn = document.getElementById("playAgainBtn");
+const reviewBtn = document.getElementById("reviewBtn");
+const retryBtn = document.getElementById("retryBtn");
+
+// Review section
+const reviewEl = document.getElementById("review");
+const reviewList = document.getElementById("reviewList");
+const backToResultsBtn = document.getElementById("backToResultsBtn");
+const retryFromReviewBtn = document.getElementById("retryFromReviewBtn");
 
 // Pull questions regardless of declaration style
 function getQuestionsArray() {
@@ -33,6 +41,7 @@ let selected = [];
 let idx = 0;
 let score = 0;
 let locked = false;
+let incorrect = []; // store missed question objects for review/retry
 
 const PASS_MARK = 75; // percent
 
@@ -46,15 +55,17 @@ function sample(arr,n){ arr = arr.slice(); shuffle(arr); return arr.slice(0,Math
 numLabel.textContent = numRange.value;
 numRange.addEventListener("input", () => { numLabel.textContent = numRange.value; });
 
-// Start quiz
-startBtn.addEventListener("click", () => {
-  const n = parseInt(numRange.value,10);
-  selected = sample(allQuestions, n);
-  idx = 0; score = 0;
+// Start quiz from full bank
+startBtn.addEventListener("click", () => startNewQuiz(sample(allQuestions, parseInt(numRange.value,10))));
+
+// Core starter (also used by retry incorrect)
+function startNewQuiz(questionSet){
+  selected = questionSet.slice();
+  idx = 0; score = 0; incorrect = [];
   scoreEl.textContent = `Score: 0`;
-  hide(setupEl); hide(resultsEl); show(quizEl);
+  hide(setupEl); hide(resultsEl); hide(reviewEl); show(quizEl);
   renderQuestion();
-});
+}
 
 // Render one question
 function renderQuestion() {
@@ -87,7 +98,10 @@ function renderQuestion() {
         score++; scoreEl.textContent = `Score: ${score}`;
       } else {
         btn.classList.add("wrong");
+        // highlight the correct one
         [...answersContainer.children].find(b => b.dataset.correct === "true")?.classList.add("correct");
+        // remember this missed question
+        incorrect.push(q);
       }
       nextBtn.disabled = false;
       if (idx === selected.length - 1) nextBtn.textContent = "Finish";
@@ -113,11 +127,63 @@ nextBtn.addEventListener("click", () => {
       ${pass ? "PASS" : "FAIL"} — Pass mark ${PASS_MARK}%
     </span>
   `;
+
+  // Toggle review/retry buttons based on whether there are any mistakes
+  if (incorrect.length) {
+    reviewBtn.classList.remove("hidden");
+    retryBtn.classList.remove("hidden");
+  } else {
+    reviewBtn.classList.add("hidden");
+    retryBtn.classList.add("hidden");
+  }
 });
 
-playAgainBtn.addEventListener("click", () => {
-  hide(resultsEl); show(setupEl);
+// Show list of incorrect questions with correct answers
+reviewBtn.addEventListener("click", () => {
+  renderReviewList();
+  hide(resultsEl); show(reviewEl);
 });
+
+backToResultsBtn.addEventListener("click", () => {
+  hide(reviewEl); show(resultsEl);
+});
+
+// Retry only incorrect questions
+retryBtn.addEventListener("click", () => {
+  startNewQuiz(incorrect);
+});
+retryFromReviewBtn.addEventListener("click", () => {
+  startNewQuiz(incorrect);
+});
+
+function renderReviewList(){
+  reviewList.innerHTML = "";
+  if (!incorrect.length) {
+    const div = document.createElement("div");
+    div.className = "review-item";
+    div.innerHTML = "<em>No incorrect questions 🎉</em>";
+    reviewList.appendChild(div);
+    return;
+  }
+
+  incorrect.forEach((q) => {
+    const div = document.createElement("div");
+    div.className = "review-item";
+    const correctText = q.answers[q.correct];
+
+    const qEl = document.createElement("p");
+    qEl.className = "review-q";
+    qEl.textContent = q.question;
+
+    const aEl = document.createElement("p");
+    aEl.className = "review-a";
+    aEl.innerHTML = `<strong>Correct:</strong> ${correctText}`;
+
+    div.appendChild(qEl);
+    div.appendChild(aEl);
+    reviewList.appendChild(div);
+  });
+}
 
 // Theme + loading
 function toggleTheme() {
@@ -126,11 +192,10 @@ function toggleTheme() {
   themeToggle.textContent = isDark ? "🌞" : "🌙";
   localStorage.setItem("theme", isDark ? "dark" : "light");
 }
+themeToggle.addEventListener("click", toggleTheme);
 
 document.addEventListener("DOMContentLoaded", () => {
   if (localStorage.getItem("theme") === "dark") { document.body.classList.add("dark"); themeToggle.textContent = "🌞"; }
   setTimeout(() => { loadingScreen && (loadingScreen.style.display = "none"); }, 800);
-
-  // If questions weren’t ready at parse time, grab them now
   if (!allQuestions.length) allQuestions = getQuestionsArray();
 });
