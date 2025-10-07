@@ -47,6 +47,101 @@ const searchList  = document.getElementById("searchList");
 const backToMenuFromSearch = document.getElementById("backToMenuFromSearch");
 let categoryButtonsContainer;
 
+// ==========================
+// SEARCH MODE (with categories)
+// ==========================
+function startSearch(){
+  hideAll();
+  show(searchEl);
+  searchInput.value = "";
+  searchInput.focus();
+
+  // --- Create category buttons area if missing ---
+  if (!categoryButtonsContainer) {
+    categoryButtonsContainer = document.createElement("div");
+    categoryButtonsContainer.className = "mode-buttons";
+    // Insert above the search input
+    const controlsContainer = document.querySelector(".search-controls") || searchInput.parentElement;
+    controlsContainer.parentElement.insertBefore(categoryButtonsContainer, controlsContainer);
+  }
+
+  // --- Collect categories dynamically from questions ---
+  const categories = Array.from(new Set(allQuestions.map(q => q.category || "Uncategorised")));
+  categoryButtonsContainer.innerHTML = "";
+
+  // --- "All" button first ---
+  const allBtn = document.createElement("button");
+  allBtn.textContent = "All";
+  allBtn.className = "secondary active-cat";
+  allBtn.onclick = () => {
+    highlightCategory(allBtn);
+    renderSearch(allQuestions);
+  };
+  categoryButtonsContainer.appendChild(allBtn);
+
+  // --- Category buttons ---
+  categories.forEach(cat => {
+    const btn = document.createElement("button");
+    btn.textContent = cat;
+    btn.className = "secondary";
+    btn.onclick = () => {
+      highlightCategory(btn);
+      renderSearch(allQuestions.filter(q => (q.category || "Uncategorised") === cat));
+    };
+    categoryButtonsContainer.appendChild(btn);
+  });
+
+  // --- Show all questions by default ---
+  renderSearch(allQuestions);
+}
+
+// Helper to highlight active category button
+function highlightCategory(activeBtn) {
+  document.querySelectorAll(".mode-buttons button.secondary").forEach(b => b.classList.remove("active-cat"));
+  activeBtn.classList.add("active-cat");
+}
+
+// --- Display questions in search view ---
+function renderSearch(list) {
+  searchList.innerHTML = "";
+  list.forEach((q, i) => {
+    const item = document.createElement("div");
+    item.className = "search-item";
+    item.innerHTML = `<p class="q">${q.category ? `[${q.category}] ` : ""}${i + 1}. ${q.question}</p>`;
+    const ans = document.createElement("div");
+    ans.className = "search-answers";
+    q.answers.forEach((a, ix) => {
+      const opt = document.createElement("div");
+      opt.className = "opt";
+      opt.textContent = a;
+      if (ix === q.correct) opt.classList.add("correct");
+      ans.appendChild(opt);
+    });
+    item.appendChild(ans);
+    item.onclick = () => item.classList.toggle("open");
+    searchList.appendChild(item);
+  });
+}
+
+// --- Text filter input ---
+searchInput.oninput = () => {
+  const t = searchInput.value.toLowerCase();
+  const activeCatBtn = document.querySelector(".mode-buttons button.active-cat");
+  const activeCategory = activeCatBtn ? activeCatBtn.textContent : "All";
+
+  let filtered = allQuestions.filter(
+    q =>
+      q.question.toLowerCase().includes(t) ||
+      q.answers.some(a => a.toLowerCase().includes(t))
+  );
+
+  if (activeCategory !== "All") {
+    filtered = filtered.filter(q => (q.category || "Uncategorised") === activeCategory);
+  }
+
+  renderSearch(filtered);
+};
+
 // Navigator + flag + comments
 const questionNavigator = document.getElementById("questionNavigator");
 const flagBtn = document.getElementById("flagBtn");
