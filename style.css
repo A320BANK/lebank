@@ -1,8 +1,9 @@
-/* ==========================
-   A320 Question Bank Styles
-   ========================== */
+/* ==========================================
+   A320BANK - Airbus Themed Question Bank
+   Dark Mode (Default)
+   ========================================== */
 
-/* Airbus color palette */
+/* ===== Color Palette ===== */
 :root {
   --navy: #0d1b2a;
   --navy-2: #1b263b;
@@ -12,12 +13,10 @@
   --sky: #00aaff;
   --green: #2ecc71;
   --red: #e74c3c;
-  --shadow: 0 8px 28px rgba(0,0,0,.35);
+  --shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
 }
 
-/* ==========================
-   Base and Layout
-   ========================== */
+/* ===== Base Layout ===== */
 * { box-sizing: border-box; }
 body {
   margin: 0;
@@ -25,19 +24,9 @@ body {
   background: var(--navy-2);
   color: var(--text);
 }
-
 .hidden { display: none !important; }
-.center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 70vh;
-}
 
-/* ==========================
-   Header
-   ========================== */
+/* ===== Header ===== */
 header {
   position: sticky;
   top: 0;
@@ -45,11 +34,11 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 14px;
   padding: 16px 22px;
   background: rgba(13,27,42,.95);
   border-bottom: 1px solid rgba(255,255,255,.06);
-  box-shadow: 0 2px 10px rgba(0,0,0,.2);
+  box-shadow: 0 2px 10px rgba(0,0,0,.3);
 }
 header h1 {
   margin: 0;
@@ -57,15 +46,17 @@ header h1 {
   letter-spacing: .3px;
   color: #fff;
 }
-.logo {
-  color: var(--sky);
-  font-weight: 800;
-  letter-spacing: 1px;
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.airbus-logo {
+  height: 42px;
+  width: auto;
 }
 
-/* ==========================
-   Buttons
-   ========================== */
+/* ===== Buttons ===== */
 button {
   cursor: pointer;
   border: none;
@@ -73,8 +64,10 @@ button {
   border-radius: 10px;
   transition: transform .06s ease, filter .2s ease;
 }
-button:hover { filter: brightness(1.08); transform: translateY(-1px); }
-
+button:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
 button.secondary {
   background: transparent;
   color: var(--sky);
@@ -88,9 +81,7 @@ button.active-cat {
   color: #001018;
 }
 
-/* ==========================
-   Mode Buttons / Setup
-   ========================== */
+/* ===== Mode / Setup ===== */
 .mode-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -114,18 +105,14 @@ button.active-cat {
   flex-wrap: wrap;
   color: var(--muted);
 }
-.quiz-setup input[type="range"] {
-  width: 250px;
-}
+.quiz-setup input[type="range"] { width: 250px; }
 #startQuizBtn {
   background: var(--sky);
   color: #001018;
   padding: 10px 18px;
 }
 
-/* ==========================
-   Question Card
-   ========================== */
+/* ===== Question Card ===== */
 .question-card {
   background: var(--card);
   border-radius: 16px;
@@ -139,14 +126,12 @@ button.active-cat {
   font-weight: 600;
 }
 
-/* ==========================
-   Answers Grid
-   ========================== */
+/* ===== Answers Grid ===== */
 .answers-grid {
   display: grid;
   gap: 10px;
 }
-@media(min-width:640px) {
+@media (min-width: 640px) {
   .answers-grid { grid-template-columns: 1fr 1fr; }
 }
 .answer-btn {
@@ -160,14 +145,24 @@ button.active-cat {
   cursor: pointer;
   transition: all .15s ease;
 }
-.answer-btn:hover { transform: translateY(-1px); background: rgba(255,255,255,.08); }
-.answer-btn.correct { border-color: var(--green); background: rgba(46,204,113,.2); }
-.answer-btn.wrong { border-color: var(--red); background: rgba(231,76,60,.2); }
-.answer-btn[disabled] { opacity: .8; cursor: not-allowed; }
+.answer-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.08);
+}
+.answer-btn.correct {
+  border-color: var(--green);
+  background: rgba(46,204,113,.2);
+}
+.answer-btn.wrong {
+  border-color: var(--red);
+  background: rgba(231,76,60,.2);
+}
+.answer-btn[disabled] {
+  opacity: .8;
+  cursor: not-allowed;
+}
 
-/* ==========================
-   Quiz / Exam Navigation
-   ========================== */
+/* ===== Quiz Header ===== */
 .quiz-header {
   display: flex;
   align-items: center;
@@ -182,7 +177,9 @@ button.active-cat {
   justify-content: center;
   margin-top: 14px;
 }
-#progressText, #scoreText, #timer { font-size: .95rem; }
+#progressText, #scoreText, #timer {
+  font-size: .95rem;
+}
 #timer {
   background: rgba(0,0,0,.25);
   color: #fff;
@@ -191,9 +188,7 @@ button.active-cat {
   font-weight: 700;
 }
 
-/* ==========================
-   Question Navigator
-   ========================== */
+/* ===== Question Navigator ===== */
 .navigator {
   display: flex;
   justify-content: center;
@@ -226,10 +221,34 @@ button.active-cat {
   transform: translate(12px, -8px);
   font-size: .7rem;
 }
+/* Quiz feedback */
+.nav-dot.correct { background: rgba(46,204,113,.7); color: #fff; }
+.nav-dot.wrong { background: rgba(231,76,60,.7); color: #fff; }
+/* Exam answered */
+.nav-dot.answered { background: rgba(0,170,255,.6); color: #fff; }
 
-/* ==========================
-   Results & Review
-   ========================== */
+/* ===== Centered Status Bar ===== */
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 12px auto 6px;
+  color: var(--muted);
+}
+#flagBtn {
+  border: 1px dashed var(--sky);
+  background: transparent;
+  color: var(--sky);
+  padding: 6px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+#flagBtn:hover {
+  background: rgba(0,170,255,.08);
+}
+
+/* ===== Results ===== */
 #results .question-card h2 {
   margin: 0 0 8px;
 }
@@ -260,9 +279,7 @@ button.active-cat {
 .review-q { font-weight: 600; margin: 0 0 6px; }
 .review-a { margin: 0; opacity: .9; }
 
-/* ==========================
-   Search
-   ========================== */
+/* ===== Search ===== */
 .search-input {
   width: 100%;
   padding: 10px 12px;
@@ -287,7 +304,12 @@ button.active-cat {
   transition: background .2s ease;
 }
 .search-item:hover { background: rgba(255,255,255,.07); }
-.search-item .q { font-weight: 600; margin: 0 0 6px; }
+.search-item .q {
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+.search-answers { display: none; grid-template-columns: 1fr; }
+.search-item.open .search-answers { display: grid; }
 .search-item .opt {
   padding: 6px 8px;
   border-radius: 8px;
@@ -298,11 +320,8 @@ button.active-cat {
   border-color: var(--green);
   background: rgba(46,204,113,.18);
 }
-.search-item.open .opt { display: block; }
 
-/* ==========================
-   Loading Animation
-   ========================== */
+/* ===== Loading Screen ===== */
 #loading-screen {
   position: fixed;
   inset: 0;
@@ -339,11 +358,4 @@ button.active-cat {
   animation: planeMove 1s linear forwards;
 }
 @keyframes planeMove { from { left:10% } to { left:76% } }
-@keyframes fadeOut { to { opacity:0; visibility:hidden } }
-
-/* ==========================
-   Misc
-   ========================== */
-textarea::placeholder {
-  color: var(--muted);
-}
+@keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
