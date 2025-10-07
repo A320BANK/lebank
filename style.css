@@ -117,3 +117,9 @@ button.active-cat {
   color: #001018;
   font-weight: 700;
 }
+.mode-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
