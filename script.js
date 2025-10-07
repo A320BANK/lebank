@@ -426,3 +426,61 @@ searchInput.oninput = () => {
   }
   renderSearch(filtered);
 };
+
+// ====== SAVE & RESTORE STATE ======
+function saveState() {
+  const state = {
+    mode: examMode ? "exam" : (quizQuestions.length ? "quiz" : "menu"),
+    currentIndex,
+    score,
+    userAnswers,
+    flagged: Array.from(flaggedSet),
+    timeRemaining,
+    quizQuestions,
+  };
+  localStorage.setItem("quizState", JSON.stringify(state));
+}
+
+function loadState() {
+  const saved = localStorage.getItem("quizState");
+  if (!saved) return false;
+  try {
+    const s = JSON.parse(saved);
+    if (!s.quizQuestions || !s.quizQuestions.length) return false;
+
+    examMode = s.mode === "exam";
+    quizQuestions = s.quizQuestions;
+    userAnswers = s.userAnswers;
+    flaggedSet = new Set(s.flagged);
+    currentIndex = s.currentIndex;
+    score = s.score;
+    timeRemaining = s.timeRemaining || 3 * 60 * 60;
+
+    hideAll(); show(quizEl);
+    if (examMode) {
+      timerEl.classList.remove("hidden");
+      startExamTimer();
+    } else {
+      timerEl.classList.add("hidden");
+      scoreText.textContent = `Score: ${score}`;
+    }
+    renderQuestion();
+    renderNavigator();
+    updateStatusBar();
+    return true;
+  } catch (err) {
+    console.error("Failed to load state:", err);
+    return false;
+  }
+}
+
+// Save progress whenever something changes
+window.addEventListener("beforeunload", saveState);
+
+// Try to restore when page loads
+window.addEventListener("load", () => {
+  if (!loadState()) {
+    hideAll();
+    show(modeSelect);
+  }
+});
