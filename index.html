@@ -107,16 +107,23 @@
   </section>
 
   <!-- SEARCH -->
-  <section id="search" class="hidden">
-    <div class="question-card">
-      <h2>Search</h2>
+ <!-- SEARCH -->
+<section id="search" class="hidden">
+  <div class="question-card">
+    <h2>Search</h2>
+
+    <div class="search-controls">
+      <select id="searchCategory"></select>
       <input id="searchInput" class="search-input" placeholder="Type to filter…" />
-      <div id="searchList" class="search-list"></div>
-      <div class="quiz-actions" style="margin-top:12px">
-        <button id="backToMenuFromSearch" class="secondary">Back to menu</button>
-      </div>
     </div>
-  </section>
+
+    <div id="searchList" class="search-list"></div>
+
+    <div class="quiz-actions" style="margin-top:12px">
+      <button id="backToMenuFromSearch" class="secondary">Back to menu</button>
+    </div>
+  </div>
+</section>
 
   <script src="questions.js?v=14"></script>
   <script src="script.js?v=14"></script>
