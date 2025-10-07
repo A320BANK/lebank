@@ -147,3 +147,25 @@ body.dark .search-item{ border-color: rgba(255,255,255,.16); }
   background: rgba(0,0,0,.15); color: #fff; padding:6px 10px; border-radius:999px;
   font-weight:700; letter-spacing:.5px;
 }
+
+/* Exam mode selection tint */
+.answer-btn.selected {
+  border-color: #00aaff;
+  background: rgba(0,170,255,0.25);
+}
+
+/* Search answer list inside each item */
+.search-answers {
+  display: grid;
+  gap: 6px;
+  margin-top: 6px;
+}
+.search-answers .opt {
+  padding:6px 10px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.1);
+}
+.search-answers .opt.correct {
+  background: rgba(46,204,113,.18);
+  border-color: var(--green);
+}
