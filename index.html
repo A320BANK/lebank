@@ -7,11 +7,11 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Loading -->
   <div id="loading-screen">
     <div class="runway"></div>
     <div class="plane"></div>
     <p>Loading question bank...</p>
-
   </div>
 
   <header>
@@ -20,33 +20,15 @@
   </header>
 
   <div class="controls">
-    <select id="categoryFilter">
-      <option value="All">All</option>
-      <option value="Performance">Performance</option>
-      <option value="Hydraulics">Hydraulics</option>
-      <option value="APU">APU</option>
-      <option value="Engine">Engine</option>
-      <option value="Electrical">Electrical</option>
-      <option value="Flight Controls">Flight Controls</option>
-      <option value="Communications">Communications</option>
-      <option value="Ice and Rain Protection">Ice and Rain Protection</option>
-      <option value="Indicating/Recording Systems">Indicating/Recording Systems</option>
-      <option value="Landing Gear">Landing Gear</option>
-      <option value="Fire Protection">Fire Protection</option>
-      <option value="Auto Flight">Auto Flight</option>
-      <option value="Air Systems">Air Systems</option>
-      <option value="Limitations">Limitations</option>
-      <option value="Navigation">Navigation</option>
-      <option value="Other">Other</option>
-    </select>
-
     <input type="text" id="searchInput" placeholder="Search questions..." />
     <button id="resetFilters">Reset</button>
   </div>
 
   <main id="questionsContainer"></main>
 
+  <!-- Load your original data file -->
   <script src="questions.js"></script>
+  <!-- App logic -->
   <script src="script.js"></script>
 </body>
 </html>
