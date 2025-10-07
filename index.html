@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>A320 Question Bank</title>
-  <link rel="stylesheet" href="style.css?v=7" />
+  <link rel="stylesheet" href="style.css?v=8" />
 </head>
 <body>
+  <!-- Optional loading screen (keep if you like) -->
   <div id="loading-screen">
     <div class="runway"></div>
     <div class="plane"></div>
@@ -18,16 +19,11 @@
     <button id="themeToggle">🌙</button>
   </header>
 
-  <div class="controls">
-    <input type="text" id="searchInput" placeholder="Search questions..." />
-    <button id="resetFilters">Reset</button>
-  </div>
-
+  <!-- No controls anymore -->
   <main id="questionsContainer"></main>
 
-  <!-- Load ONLY your original data file -->
-  <script src="questions.js?v=7"></script>
-  <!-- App logic -->
-  <script src="script.js?v=7"></script>
+  <!-- Load ONLY your data and the simplified script -->
+  <script src="questions.js?v=8"></script>
+  <script src="script.js?v=8"></script>
 </body>
 </html>
