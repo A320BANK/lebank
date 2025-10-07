@@ -40,21 +40,11 @@ const reviewList = document.getElementById("reviewList");
 const backToResultsBtn = document.getElementById("backToResultsBtn");
 const retryFromReviewBtn = document.getElementById("retryFromReviewBtn");
 
-// Search
-const searchEl = document.getElementById("search");
-const searchInput = document.getElementById("searchInput");
-const searchList  = document.getElementById("searchList");
-const backToMenuFromSearch = document.getElementById("backToMenuFromSearch");
-let categoryButtonsContainer;
-
 // ==========================
-// SEARCH MODE (with categories) — fixed version
+// SEARCH MODE (with categories) — corrected final
 // ==========================
 function startSearch() {
-  // Ensure we have questions loaded
-  if (!allQuestions || !allQuestions.length) {
-    allQuestions = getQuestionsArray();
-  }
+  if (!allQuestions || !allQuestions.length) allQuestions = getQuestionsArray();
 
   hideAll();
   show(searchEl);
@@ -62,19 +52,23 @@ function startSearch() {
   searchInput.value = "";
   searchInput.focus();
 
-  // Build category buttons if not yet built
+  const controlsContainer = document.querySelector(".search-controls");
+  if (!controlsContainer) {
+    console.error("Missing .search-controls container in HTML!");
+    return;
+  }
+
+  // Create or rebuild category buttons container
   if (!categoryButtonsContainer) {
     categoryButtonsContainer = document.createElement("div");
     categoryButtonsContainer.className = "mode-buttons";
-    const controlsContainer = document.querySelector(".search-controls") || searchInput.parentElement;
-    controlsContainer.parentElement.insertBefore(categoryButtonsContainer, controlsContainer);
+    controlsContainer.appendChild(categoryButtonsContainer);
   }
 
-  // Get unique category names
   const categories = Array.from(new Set(allQuestions.map(q => q.category || "Uncategorised")));
   categoryButtonsContainer.innerHTML = "";
 
-  // "All" button (default active)
+  // "All" button first
   const allBtn = document.createElement("button");
   allBtn.textContent = "All";
   allBtn.className = "secondary active-cat";
@@ -96,17 +90,15 @@ function startSearch() {
     categoryButtonsContainer.appendChild(btn);
   });
 
-  // 🔹 Show *all questions* immediately on open
+  // Show all questions immediately
   renderSearch(allQuestions);
 }
 
-// Highlight current active category button
 function highlightCategory(activeBtn) {
   document.querySelectorAll(".mode-buttons button.secondary").forEach(b => b.classList.remove("active-cat"));
   activeBtn.classList.add("active-cat");
 }
 
-// Render questions
 function renderSearch(list) {
   searchList.innerHTML = "";
   if (!list.length) {
@@ -118,7 +110,6 @@ function renderSearch(list) {
     const item = document.createElement("div");
     item.className = "search-item";
     item.innerHTML = `<p class="q">${q.category ? `[${q.category}] ` : ""}${i + 1}. ${q.question}</p>`;
-
     const ans = document.createElement("div");
     ans.className = "search-answers";
     q.answers.forEach((a, ix) => {
@@ -134,7 +125,6 @@ function renderSearch(list) {
   });
 }
 
-// Filter by text + active category
 searchInput.oninput = () => {
   const t = searchInput.value.toLowerCase();
   const activeCatBtn = document.querySelector(".mode-buttons button.active-cat");
