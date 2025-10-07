@@ -2517,7 +2517,7 @@ const questions = [
       "When the aircraft is in the landing configuration."
     ],
     "correct": 0,
-    "category": "Indicating/reporting systems"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "What happens to the aircraft's electrical system when the emergency generator is operating?",
@@ -5291,6 +5291,7 @@ const questions = [
     "category": "Air systems"
   }
 ];
+
 
 
 
