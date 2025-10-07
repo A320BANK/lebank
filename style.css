@@ -119,3 +119,8 @@ body.dark .answer-btn{ border-color:rgba(255,255,255,.16) }
 }
 @keyframes planeMove{ from{ left:10% } to{ left:76% } }
 @keyframes fadeOut{ to{ opacity:0; visibility:hidden } }
+
+.review-item { padding:12px; border-radius:10px; background:rgba(255,255,255,.04); border:1px solid rgba(0,0,0,.12); }
+body.dark .review-item { border-color: rgba(255,255,255,.16); }
+.review-q { font-weight:600; margin:0 0 6px 0; }
+.review-a { margin:0; opacity:.9; }
