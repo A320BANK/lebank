@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>A320 Question Bank</title>
-  <link rel="stylesheet" href="style.css?v=8" />
+  <link rel="stylesheet" href="style.css?v=10" />
 </head>
 <body>
-  <!-- Optional loading screen (keep if you like) -->
+  <!-- Loading (keep if you like) -->
   <div id="loading-screen">
     <div class="runway"></div>
     <div class="plane"></div>
@@ -19,11 +19,44 @@
     <button id="themeToggle">🌙</button>
   </header>
 
-  <!-- No controls anymore -->
-  <main id="questionsContainer"></main>
+  <!-- SETUP -->
+  <section class="controls quiz-setup" id="setup">
+    <label for="numQuestions"><strong>Number of questions:</strong>
+      <span id="numLabel">10</span>
+    </label>
+    <input type="range" id="numQuestions" min="5" max="100" step="1" value="10" />
+    <button id="startBtn">Start Quiz</button>
+  </section>
 
-  <!-- Load ONLY your data and the simplified script -->
-  <script src="questions.js?v=9"></script>
-  <script src="script.js?v=9"></script>
+  <!-- QUIZ -->
+  <main id="quiz" class="quiz hidden">
+    <div class="quiz-header">
+      <div id="progress">Question 1 of 10</div>
+      <div id="score">Score: 0</div>
+    </div>
+
+    <div class="question-card">
+      <h3 id="questionText">Question text…</h3>
+      <div id="answersContainer" class="answers-grid"></div>
+    </div>
+
+    <div class="quiz-actions">
+      <button id="nextBtn" disabled>Next ➜</button>
+      <button id="restartBtn" class="secondary hidden">Restart</button>
+    </div>
+  </main>
+
+  <!-- RESULTS -->
+  <section id="results" class="hidden">
+    <div class="question-card">
+      <h2 id="finalTitle">Finished!</h2>
+      <p id="finalScore">You scored 0/0</p>
+      <button id="playAgainBtn">Play again</button>
+    </div>
+  </section>
+
+  <!-- Data then app logic -->
+  <script src="questions.js?v=10"></script>
+  <script src="script.js?v=10"></script>
 </body>
 </html>
