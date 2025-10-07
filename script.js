@@ -3,22 +3,25 @@ const loadingScreen = document.getElementById("loading-screen");
 
 // Mode picker
 const modeSelect = document.getElementById("modeSelect");
-const chooseQuiz = document.getElementById("chooseQuiz");
-const chooseExam = document.getElementById("chooseExam");
+const chooseQuiz  = document.getElementById("chooseQuiz");
+const chooseExam  = document.getElementById("chooseExam");
+const chooseSearch= document.getElementById("chooseSearch");
 
-// Quiz setup (quiz mode only)
-const setupEl = document.getElementById("setup");
-const numRange = document.getElementById("numQuestions");
-const numLabel = document.getElementById("numLabel");
-const startBtn = document.getElementById("startBtn");
+// Quiz setup (quiz only)
+const setupEl   = document.getElementById("setup");
+const numRange  = document.getElementById("numQuestions");
+const numLabel  = document.getElementById("numLabel");
+const startBtn  = document.getElementById("startBtn");
 
 // Play UI
 const quizEl = document.getElementById("quiz");
 const questionText = document.getElementById("questionText");
 const answersContainer = document.getElementById("answersContainer");
 const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
 const progressEl = document.getElementById("progress");
 const scoreEl = document.getElementById("score");
+const timerEl = document.getElementById("timer");
 
 // Results + review
 const resultsEl = document.getElementById("results");
@@ -26,12 +29,19 @@ const finalTitle = document.getElementById("finalTitle");
 const finalScore = document.getElementById("finalScore");
 const playAgainBtn = document.getElementById("playAgainBtn");
 const reviewBtn = document.getElementById("reviewBtn");
-const retryBtn = document.getElementById("retryBtn");
+const retryBtn  = document.getElementById("retryBtn");
 
+// Review section
 const reviewEl = document.getElementById("review");
 const reviewList = document.getElementById("reviewList");
 const backToResultsBtn = document.getElementById("backToResultsBtn");
 const retryFromReviewBtn = document.getElementById("retryFromReviewBtn");
+
+// Search section
+const searchEl = document.getElementById("search");
+const searchInput = document.getElementById("searchInput");
+const searchList = document.getElementById("searchList");
+const backToMenuFromSearch = document.getElementById("backToMenuFromSearch");
 
 // Pull questions regardless of declaration style
 function getQuestionsArray() {
@@ -47,15 +57,20 @@ let idx = 0;
 let score = 0;
 let locked = false;
 let incorrect = [];
-let userAnswers = []; // for exam mode (stores chosen index)
+let userAnswers = []; // chosen index per question (null if unanswered)
 let MODE = "quiz";    // "quiz" or "exam"
 const PASS_MARK = 75;
+
+let examTimer = null;
+let examRemaining = 0; // seconds
 
 // utils
 function show(el){ el.classList.remove("hidden"); }
 function hide(el){ el.classList.add("hidden"); }
 function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]] } return arr; }
 function sample(arr,n){ arr = arr.slice(); shuffle(arr); return arr.slice(0,Math.min(n,arr.length)); }
+function fmtTime(s){ const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=s%60; return `${String(h).padStart(1,"0")}:${String(m).padStart(2,"0")}:${String(sec).padStart(2,"0")}`; }
+function recomputeScoreFromUserAnswers(){ return userAnswers.reduce((acc,ans,i)=> acc + (ans===selected[i]?.correct ? 1 : 0), 0); }
 
 // init
 document.addEventListener("DOMContentLoaded", () => {
@@ -65,28 +80,27 @@ document.addEventListener("DOMContentLoaded", () => {
   // If questions weren’t ready at parse time, grab them now
   if (!allQuestions.length) allQuestions = getQuestionsArray();
 
-  // Dynamically set slider max = total questions
+  // slider max = total questions
   const total = allQuestions.length || 100;
   numRange.max = String(total);
   if (+numRange.value > total) numRange.value = Math.min(10, total);
   numLabel.textContent = numRange.value;
+
+  // Keyboard nav
+  window.addEventListener("keydown", (e) => {
+    if (quizEl.classList.contains("hidden")) return;
+    if (e.key === "ArrowRight") { e.preventDefault(); nextBtn.click(); }
+    if (e.key === "ArrowLeft")  { e.preventDefault(); prevBtn.click(); }
+  });
 });
 
 // slider label
 numRange.addEventListener("input", () => { numLabel.textContent = numRange.value; });
 
 // mode selection
-chooseQuiz.addEventListener("click", () => {
-  MODE = "quiz";
-  hide(modeSelect);
-  show(setupEl);
-  scoreEl.textContent = "Score: 0";
-});
-
-chooseExam.addEventListener("click", () => {
-  MODE = "exam";
-  startExam();
-});
+chooseQuiz.addEventListener("click", () => { MODE = "quiz"; hide(modeSelect); show(setupEl); scoreEl.textContent = "Score: 0"; timerEl.classList.add("hidden"); });
+chooseExam.addEventListener("click", () => { MODE = "exam"; startExam(); });
+chooseSearch.addEventListener("click", () => { startSearch(); });
 
 // start quiz (quiz mode)
 startBtn.addEventListener("click", () => {
@@ -97,116 +111,124 @@ startBtn.addEventListener("click", () => {
 // common starters
 function startQuiz(questionSet){
   selected = questionSet.slice();
-  idx = 0; score = 0; incorrect = []; userAnswers = [];
-  hide(modeSelect); hide(resultsEl); hide(reviewEl); hide(setupEl); show(quizEl);
-  scoreEl.textContent = `Score: ${score}`;
-  renderQuestionQuiz();
+  idx = 0; userAnswers = new Array(selected.length).fill(null);
+  score = 0; incorrect = [];
+  hide(modeSelect); hide(resultsEl); hide(reviewEl); hide(setupEl); hide(searchEl); show(quizEl);
+  scoreEl.textContent = `Score: 0`;
+  timerEl.classList.add("hidden");
+  renderCurrent();
 }
 
 function startExam(){
   // fixed 100 (or all if fewer)
   const n = Math.min(100, allQuestions.length);
   selected = sample(allQuestions, n);
-  idx = 0; score = 0; incorrect = []; userAnswers = new Array(n).fill(null);
-  hide(modeSelect); hide(resultsEl); hide(reviewEl); hide(setupEl); show(quizEl);
-  scoreEl.textContent = `Score: —`; // hide running score in exam
-  renderQuestionExam();
+  idx = 0; userAnswers = new Array(selected.length).fill(null);
+  score = 0; incorrect = [];
+  hide(modeSelect); hide(resultsEl); hide(reviewEl); hide(setupEl); hide(searchEl); show(quizEl);
+  scoreEl.textContent = `Score: —`; // no running score
+  // 3h timer
+  examRemaining = 3 * 60 * 60; // seconds
+  timerEl.textContent = fmtTime(examRemaining);
+  timerEl.classList.remove("hidden");
+  if (examTimer) clearInterval(examTimer);
+  examTimer = setInterval(() => {
+    examRemaining--;
+    timerEl.textContent = fmtTime(examRemaining);
+    if (examRemaining <= 0) {
+      clearInterval(examTimer);
+      finishQuizOrExam("exam"); // auto-submit
+    }
+  }, 1000);
+
+  renderCurrent();
 }
 
-// ---------- QUIZ MODE (instant feedback) ----------
-function renderQuestionQuiz(){
+// unified renderer: behaves per MODE
+function renderCurrent(){
   const q = selected[idx];
   const total = selected.length;
+
   progressEl.textContent = `Question ${idx+1} of ${total}`;
   questionText.textContent = q.question;
-  nextBtn.disabled = true;
-  locked = false;
-
-  const options = q.answers.map((text, i) => ({ text, i, correct: i === q.correct }));
-  shuffle(options);
 
   answersContainer.innerHTML = "";
+  // keep original order; if you want shuffle, call shuffle(q.answers.map(...))
+  const options = q.answers.map((text, i) => ({ text, i, correct: i === q.correct }));
+
   options.forEach(opt => {
     const btn = document.createElement("button");
     btn.className = "answer-btn";
     btn.textContent = opt.text;
-    btn.dataset.correct = String(opt.correct);
-    btn.addEventListener("click", () => {
-      if (locked) return;
-      locked = true;
-      [...answersContainer.children].forEach(b => b.disabled = true);
-      if (opt.correct){
-        btn.classList.add("correct"); score++; scoreEl.textContent = `Score: ${score}`;
-      }else{
-        btn.classList.add("wrong");
-        [...answersContainer.children].find(b => b.dataset.correct === "true")?.classList.add("correct");
-        incorrect.push(q);
+
+    // If already answered, show selection; in quiz mode also show correctness styling
+    if (userAnswers[idx] !== null) {
+      if (userAnswers[idx] === opt.i) {
+        btn.classList.add(MODE === "quiz" ? (opt.correct ? "correct" : "wrong") : "correct"); // exam: just a selection tint
       }
-      nextBtn.disabled = false;
-      nextBtn.textContent = (idx === total-1) ? "Finish" : "Next ➜";
-    });
-    answersContainer.appendChild(btn);
-  });
-
-  nextBtn.onclick = () => {
-    if (idx < total-1){ idx++; renderQuestionQuiz(); }
-    else { finishQuizOrExam("quiz"); }
-  };
-}
-
-// ---------- EXAM MODE (no instant feedback) ----------
-function renderQuestionExam(){
-  const q = selected[idx];
-  const total = selected.length;
-  progressEl.textContent = `Question ${idx+1} of ${total}`;
-  questionText.textContent = q.question;
-  nextBtn.disabled = (userAnswers[idx] === null); // must select to proceed
-  locked = false;
-
-  const options = q.answers.map((text, i) => ({ text, i, correct: i === q.correct }));
-  shuffle(options);
-
-  answersContainer.innerHTML = "";
-  options.forEach(opt => {
-    const btn = document.createElement("button");
-    btn.className = "answer-btn";
-    btn.textContent = opt.text;
-
-    // highlight selection (not correctness)
-    if (userAnswers[idx] === opt.i) btn.classList.add("correct"); // just a visual, not correctness indicator
+      if (MODE === "quiz") {
+        // also show correct answer highlight
+        if (opt.correct) btn.classList.add("correct");
+        btn.disabled = true; // lock after answered (can change by clicking another button)
+      }
+    }
 
     btn.addEventListener("click", () => {
-      // store chosen index relative to original answers
       userAnswers[idx] = opt.i;
-      nextBtn.disabled = false;
-      // simple selection highlight
-      [...answersContainer.children].forEach(b => b.classList.remove("correct", "wrong"));
-      btn.classList.add("correct");
+      if (MODE === "quiz") {
+        // instant feedback
+        [...answersContainer.children].forEach(b => b.disabled = true);
+        // mark chosen
+        btn.classList.add(opt.correct ? "correct" : "wrong");
+        // show correct
+        if (!opt.correct) {
+          [...answersContainer.children].forEach(b => {
+            if (b.textContent === q.answers[q.correct]) b.classList.add("correct");
+          });
+        }
+        // live score
+        score = recomputeScoreFromUserAnswers();
+        scoreEl.textContent = `Score: ${score}`;
+      } else {
+        // exam: just selection highlight (no correctness)
+        [...answersContainer.children].forEach(b => b.classList.remove("correct","wrong"));
+        btn.classList.add("correct");
+      }
+      updateNavButtons();
     });
 
     answersContainer.appendChild(btn);
   });
 
-  nextBtn.textContent = (idx === total-1) ? "Finish" : "Next ➜";
-  nextBtn.onclick = () => {
-    if (idx < total-1){ idx++; renderQuestionExam(); }
-    else { finishQuizOrExam("exam"); }
-  };
+  updateNavButtons();
 }
+
+function updateNavButtons(){
+  const total = selected.length;
+  prevBtn.disabled = (idx === 0);
+  // In exam, require an answer to advance
+  nextBtn.disabled = (MODE === "exam" && userAnswers[idx] === null);
+  nextBtn.textContent = (idx === total-1) ? "Finish" : "Next ➜";
+}
+
+// navigation
+prevBtn.addEventListener("click", () => {
+  if (idx > 0) { idx--; renderCurrent(); }
+});
+nextBtn.addEventListener("click", () => {
+  const total = selected.length;
+  if (idx < total-1) { idx++; renderCurrent(); }
+  else { finishQuizOrExam(MODE); }
+});
 
 // ---------- FINISH ----------
 function finishQuizOrExam(mode){
-  hide(quizEl); show(resultsEl);
+  show(resultsEl); hide(quizEl); hide(reviewEl);
+  if (mode === "exam" && examTimer) { clearInterval(examTimer); examTimer = null; }
 
-  // compute score (quiz already tracked; exam must evaluate now)
-  if (mode === "exam"){
-    score = 0; incorrect = [];
-    selected.forEach((q, i) => {
-      const chosen = userAnswers[i];
-      if (chosen === q.correct) score++;
-      else incorrect.push(q);
-    });
-  }
+  score = recomputeScoreFromUserAnswers();
+  incorrect = [];
+  selected.forEach((q,i)=> { if (userAnswers[i] !== q.correct) incorrect.push(q); });
 
   const pct = Math.round((score / selected.length) * 100);
   const pass = pct >= PASS_MARK;
@@ -219,20 +241,17 @@ function finishQuizOrExam(mode){
     </span>
   `;
 
-  if (incorrect.length){
-    reviewBtn.classList.remove("hidden");
-    retryBtn.classList.remove("hidden");
-  } else {
-    reviewBtn.classList.add("hidden");
-    retryBtn.classList.add("hidden");
-  }
+  if (incorrect.length){ reviewBtn.classList.remove("hidden"); retryBtn.classList.remove("hidden"); }
+  else { reviewBtn.classList.add("hidden"); retryBtn.classList.add("hidden"); }
 }
 
-// ----- Review / Retry incorrect (works for both modes) -----
+// ----- Review / Retry incorrect -----
 reviewBtn.addEventListener("click", () => {
-  renderReviewList();
-  hide(resultsEl); show(reviewEl);
+  renderReviewList(); hide(resultsEl); show(reviewEl);
 });
+retryBtn.addEventListener("click", () => startQuiz(incorrect));
+retryFromReviewBtn.addEventListener("click", () => startQuiz(incorrect));
+backToResultsBtn.addEventListener("click", () => { hide(reviewEl); show(resultsEl); });
 
 function renderReviewList(){
   reviewList.innerHTML = "";
@@ -254,14 +273,33 @@ function renderReviewList(){
   });
 }
 
-retryBtn.addEventListener("click", () => startQuiz(incorrect));            // retry missed with feedback
-retryFromReviewBtn.addEventListener("click", () => startQuiz(incorrect));
-backToResultsBtn.addEventListener("click", () => { hide(reviewEl); show(resultsEl); });
-
-// back to main menu
-playAgainBtn.addEventListener("click", () => {
-  hide(resultsEl); hide(reviewEl); show(modeSelect);
+// ----- SEARCH MODE -----
+function startSearch(){
+  hide(modeSelect); hide(setupEl); hide(quizEl); hide(resultsEl); hide(reviewEl); show(searchEl);
+  renderSearchList(allQuestions);
+  searchInput.value = "";
+  searchInput.focus();
+}
+function renderSearchList(list){
+  searchList.innerHTML = "";
+  list.forEach((q, i) => {
+    const item = document.createElement("div");
+    item.className = "search-item";
+    item.innerHTML = `<p class="q">${i+1}. ${q.question}</p>
+                      <p class="a"><strong>Answer:</strong> ${q.answers[q.correct]}</p>`;
+    item.addEventListener("click", () => item.classList.toggle("open"));
+    searchList.appendChild(item);
+  });
+}
+searchInput.addEventListener("input", () => {
+  const t = searchInput.value.toLowerCase();
+  const filtered = allQuestions.filter(q =>
+    q.question.toLowerCase().includes(t) ||
+    q.answers.some(a => a.toLowerCase().includes(t))
+  );
+  renderSearchList(filtered);
 });
+backToMenuFromSearch.addEventListener("click", () => { hide(searchEl); show(modeSelect); });
 
 // Theme toggle
 function toggleTheme(){
