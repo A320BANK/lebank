@@ -2,135 +2,98 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>A320 Question Bank</title>
-  <link rel="stylesheet" href="style.css?v=14" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body class="dark">
-  <div id="loading-screen">
-    <div class="runway"></div>
-    <div class="plane"></div>
-    <p>Loading question bank...</p>
-  </div>
 
   <header>
-    <div class="brand">
-      <!-- Simple Airbus-style wordmark (inline SVG) -->
-      <svg class="airbus-logo" viewBox="0 0 520 100" aria-hidden="true">
-        <rect fill="none" width="520" height="100" rx="8"/>
-        <text x="0" y="72" font-size="72" font-weight="800" font-family="Inter, Arial, sans-serif" fill="#00aaff">AIRBUS</text>
-      </svg>
-      <h1>A320 Question Bank</h1>
-    </div>
+    <h1><span class="logo">AIRBUS</span> A320 Question Bank</h1>
   </header>
 
-  <!-- MODE PICKER -->
-  <section class="controls" id="modeSelect">
+  <!-- ===== MAIN MENU ===== -->
+  <section id="modeSelect" class="center">
     <div class="mode-buttons">
-      <button id="chooseQuiz">Quiz mode (instant feedback)</button>
-      <button id="chooseExam" class="secondary">Exam mode (100 questions)</button>
-      <button id="chooseSearch" class="secondary">Search (browse all)</button>
+      <button id="quizModeBtn">Quiz mode (instant feedback)</button>
+      <button id="examModeBtn">Exam mode (100 questions)</button>
+      <button id="searchModeBtn">Search (browse all)</button>
     </div>
   </section>
 
-  <!-- QUIZ SETUP (only after Quiz is chosen) -->
-  <section class="controls quiz-setup hidden" id="setup">
-    <label for="numQuestions"><strong>Number of questions:</strong>
-      <span id="numLabel">10</span>
-    </label>
-    <input type="range" id="numQuestions" min="5" max="100" step="1" value="10" />
-    <button id="startBtn">Start Quiz</button>
+  <!-- ===== QUIZ SETUP ===== -->
+  <section id="setup" class="hidden">
+    <div class="quiz-setup">
+      <label for="numQuestions">Number of questions:</label>
+      <input type="range" id="numQuestions" min="1" max="483" value="10" />
+      <span id="numQuestionsLabel">10</span>
+      <button id="startQuizBtn">Start Quiz</button>
+    </div>
   </section>
 
-  <!-- QUIZ / EXAM -->
-  <main id="quiz" class="quiz hidden">
+  <!-- ===== QUIZ / EXAM ===== -->
+  <section id="quiz" class="hidden">
     <div class="quiz-header">
-      <div id="progress">Question 1 of 10</div>
-      <div class="right-info">
-        <div id="leftCount">Left: 10</div>
-        <div id="score">Score: 0</div>
-        <div id="timer" class="hidden">3:00:00</div>
-      </div>
+      <div id="progressText"></div>
+      <div id="timer" class="hidden"></div>
+      <div id="scoreText"></div>
     </div>
-
-    <div class="question-card">
-      <h3 id="questionText">Question text…</h3>
+    <div class="question-card" id="questionCard">
+      <h3 id="questionText"></h3>
       <div id="answersContainer" class="answers-grid"></div>
     </div>
-
     <div class="quiz-actions">
-      <button id="prevBtn" class="secondary">⬅︎ Prev</button>
-      <button id="nextBtn" disabled>Next ➜</button>
+      <button id="prevBtn" class="secondary">← Prev</button>
+      <button id="nextBtn">Next →</button>
       <button id="mainMenuBtn" class="secondary">Main menu</button>
     </div>
+    <div id="navigatorContainer" class="navigator"></div>
+  </section>
 
-    <!-- Navigator + flag + comments -->
-    <div id="questionNavigator" class="navigator hidden"></div>
-    <div class="flag-control">
-      <button id="flagBtn" class="secondary">🚩 Flag Question</button>
-    </div>
-
-    <!-- Hints/Comments (quiz mode only) -->
-    <section id="comments" class="comments hidden">
-      <h4>Hints for this question</h4>
-      <div id="commentsList" class="comments-list"></div>
-      <div class="comment-form">
-        <textarea id="commentInput" rows="2" placeholder="Add a hint for this question…"></textarea>
-        <button id="saveCommentBtn">Save hint</button>
-      </div>
-    </section>
-  </main>
-
-  <!-- RESULTS -->
+  <!-- ===== RESULTS ===== -->
   <section id="results" class="hidden">
     <div class="question-card">
-      <h2 id="finalTitle">Finished!</h2>
-      <p id="finalScore">You scored 0/0</p>
-      <div class="quiz-actions" style="margin-top:8px">
-        <button id="reviewBtn" class="secondary hidden">Review incorrect</button>
-        <button id="retryBtn" class="hidden">Retry incorrect</button>
-        <button id="playAgainBtn">Main menu</button>
-      </div>
+      <h2>Your Score:</h2>
+      <p id="finalScore"></p>
+      <div id="resultBadge"></div>
+      <button id="playAgainBtn">Main menu</button>
+      <button id="reviewBtn" class="secondary">Review incorrect</button>
     </div>
   </section>
 
-  <!-- REVIEW -->
+  <!-- ===== REVIEW INCORRECT ===== -->
   <section id="review" class="hidden">
     <div class="question-card">
-      <h2>Incorrect questions</h2>
-      <div id="reviewList" class="answers-grid" style="margin-top:10px"></div>
-      <div class="quiz-actions" style="margin-top:12px">
-        <button id="backToResultsBtn" class="secondary">Back</button>
-        <button id="retryFromReviewBtn">Retry these</button>
+      <h2>Review Incorrect Questions</h2>
+      <div id="reviewList"></div>
+      <div class="quiz-actions">
+        <button id="restartIncorrectBtn">Retry incorrect</button>
+        <button id="mainMenuBtn2" class="secondary">Main menu</button>
       </div>
     </div>
   </section>
 
- <!-- ================= SEARCH ================= -->
-<section id="search" class="hidden">
-  <div class="quiz-header">
-    <h2>Search</h2>
+  <!-- ===== SEARCH ===== -->
+  <section id="search" class="hidden">
+    <div class="quiz-header">
+      <h2>Search</h2>
+    </div>
+
+    <div class="search-controls"></div>
+    <input type="text" id="searchInput" class="search-input" placeholder="Type to filter..." />
+    <div id="searchList" class="search-list"></div>
+
+    <div class="quiz-actions">
+      <button id="backToMenuFromSearch" class="secondary">Back to menu</button>
+    </div>
+  </section>
+
+  <div id="loading-screen">
+    <div class="plane"></div>
+    <div class="runway"></div>
   </div>
 
-  <div class="search-controls">
-    <!-- Category buttons will be injected here -->
-  </div>
-
-  <input
-    type="text"
-    id="searchInput"
-    class="search-input"
-    placeholder="Type to filter..."
-  />
-
-  <div id="searchList" class="search-list"></div>
-
-  <div class="quiz-actions">
-    <button id="backToMenuFromSearch" class="secondary">Back to menu</button>
-  </div>
-</section>
-
-  <script src="questions.js?v=14"></script>
-  <script src="script.js?v=14"></script>
+  <script src="questions.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
