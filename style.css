@@ -102,3 +102,12 @@ button.secondary{ background:transparent; color:var(--sky); border:1px solid var
 .plane{ position:absolute; width:52px; height:52px; background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%2300aaff" viewBox="0 0 64 64"><path d="M58 28H38L22 10H17L28 28H6L4 32H28L17 54H22L38 36H58z"/></svg>') no-repeat center/contain; animation:planeMove 1s linear forwards }
 @keyframes planeMove{ from{ left:10% } to{ left:76% } }
 @keyframes fadeOut{ to{ opacity:0; visibility:hidden } }
+
+.search-controls{
+  display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:8px 0 12px;
+}
+#searchCategory{
+  padding:8px 10px; border-radius:10px;
+  background:rgba(255,255,255,.04); color:inherit;
+  border:1px solid rgba(255,255,255,.2);
+}
