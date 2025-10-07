@@ -1,36 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>A320 Question Bank</title>
-
-  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="dark">
 
-  <!-- ===== Header ===== -->
-  <header>
-    <div class="header-left">
-      <h2 class="airbus-text">AIRBUS</h2>
-      <h1>A320 Question Bank</h1>
+<header>
+  <div class="header-left">
+    <h2 class="airbus-text">AIRBUS</h2>
+    <h1>A320 Question Bank</h1>
+  </div>
+</header>
+
+  <!-- ===== MAIN MENU ===== -->
+  <section id="modeSelect" class="center">
+    <div class="mode-buttons">
+      <button id="quizModeBtn">Quiz mode (instant feedback)</button>
+      <button id="examModeBtn">Exam mode (100 questions)</button>
+      <button id="searchModeBtn">Search (browse all)</button>
     </div>
-  </header>
+  </section>
 
-  <!-- ===== Mode Select (Home) ===== -->
-  <main id="modeSelect">
-    <div class="controls">
-      <div class="mode-buttons">
-        <button id="quizModeBtn">Quiz</button>
-        <button id="examModeBtn">Exam</button>
-        <button id="searchModeBtn" class="secondary">Search (browse all)</button>
-      </div>
-    </div>
-  </main>
-
-  <!-- ===== Quiz Setup ===== -->
-  <section id="setup" class="quiz-setup hidden">
+ <!-- ===== QUIZ SETUP ===== -->
+<section id="setup" class="hidden">
+  <div class="quiz-setup">
     <label for="quizCategory">Category:</label>
     <select id="quizCategory"></select>
 
@@ -39,76 +35,87 @@
     <span id="numQuestionsLabel">10</span>
 
     <button id="startQuizBtn">Start Quiz</button>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== Quiz / Exam ===== -->
-  <section id="quiz" class="hidden">
-    <div class="quiz-header">
-      <div id="progressText"></div>
-      <div id="timer" class="hidden"></div>
-      <div id="scoreText"></div>
-    </div>
+  <!-- ===== QUIZ / EXAM ===== -->
+<section id="quiz" class="hidden">
+  <div class="quiz-header">
+    <div id="progressText"></div>
+    <div id="timer" class="hidden"></div>
+    <div id="scoreText"></div>
+  </div>
 
-    <div class="question-card" id="questionCard">
-      <h3 id="questionText"></h3>
-      <div id="answersContainer" class="answers-grid"></div>
-    </div>
+  <div class="question-card" id="questionCard">
+    <h3 id="questionText"></h3>
+    <div id="answersContainer" class="answers-grid"></div>
+  </div>
 
-    <!-- Actions: Main Menu moved left, Prev/Next on right -->
-    <div class="quiz-actions">
-      <div class="left-actions">
-        <button id="mainMenuBtn" class="secondary">🏠 Main Menu</button>
-      </div>
-      <div class="right-actions">
-        <button id="prevBtn" class="secondary">← Previous</button>
-        <button id="nextBtn">Next →</button>
-      </div>
-    </div>
+  <div class="quiz-actions">
+    <button id="prevBtn" class="secondary">← Prev</button>
+  <div class="left-actions">
+    <button id="mainMenuBtn" class="secondary">🏠 Main Menu</button>
+  </div>
+  <div class="right-actions">
+    <button id="prevBtn">← Previous</button>
+    <button id="nextBtn">Next →</button>
+    <button id="mainMenuBtn" class="secondary">Main menu</button>
+  </div>
+</div>
 
-    <!-- Navigator -->
-    <div id="navigatorContainer" class="navigator"></div>
+  <div id="navigatorContainer" class="navigator"></div>
 
-    <!-- Status bar: remaining + flag -->
-    <div id="statusBar" class="status-bar">
-      <span id="remainingText">Left: —</span>
-      <button id="flagBtn" class="secondary">🚩 Flag Question</button>
-    </div>
-  </section>
+  <!-- NEW: centered remaining + flag button -->
+  <div id="statusBar" class="status-bar">
+    <span id="remainingText">Left: —</span>
+    <button id="flagBtn" class="secondary">🚩 Flag Question</button>
+  </div>
+</section>
 
-  <!-- ===== Results ===== -->
+  <!-- ===== RESULTS ===== -->
   <section id="results" class="hidden">
     <div class="question-card">
-      <h2>Results</h2>
+      <h2>Your Score:</h2>
       <p id="finalScore"></p>
       <div id="resultBadge"></div>
-      <div class="quiz-actions" style="justify-content:center;gap:10px;">
-        <button id="reviewBtn" class="secondary">Review Incorrect</button>
-        <button id="restartIncorrectBtn">Retry Incorrect</button>
-        <button id="playAgainBtn" class="secondary">Main Menu</button>
+      <button id="playAgainBtn">Main menu</button>
+      <button id="reviewBtn" class="secondary">Review incorrect</button>
+    </div>
+  </section>
+
+  <!-- ===== REVIEW INCORRECT ===== -->
+  <section id="review" class="hidden">
+    <div class="question-card">
+      <h2>Review Incorrect Questions</h2>
+      <div id="reviewList"></div>
+      <div class="quiz-actions">
+        <button id="restartIncorrectBtn">Retry incorrect</button>
+        <button id="mainMenuBtn2" class="secondary">Main menu</button>
       </div>
     </div>
   </section>
 
-  <!-- ===== Review Incorrect ===== -->
-  <section id="review" class="hidden">
-    <div class="controls" style="text-align:center;">
-      <button id="playAgainBtn_review" class="secondary" onclick="document.getElementById('playAgainBtn').click()">Main Menu</button>
-    </div>
-    <div id="reviewList" class="controls"></div>
-  </section>
-
-  <!-- ===== Search ===== -->
+  <!-- ===== SEARCH ===== -->
   <section id="search" class="hidden">
-    <div class="controls search-controls">
-      <button id="backToMenuFromSearch" class="secondary">🏠 Main Menu</button>
-      <input id="searchInput" class="search-input" placeholder="Search questions or answers…" />
-      <!-- Category buttons container will be injected here -->
+    <div class="quiz-header">
+      <h2>Search</h2>
     </div>
-    <div id="searchList" class="controls search-list"></div>
+
+    <div class="search-controls"></div>
+    <input type="text" id="searchInput" class="search-input" placeholder="Type to filter..." />
+    <div id="searchList" class="search-list"></div>
+
+    <div class="quiz-actions">
+      <button id="backToMenuFromSearch" class="secondary">Back to menu</button>
+    </div>
   </section>
 
-  <!-- Scripts: questions then app script -->
-  <script src="questions_categorized.js"></script>
+  <div id="loading-screen">
+    <div class="plane"></div>
+    <div class="runway"></div>
+  </div>
+
+  <script src="questions.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
