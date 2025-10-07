@@ -106,22 +106,27 @@
     </div>
   </section>
 
-  <!-- SEARCH -->
- <!-- SEARCH -->
+ <!-- ================= SEARCH ================= -->
 <section id="search" class="hidden">
-  <div class="question-card">
+  <div class="quiz-header">
     <h2>Search</h2>
+  </div>
 
-    <div class="search-controls">
-      <select id="searchCategory"></select>
-      <input id="searchInput" class="search-input" placeholder="Type to filter…" />
-    </div>
+  <div class="search-controls">
+    <!-- Category buttons will be injected here -->
+  </div>
 
-    <div id="searchList" class="search-list"></div>
+  <input
+    type="text"
+    id="searchInput"
+    class="search-input"
+    placeholder="Type to filter..."
+  />
 
-    <div class="quiz-actions" style="margin-top:12px">
-      <button id="backToMenuFromSearch" class="secondary">Back to menu</button>
-    </div>
+  <div id="searchList" class="search-list"></div>
+
+  <div class="quiz-actions">
+    <button id="backToMenuFromSearch" class="secondary">Back to menu</button>
   </div>
 </section>
 
