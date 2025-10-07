@@ -32,24 +32,33 @@
   </section>
 
   <!-- ===== QUIZ / EXAM ===== -->
-  <section id="quiz" class="hidden">
-    <div class="quiz-header">
-      <div id="progressText"></div>
-      <div id="timer" class="hidden"></div>
-      <div id="scoreText"></div>
-    </div>
-    <div class="question-card" id="questionCard">
-      <h3 id="questionText"></h3>
-      <div id="answersContainer" class="answers-grid"></div>
-    </div>
-    <div class="quiz-actions">
-      <button id="prevBtn" class="secondary">← Prev</button>
-      <button id="nextBtn">Next →</button>
-      <button id="mainMenuBtn" class="secondary">Main menu</button>
-    </div>
-    <div id="navigatorContainer" class="navigator"></div>
-  </section>
+<section id="quiz" class="hidden">
+  <div class="quiz-header">
+    <div id="progressText"></div>
+    <div id="timer" class="hidden"></div>
+    <div id="scoreText"></div>
+  </div>
 
+  <div class="question-card" id="questionCard">
+    <h3 id="questionText"></h3>
+    <div id="answersContainer" class="answers-grid"></div>
+  </div>
+
+  <div class="quiz-actions">
+    <button id="prevBtn" class="secondary">← Prev</button>
+    <button id="nextBtn">Next →</button>
+    <button id="mainMenuBtn" class="secondary">Main menu</button>
+  </div>
+
+  <div id="navigatorContainer" class="navigator"></div>
+
+  <!-- NEW: centered remaining + flag button -->
+  <div id="statusBar" class="status-bar">
+    <span id="remainingText">Left: —</span>
+    <button id="flagBtn" class="secondary">🚩 Flag Question</button>
+  </div>
+</section>
+  
   <!-- ===== RESULTS ===== -->
   <section id="results" class="hidden">
     <div class="question-card">
