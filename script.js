@@ -2,8 +2,16 @@ const container = document.getElementById("questionsContainer");
 const themeToggle = document.getElementById("themeToggle");
 const loadingScreen = document.getElementById("loading-screen");
 
-// Copy array so we don't mutate original
-let allQuestions = Array.isArray(window.questions) ? window.questions.slice() : [];
+// Grab questions from whichever global is present
+function getQuestionsArray() {
+  try {
+    if (typeof questions !== "undefined" && Array.isArray(questions)) return questions.slice();
+  } catch (_) {}
+  if (Array.isArray(window.questions)) return window.questions.slice();
+  return [];
+}
+
+let allQuestions = getQuestionsArray();
 
 function renderAll() {
   container.innerHTML = "";
@@ -52,19 +60,15 @@ function toggleTheme() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Hide loading screen after a moment (optional)
-  if (loadingScreen) setTimeout(() => (loadingScreen.style.display = "none"), 3500);
+  if (loadingScreen) setTimeout(() => (loadingScreen.style.display = "none"), 1000);
 
-  // Restore theme
   if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark");
     themeToggle.textContent = "🌞";
   }
 
-  // If questions became available after parse time, pick them up
-  if (!allQuestions.length && Array.isArray(window.questions)) {
-    allQuestions = window.questions.slice();
-  }
+  // In case the data script loaded after this file parsed:
+  if (!allQuestions.length) allQuestions = getQuestionsArray();
 
   renderAll();
   themeToggle.addEventListener("click", toggleTheme);
