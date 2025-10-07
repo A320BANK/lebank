@@ -1,4 +1,3 @@
-const container = document.getElementById("questionsContainer"); // (unused now)
 const themeToggle = document.getElementById("themeToggle");
 const loadingScreen = document.getElementById("loading-screen");
 
@@ -21,7 +20,7 @@ const finalTitle = document.getElementById("finalTitle");
 const finalScore = document.getElementById("finalScore");
 const playAgainBtn = document.getElementById("playAgainBtn");
 
-// Pull questions regardless of how they were declared
+// Pull questions regardless of declaration style
 function getQuestionsArray() {
   try { if (typeof questions !== "undefined" && Array.isArray(questions)) return questions.slice(); } catch {}
   if (Array.isArray(window.questions)) return window.questions.slice();
@@ -29,11 +28,13 @@ function getQuestionsArray() {
 }
 let allQuestions = getQuestionsArray();
 
-// --- Quiz state ---
-let selected = [];   // chosen subset
-let idx = 0;         // current question index within selected
-let score = 0;       // correct answers
-let locked = false;  // prevent re-answering
+// ---- Quiz state
+let selected = [];
+let idx = 0;
+let score = 0;
+let locked = false;
+
+const PASS_MARK = 75; // percent
 
 // UI helpers
 function show(el){ el.classList.remove("hidden"); }
@@ -41,7 +42,7 @@ function hide(el){ el.classList.add("hidden"); }
 function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]] } return arr; }
 function sample(arr,n){ arr = arr.slice(); shuffle(arr); return arr.slice(0,Math.min(n,arr.length)); }
 
-// Setup
+// Setup slider label
 numLabel.textContent = numRange.value;
 numRange.addEventListener("input", () => { numLabel.textContent = numRange.value; });
 
@@ -50,7 +51,7 @@ startBtn.addEventListener("click", () => {
   const n = parseInt(numRange.value,10);
   selected = sample(allQuestions, n);
   idx = 0; score = 0;
-  scoreEl.textContent = `Score: ${score}`;
+  scoreEl.textContent = `Score: 0`;
   hide(setupEl); hide(resultsEl); show(quizEl);
   renderQuestion();
 });
@@ -58,14 +59,13 @@ startBtn.addEventListener("click", () => {
 // Render one question
 function renderQuestion() {
   locked = false;
-  nextBtn.disabled = true;
+  nextBtn.disabled = true; nextBtn.textContent = "Next ➜";
   restartBtn.classList.add("hidden");
 
   const q = selected[idx];
   progressEl.textContent = `Question ${idx+1} of ${selected.length}`;
   questionText.textContent = q.question;
 
-  // Prepare answers (shuffle but keep track of which is correct)
   const options = q.answers.map((text, i) => ({ text, i, correct: i === q.correct }));
   shuffle(options);
 
@@ -74,50 +74,48 @@ function renderQuestion() {
     const btn = document.createElement("button");
     btn.className = "answer-btn";
     btn.textContent = opt.text;
+    btn.dataset.correct = String(opt.correct);
 
     btn.addEventListener("click", () => {
       if (locked) return;
       locked = true;
 
-      // mark all
+      // disable and mark
       [...answersContainer.children].forEach(b => b.disabled = true);
       if (opt.correct) {
         btn.classList.add("correct");
         score++; scoreEl.textContent = `Score: ${score}`;
       } else {
         btn.classList.add("wrong");
-        // highlight the correct one
         [...answersContainer.children].find(b => b.dataset.correct === "true")?.classList.add("correct");
       }
       nextBtn.disabled = false;
-      if (idx === selected.length - 1) {
-        nextBtn.textContent = "Finish";
-      }
+      if (idx === selected.length - 1) nextBtn.textContent = "Finish";
     });
 
-    btn.dataset.correct = String(opt.correct);
     answersContainer.appendChild(btn);
   });
-
-  // Reset button label each question
-  nextBtn.textContent = "Next ➜";
 }
 
 nextBtn.addEventListener("click", () => {
-  if (idx < selected.length - 1) {
-    idx++;
-    renderQuestion();
-  } else {
-    // finished
-    hide(quizEl); show(resultsEl);
-    finalTitle.textContent = "Quiz complete!";
-    finalScore.textContent = `You scored ${score} / ${selected.length}`;
-    restartBtn.classList.add("hidden");
-  }
+  if (idx < selected.length - 1) { idx++; renderQuestion(); return; }
+
+  // Finished
+  hide(quizEl); show(resultsEl);
+  const pct = Math.round((score / selected.length) * 100);
+  const pass = pct >= PASS_MARK;
+
+  finalTitle.textContent = "Quiz complete!";
+  finalScore.innerHTML = `
+    You scored <strong>${score}</strong> / <strong>${selected.length}</strong>
+    (<strong>${pct}%</strong>)<br />
+    <span class="result-badge ${pass ? "result-pass" : "result-fail"}">
+      ${pass ? "PASS" : "FAIL"} — Pass mark ${PASS_MARK}%
+    </span>
+  `;
 });
 
 playAgainBtn.addEventListener("click", () => {
-  // back to setup
   hide(resultsEl); show(setupEl);
 });
 
@@ -128,7 +126,6 @@ function toggleTheme() {
   themeToggle.textContent = isDark ? "🌞" : "🌙";
   localStorage.setItem("theme", isDark ? "dark" : "light");
 }
-themeToggle.addEventListener("click", toggleTheme);
 
 document.addEventListener("DOMContentLoaded", () => {
   if (localStorage.getItem("theme") === "dark") { document.body.classList.add("dark"); themeToggle.textContent = "🌞"; }
