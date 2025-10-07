@@ -1659,7 +1659,7 @@ const questions = [
       "It will switch off automatically if on batteries."
     ],
     "correct": 0,
-    "category": "Commuications"
+    "category": "Communications"
   },
   {
     "question": "What could be the cause if, during a pre-flight check, the IRS ALIGN lights are seen to be flashing?",
@@ -5291,6 +5291,7 @@ const questions = [
     "category": "Air systems"
   }
 ];
+
 
 
 
