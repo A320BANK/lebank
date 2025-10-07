@@ -24,15 +24,19 @@
     </div>
   </section>
 
-  <!-- ===== QUIZ SETUP ===== -->
-  <section id="setup" class="hidden">
-    <div class="quiz-setup">
-      <label for="numQuestions">Number of questions:</label>
-      <input type="range" id="numQuestions" min="1" max="483" value="10" />
-      <span id="numQuestionsLabel">10</span>
-      <button id="startQuizBtn">Start Quiz</button>
-    </div>
-  </section>
+ <!-- ===== QUIZ SETUP ===== -->
+<section id="setup" class="hidden">
+  <div class="quiz-setup">
+    <label for="quizCategory">Category:</label>
+    <select id="quizCategory"></select>
+
+    <label for="numQuestions">Number of questions:</label>
+    <input type="range" id="numQuestions" min="1" max="483" value="10" />
+    <span id="numQuestionsLabel">10</span>
+
+    <button id="startQuizBtn">Start Quiz</button>
+  </div>
+</section>
 
   <!-- ===== QUIZ / EXAM ===== -->
 <section id="quiz" class="hidden">
