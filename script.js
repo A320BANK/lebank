@@ -486,6 +486,3 @@ searchInput.oninput = () => {
   }
   renderSearch(filtered);
 };
-    show(modeSelect);
-  }
-}
