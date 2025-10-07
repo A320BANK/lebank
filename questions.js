@@ -8,7 +8,7 @@ const questions = [
       "THRRED"
     ],
     "correct": 2,
-    "category": "Engine"
+    "category": "Performance"
   },
   {
     "question": "A 'contaminated runway' describes a surface where a certain percentage of the runway is covered by what depth of contaminant?",
@@ -30,7 +30,7 @@ const questions = [
       "Calculated stop point within 300 m of runway end"
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "Performance"
   },
   {
     "question": "Which of the following is NOT an SOP while taking off on a contaminated runway?",
@@ -52,7 +52,7 @@ const questions = [
       "MORE <F10>"
     ],
     "correct": 1,
-    "category": "Auto flight"
+    "category": "Performance"
   },
   {
     "question": "What is the screen height for a wet runway?",
@@ -63,7 +63,7 @@ const questions = [
       "25 ft"
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "What is the screen height for a dry runway?",
@@ -74,7 +74,7 @@ const questions = [
       "35 ft"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "In the event of an LMC of 200 kg, what is the appropriate response?",
@@ -85,7 +85,7 @@ const questions = [
       "Perform a rolling takeoff"
     ],
     "correct": 0,
-    "category": "Auto flight"
+    "category": "Performance"
   },
   {
     "question": "In the event of a last-minute decision to use engine anti-ice, what correction must be applied?",
@@ -96,7 +96,7 @@ const questions = [
       "Increase thrust reduction altitude by 500 ft"
     ],
     "correct": 1,
-    "category": "Engine"
+    "category": "Performance"
   },
   {
     "question": "In the event of a QNH reduction by 1 hPa on taxi-out, what correction must be applied?",
@@ -107,7 +107,7 @@ const questions = [
       "No correction available. Recalculate speeds and flex."
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "In the event of a QNH reduction by 2 hPa on taxi-out, what correction must be applied?",
@@ -117,8 +117,8 @@ const questions = [
       "Subtract one degree from flex",
       "Subtract two degrees from flex"
     ],
-    "correct": 3,
-    "category": "Other"
+    "correct": 2,
+    "category": "Performance"
   },
   {
     "question": "In the event of a QNH reduction by 2 hPa on taxi-out what correction must be applied?",
@@ -129,7 +129,7 @@ const questions = [
       "Subtract two degrees from flex"
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "In the event of a QNH reduction by 3 hPa on taxi-out, what correction must be applied?",
@@ -140,7 +140,7 @@ const questions = [
       "Subtract one degree from flex"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "In the event of a last minute decision to use engine bleed to supply packs, what correction must be applied?",
@@ -151,7 +151,7 @@ const questions = [
       "Subtract one degree from flex"
     ],
     "correct": 1,
-    "category": "Engine"
+    "category": "Performance"
   },
   {
     "question": "Where is the correct place to find RWY COND EFB entry for takeoff?",
@@ -162,7 +162,7 @@ const questions = [
       "EFB MORE app"
     ],
     "correct": 3,
-    "category": "Navigation"
+    "category": "Performance"
   },
   {
     "question": "Where is the correct place to find RWY COND EFB entry in flight for landing?",
@@ -173,7 +173,7 @@ const questions = [
       "OM-B"
     ],
     "correct": 1,
-    "category": "Navigation"
+    "category": "Performance"
   },
   {
     "question": "Under which conditions must engine anti-ice be used?",
@@ -184,7 +184,7 @@ const questions = [
       "OAT 10Â°C or below and visible moisture"
     ],
     "correct": 3,
-    "category": "Engine"
+    "category": "Performance"
   },
   {
     "question": "What is considered to be a 'forward' CG at takeoff?",
@@ -195,7 +195,7 @@ const questions = [
       "less than or equal to 30%"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "What is considered to be a 'standard' CG at takeoff?",
@@ -206,7 +206,7 @@ const questions = [
       "More than or equal to 30%"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "Which of these statements is NOT true regarding a CONF 1 +F takeoff instead of other configurations?",
@@ -216,7 +216,7 @@ const questions = [
       "Climb gradient is reduced"
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "Performance"
   },
   {
     "question": "OPT CONF selection for takeoff ensures what?",
@@ -226,7 +226,7 @@ const questions = [
       "That the highest V1 is always used"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "When is a rolling takeoff not permitted due to performance?",
@@ -237,7 +237,7 @@ const questions = [
       "Flex falls below TREF"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "If departing from an intersection with a longer TORA than planned, what is required?",
@@ -248,7 +248,7 @@ const questions = [
       "Derate removed"
     ],
     "correct": 2,
-    "category": "Flight controls"
+    "category": "Performance"
   },
   {
     "question": "If following an EOSID, what obstacle clearance is guaranteed?",
@@ -259,7 +259,7 @@ const questions = [
       "As per MSA only"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "How can the maximum acceleration altitude be found on the EFB TO PERF page?",
@@ -270,7 +270,7 @@ const questions = [
       "MORE <F10>"
     ],
     "correct": 3,
-    "category": "Hydraulics"
+    "category": "Performance"
   },
   {
     "question": "On the EFB, how can MEL items be added to assure performance requirements are met?",
@@ -281,7 +281,7 @@ const questions = [
       "MORE <F10>"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "For an in-flight landing calculation, what is the maximum crosswind with compacted snow at -16Â°C?",
@@ -325,7 +325,7 @@ const questions = [
       "3-Medium"
     ],
     "correct": 2,
-    "category": "Auto flight"
+    "category": "Performance"
   },
   {
     "question": "For an in-flight landing calculation, what is the appropriate EFB input for RWY COND with 5 mm of water on the runway?",
@@ -336,7 +336,7 @@ const questions = [
       "3-Medium"
     ],
     "correct": 1,
-    "category": "Auto flight"
+    "category": "Performance"
   },
   {
     "question": "On the EFB, how can the GA gradient be modified to ensure compliance?",
@@ -347,7 +347,7 @@ const questions = [
       "Adding Vpilot"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "If using Reverse Idle, what is the correct choice in the EFB LOG PERF?",
@@ -357,7 +357,7 @@ const questions = [
       "Properties"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "In EFB LOG PERF, how do we correctly adjust for a NOTAMed shortening of a runway?",
@@ -368,7 +368,7 @@ const questions = [
       "FUNCTIONS>MODIFY RWY"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "What are the standard second and final segment gross climb gradients on takeoff?",
@@ -388,7 +388,7 @@ const questions = [
       "Neither dry nor wet"
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "What takeoff performance limit codes indicate performance limiting takeoff when using TOGA thrust?",
@@ -399,7 +399,7 @@ const questions = [
       "RWY, OBS, and VMC"
     ],
     "correct": 1,
-    "category": "Engine"
+    "category": "Performance"
   },
   {
     "question": "Required landing distance figures include what factors for a 'dry'/'wet' runway?",
@@ -420,7 +420,7 @@ const questions = [
       "DRY"
     ],
     "correct": 0,
-    "category": "Navigation"
+    "category": "Performance"
   },
   {
     "question": "If below 10Â°C and 'wet' runway only, is anti-ice legally required for take-off?",
@@ -430,7 +430,7 @@ const questions = [
       "Properties"
     ],
     "correct": 1,
-    "category": "Ice and rain protection"
+    "category": "Performance"
   },
   {
     "question": "How many 'negligible' COL items can be carried without applying a performance penalty?",
@@ -441,7 +441,7 @@ const questions = [
       "4"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "What is Vpilot?",
@@ -451,7 +451,7 @@ const questions = [
       "Properties"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "At landing, what is included in EFB calculations but NOT in QRH calculations?",
@@ -461,7 +461,7 @@ const questions = [
       "A 1.3 factor on landing distance"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "What is the standard operating procedure for the EOSID stop altitude?",
@@ -472,7 +472,7 @@ const questions = [
       "SID stop altitude"
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "Performance"
   },
   {
     "question": "What is an indicator that 'stop margin' figures have additional factors added?",
@@ -482,7 +482,7 @@ const questions = [
       "If all V speeds are the same"
     ],
     "correct": 0,
-    "category": "Flight controls"
+    "category": "Performance"
   },
   {
     "question": "Where is the correct place to find RWY COND EFB entry at landing dispatch?",
@@ -493,7 +493,7 @@ const questions = [
       "OM-B"
     ],
     "correct": 0,
-    "category": "Navigation"
+    "category": "Performance"
   },
   {
     "question": "Which of these is not an appropriate wind entry for a METAR reading VRB03KT?",
@@ -504,7 +504,7 @@ const questions = [
       "0/0"
     ],
     "correct": 2,
-    "category": "Auto flight"
+    "category": "Performance"
   },
   {
     "question": "What is the TREF value for an Airbus A320-214?",
@@ -515,7 +515,7 @@ const questions = [
       "ISA+25"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "A 'contaminated runway' describes a surface where a certain depth of contaminant is covering what percentage of runway area?",
@@ -5291,3 +5291,4 @@ const questions = [
     "category": "Air systems"
   }
 ];
+
