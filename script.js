@@ -4,12 +4,14 @@ const resetButton = document.getElementById("resetFilters");
 const themeToggle = document.getElementById("themeToggle");
 const loadingScreen = document.getElementById("loading-screen");
 
-// Copy array so we never mutate the original
+// Remove any old category dropdown if it still exists in the HTML
+document.getElementById("categoryFilter")?.remove();
+
+// Use the questions array provided by questions.js
 let allQuestions = Array.isArray(window.questions) ? window.questions.slice() : [];
 
 function renderQuestions(list) {
   container.innerHTML = "";
-
   if (!list || !list.length) {
     const empty = document.createElement("div");
     empty.className = "question-card";
@@ -17,29 +19,23 @@ function renderQuestions(list) {
     container.appendChild(empty);
     return;
   }
-
   list.forEach((q, i) => {
     const card = document.createElement("div");
     card.className = "question-card";
-
     const title = document.createElement("h3");
     title.textContent = `${i + 1}. ${q.question}`;
-
     const answersList = document.createElement("ul");
     answersList.className = "answers";
     answersList.style.display = "none";
-
     (q.answers || []).forEach((a, j) => {
       const li = document.createElement("li");
       li.textContent = a;
       if (j === q.correct) li.classList.add("correct");
       answersList.appendChild(li);
     });
-
     title.addEventListener("click", () => {
       answersList.style.display = answersList.style.display === "none" ? "block" : "none";
     });
-
     card.appendChild(title);
     card.appendChild(answersList);
     container.appendChild(card);
@@ -68,22 +64,10 @@ function toggleTheme() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Hide loading after a moment
-  if (loadingScreen) setTimeout(() => (loadingScreen.style.display = "none"), 3500);
-
-  // Restore theme
-  if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark");
-    themeToggle.textContent = "🌞";
-  }
-
-  // Safety: if data hasn’t loaded yet, warn (page will still show message)
-  if (!allQuestions.length && Array.isArray(window.questions)) {
-    allQuestions = window.questions.slice();
-  }
-
+  setTimeout(() => { if (loadingScreen) loadingScreen.style.display = "none"; }, 3500);
+  if (localStorage.getItem("theme") === "dark") { document.body.classList.add("dark"); themeToggle.textContent = "🌞"; }
+  if (!allQuestions.length && Array.isArray(window.questions)) allQuestions = window.questions.slice();
   renderQuestions(allQuestions);
-
   searchInput.addEventListener("input", filterQuestions);
   resetButton.addEventListener("click", resetFilters);
   themeToggle.addEventListener("click", toggleTheme);
