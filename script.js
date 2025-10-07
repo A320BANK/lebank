@@ -1,59 +1,47 @@
 const container = document.getElementById("questionsContainer");
-const searchInput = document.getElementById("searchInput");
-const resetButton = document.getElementById("resetFilters");
 const themeToggle = document.getElementById("themeToggle");
 const loadingScreen = document.getElementById("loading-screen");
 
-// Remove any old category dropdown if it still exists in the HTML
-document.getElementById("categoryFilter")?.remove();
-
-// Use the questions array provided by questions.js
+// Copy array so we don't mutate original
 let allQuestions = Array.isArray(window.questions) ? window.questions.slice() : [];
 
-function renderQuestions(list) {
+function renderAll() {
   container.innerHTML = "";
-  if (!list || !list.length) {
-    const empty = document.createElement("div");
-    empty.className = "question-card";
-    empty.innerHTML = `<em>No questions match your search.</em>`;
-    container.appendChild(empty);
+
+  if (!allQuestions.length) {
+    const msg = document.createElement("div");
+    msg.className = "question-card";
+    msg.innerHTML = "<em>No questions loaded.</em>";
+    container.appendChild(msg);
     return;
   }
-  list.forEach((q, i) => {
+
+  allQuestions.forEach((q, i) => {
     const card = document.createElement("div");
     card.className = "question-card";
+
     const title = document.createElement("h3");
     title.textContent = `${i + 1}. ${q.question}`;
+
     const answersList = document.createElement("ul");
     answersList.className = "answers";
     answersList.style.display = "none";
+
     (q.answers || []).forEach((a, j) => {
       const li = document.createElement("li");
       li.textContent = a;
       if (j === q.correct) li.classList.add("correct");
       answersList.appendChild(li);
     });
+
     title.addEventListener("click", () => {
       answersList.style.display = answersList.style.display === "none" ? "block" : "none";
     });
+
     card.appendChild(title);
     card.appendChild(answersList);
     container.appendChild(card);
   });
-}
-
-function filterQuestions() {
-  const term = searchInput.value.toLowerCase();
-  const filtered = allQuestions.filter(q =>
-    q.question.toLowerCase().includes(term) ||
-    (q.answers || []).some(a => a.toLowerCase().includes(term))
-  );
-  renderQuestions(filtered);
-}
-
-function resetFilters() {
-  searchInput.value = "";
-  renderQuestions(allQuestions);
 }
 
 function toggleTheme() {
@@ -64,11 +52,20 @@ function toggleTheme() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => { if (loadingScreen) loadingScreen.style.display = "none"; }, 3500);
-  if (localStorage.getItem("theme") === "dark") { document.body.classList.add("dark"); themeToggle.textContent = "🌞"; }
-  if (!allQuestions.length && Array.isArray(window.questions)) allQuestions = window.questions.slice();
-  renderQuestions(allQuestions);
-  searchInput.addEventListener("input", filterQuestions);
-  resetButton.addEventListener("click", resetFilters);
+  // Hide loading screen after a moment (optional)
+  if (loadingScreen) setTimeout(() => (loadingScreen.style.display = "none"), 3500);
+
+  // Restore theme
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark");
+    themeToggle.textContent = "🌞";
+  }
+
+  // If questions became available after parse time, pick them up
+  if (!allQuestions.length && Array.isArray(window.questions)) {
+    allQuestions = window.questions.slice();
+  }
+
+  renderAll();
   themeToggle.addEventListener("click", toggleTheme);
 });
