@@ -48,28 +48,33 @@ const backToMenuFromSearch = document.getElementById("backToMenuFromSearch");
 let categoryButtonsContainer;
 
 // ==========================
-// SEARCH MODE (with categories)
+// SEARCH MODE (with categories) — fixed version
 // ==========================
-function startSearch(){
+function startSearch() {
+  // Ensure we have questions loaded
+  if (!allQuestions || !allQuestions.length) {
+    allQuestions = getQuestionsArray();
+  }
+
   hideAll();
   show(searchEl);
+
   searchInput.value = "";
   searchInput.focus();
 
-  // --- Create category buttons area if missing ---
+  // Build category buttons if not yet built
   if (!categoryButtonsContainer) {
     categoryButtonsContainer = document.createElement("div");
     categoryButtonsContainer.className = "mode-buttons";
-    // Insert above the search input
     const controlsContainer = document.querySelector(".search-controls") || searchInput.parentElement;
     controlsContainer.parentElement.insertBefore(categoryButtonsContainer, controlsContainer);
   }
 
-  // --- Collect categories dynamically from questions ---
+  // Get unique category names
   const categories = Array.from(new Set(allQuestions.map(q => q.category || "Uncategorised")));
   categoryButtonsContainer.innerHTML = "";
 
-  // --- "All" button first ---
+  // "All" button (default active)
   const allBtn = document.createElement("button");
   allBtn.textContent = "All";
   allBtn.className = "secondary active-cat";
@@ -79,7 +84,7 @@ function startSearch(){
   };
   categoryButtonsContainer.appendChild(allBtn);
 
-  // --- Category buttons ---
+  // Category buttons
   categories.forEach(cat => {
     const btn = document.createElement("button");
     btn.textContent = cat;
@@ -91,23 +96,29 @@ function startSearch(){
     categoryButtonsContainer.appendChild(btn);
   });
 
-  // --- Show all questions by default ---
+  // 🔹 Show *all questions* immediately on open
   renderSearch(allQuestions);
 }
 
-// Helper to highlight active category button
+// Highlight current active category button
 function highlightCategory(activeBtn) {
   document.querySelectorAll(".mode-buttons button.secondary").forEach(b => b.classList.remove("active-cat"));
   activeBtn.classList.add("active-cat");
 }
 
-// --- Display questions in search view ---
+// Render questions
 function renderSearch(list) {
   searchList.innerHTML = "";
+  if (!list.length) {
+    searchList.innerHTML = "<p style='opacity:.7'>No questions found.</p>";
+    return;
+  }
+
   list.forEach((q, i) => {
     const item = document.createElement("div");
     item.className = "search-item";
     item.innerHTML = `<p class="q">${q.category ? `[${q.category}] ` : ""}${i + 1}. ${q.question}</p>`;
+
     const ans = document.createElement("div");
     ans.className = "search-answers";
     q.answers.forEach((a, ix) => {
@@ -123,7 +134,7 @@ function renderSearch(list) {
   });
 }
 
-// --- Text filter input ---
+// Filter by text + active category
 searchInput.oninput = () => {
   const t = searchInput.value.toLowerCase();
   const activeCatBtn = document.querySelector(".mode-buttons button.active-cat");
@@ -141,7 +152,6 @@ searchInput.oninput = () => {
 
   renderSearch(filtered);
 };
-
 // Navigator + flag + comments
 const questionNavigator = document.getElementById("questionNavigator");
 const flagBtn = document.getElementById("flagBtn");
