@@ -1,10 +1,9 @@
 // ==========================
 // ELEMENTS
 // ==========================
-const themeToggle = document.getElementById("themeToggle");
 const loadingScreen = document.getElementById("loading-screen");
 
-// Mode select (always the first screen)
+// Mode select (always first screen)
 const modeSelect = document.getElementById("modeSelect");
 const chooseQuiz  = document.getElementById("chooseQuiz");
 const chooseExam  = document.getElementById("chooseExam");
@@ -24,6 +23,7 @@ const nextBtn = document.getElementById("nextBtn");
 const prevBtn = document.getElementById("prevBtn");
 const mainMenuBtn = document.getElementById("mainMenuBtn");
 const progressEl = document.getElementById("progress");
+const leftCountEl = document.getElementById("leftCount");
 const scoreEl = document.getElementById("score");
 const timerEl = document.getElementById("timer");
 
@@ -46,9 +46,13 @@ const searchInput = document.getElementById("searchInput");
 const searchList  = document.getElementById("searchList");
 const backToMenuFromSearch = document.getElementById("backToMenuFromSearch");
 
-// Navigator + flag
+// Navigator + flag + comments
 const questionNavigator = document.getElementById("questionNavigator");
 const flagBtn = document.getElementById("flagBtn");
+const commentsSection = document.getElementById("comments");
+const commentsList = document.getElementById("commentsList");
+const commentInput = document.getElementById("commentInput");
+const saveCommentBtn = document.getElementById("saveCommentBtn");
 
 // ==========================
 // STATE & UTILS
@@ -69,6 +73,7 @@ let examTimer = null;
 let examRemaining = 0;
 const PASS_MARK = 75;
 
+// convenience
 function show(el){ el.classList.remove("hidden"); }
 function hide(el){ el.classList.add("hidden"); }
 function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
@@ -77,16 +82,22 @@ function fmtTime(s){ const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=
 function recomputeScore(){ return userAnswers.reduce((acc,ans,i)=> acc + (ans===selected[i]?.correct ? 1 : 0), 0); }
 function stopExamTimer(){ if(examTimer){ clearInterval(examTimer); examTimer=null; }}
 
+// simple stable id per question (hash of text)
+function qid(q){ let h=0,s=String(q.question); for(let i=0;i<s.length;i++){h=(h*31 + s.charCodeAt(i))|0;} return String(h); }
+const COMMENT_KEY = "a320_comments";
+function loadAllComments(){ try{ return JSON.parse(localStorage.getItem(COMMENT_KEY)||"{}"); }catch{ return {}; } }
+function saveAllComments(obj){ localStorage.setItem(COMMENT_KEY, JSON.stringify(obj)); }
+function getCommentsFor(q){ const store=loadAllComments(); return store[qid(q)] || []; }
+function addCommentFor(q,text){ const store=loadAllComments(); const id=qid(q); if(!store[id]) store[id]=[]; store[id].push(text); saveAllComments(store); }
+
 // Central “go home”
 function goToMainMenu(){
   stopExamTimer();
-  hide(setupEl);
-  hide(quizEl);
-  hide(resultsEl);
-  hide(reviewEl);
-  hide(searchEl);
+  hide(setupEl); hide(quizEl); hide(resultsEl); hide(reviewEl); hide(searchEl);
   questionNavigator.innerHTML = "";
   answersContainer.innerHTML = "";
+  commentsList.innerHTML = ""; commentInput.value = "";
+  hide(commentsSection);
   scoreEl.textContent = "Score: 0";
   timerEl.classList.add("hidden");
   show(modeSelect);        // ONLY the three buttons
@@ -94,27 +105,20 @@ function goToMainMenu(){
 
 // Hide everything but keep state; used on starts
 function hideAll(){
-  hide(modeSelect);
-  hide(setupEl);
-  hide(quizEl);
-  hide(resultsEl);
-  hide(reviewEl);
-  hide(searchEl);
+  hide(modeSelect); hide(setupEl); hide(quizEl); hide(resultsEl); hide(reviewEl); hide(searchEl);
 }
 
 // ==========================
 // INIT
 // ==========================
 document.addEventListener("DOMContentLoaded", ()=>{
-  if(localStorage.getItem("theme")==="dark"){ document.body.classList.add("dark"); themeToggle.textContent="🌞"; }
   setTimeout(()=> loadingScreen.style.display="none", 800);
-
   if(!allQuestions.length) allQuestions = getQuestionsArray();
   numRange.max = String(allQuestions.length || 100);
   numLabel.textContent = numRange.value;
 
-  // Start at main menu (hide slider until Quiz clicked)
-  hide(setupEl); show(modeSelect);
+  // Start at main menu (slider hidden)
+  goToMainMenu();
 
   // Arrow key nav while in quiz/exam
   window.addEventListener("keydown", e=>{
@@ -173,6 +177,11 @@ function startExam(){
 function renderQuestion(){
   const q = selected[idx];
   progressEl.textContent = `Question ${idx+1} of ${selected.length}`;
+
+  // Left: remaining unanswered (in this run)
+  const answered = userAnswers.filter(a => a !== null).length;
+  leftCountEl.textContent = `Left: ${selected.length - answered}`;
+
   questionText.textContent = q.question;
   answersContainer.innerHTML = "";
 
@@ -181,9 +190,8 @@ function renderQuestion(){
     btn.className = "answer-btn";
     btn.textContent = text;
 
-    // show existing selection
     if(userAnswers[idx]===i){
-      btn.classList.add(MODE==="exam" ? "selected" : "correct"); // Exam = blue tint; Quiz = green (correct-style) to indicate chosen
+      btn.classList.add(MODE==="exam" ? "selected" : "correct");
     }
 
     btn.onclick = ()=>{
@@ -196,12 +204,14 @@ function renderQuestion(){
           [...answersContainer.children][q.correct].classList.add("correct");
         }
         scoreEl.textContent = `Score: ${recomputeScore()}`;
-      }else{ // exam
+      }else{
         [...answersContainer.children].forEach(b=>b.classList.remove("selected"));
-        btn.classList.add("selected"); // light blue (via CSS)
+        btn.classList.add("selected"); // light blue
       }
-      updateNavButtons();
       renderNavigator();
+      updateFlagButton();
+      updateNavButtons();
+      leftCountEl.textContent = `Left: ${selected.length - userAnswers.filter(a=>a!==null).length}`;
     };
 
     answersContainer.appendChild(btn);
@@ -210,6 +220,14 @@ function renderQuestion(){
   renderNavigator();
   updateFlagButton();
   updateNavButtons();
+
+  // Comments: only in quiz mode
+  if(MODE==="quiz"){
+    show(commentsSection);
+    renderCommentsFor(q);
+  }else{
+    hide(commentsSection);
+  }
 }
 
 // ==========================
@@ -231,7 +249,7 @@ function renderNavigator(){
         dot.classList.add(userAnswers[i]===q.correct ? "correct" : "wrong");
       }
     }else{
-      if(userAnswers[i]!==null) dot.classList.add("answered"); // blue
+      if(userAnswers[i]!==null) dot.classList.add("answered");
     }
 
     dot.onclick = ()=>{ idx=i; renderQuestion(); };
@@ -251,12 +269,41 @@ function updateFlagButton(){
 flagBtn.onclick = toggleFlag;
 
 // ==========================
+// COMMENTS (QUIZ MODE ONLY)
+// ==========================
+function renderCommentsFor(q){
+  commentsList.innerHTML = "";
+  const entries = getCommentsFor(q);
+  if(!entries.length){
+    const empty = document.createElement("div");
+    empty.className = "comment";
+    empty.innerHTML = "<em>No hints yet. Be the first!</em>";
+    commentsList.appendChild(empty);
+  }else{
+    entries.forEach(text=>{
+      const c = document.createElement("div");
+      c.className = "comment";
+      c.textContent = text;
+      commentsList.appendChild(c);
+    });
+  }
+}
+saveCommentBtn.onclick = ()=>{
+  const q = selected[idx];
+  const val = commentInput.value.trim();
+  if(!val) return;
+  addCommentFor(q, val);
+  commentInput.value = "";
+  renderCommentsFor(q);
+};
+
+// ==========================
 // CONTROLS & FINISH
 // ==========================
 function updateNavButtons(){
   prevBtn.disabled = (idx===0);
   nextBtn.textContent = (idx===selected.length-1) ? "Finish" : "Next ➜";
-  nextBtn.disabled = (MODE==="exam" && userAnswers[idx]===null); // in exam, must answer to proceed
+  nextBtn.disabled = (MODE==="exam" && userAnswers[idx]===null);
 }
 prevBtn.onclick = ()=>{ if(idx>0){ idx--; renderQuestion(); } };
 nextBtn.onclick = ()=>{ if(idx<selected.length-1){ idx++; renderQuestion(); } else finishRun(); };
@@ -322,9 +369,8 @@ function renderSearch(list){
       if(ix===q.correct) opt.classList.add("correct");
       ans.appendChild(opt);
     });
-    ans.style.display="none";
     item.appendChild(ans);
-    item.onclick=()=>{ ans.style.display = (ans.style.display==="none") ? "grid" : "none"; };
+    item.onclick=()=> item.classList.toggle("open");
     searchList.appendChild(item);
   });
 }
@@ -333,14 +379,4 @@ searchInput.oninput = ()=>{
   renderSearch(allQuestions.filter(q =>
     q.question.toLowerCase().includes(t) || q.answers.some(a=>a.toLowerCase().includes(t))
   ));
-};
-
-// ==========================
-// THEME
-// ==========================
-themeToggle.onclick = ()=>{
-  document.body.classList.toggle("dark");
-  const isDark=document.body.classList.contains("dark");
-  themeToggle.textContent = isDark ? "🌞" : "🌙";
-  localStorage.setItem("theme", isDark ? "dark" : "light");
 };
