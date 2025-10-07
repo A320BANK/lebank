@@ -56,7 +56,7 @@ function getQuestionsArray() { return typeof questions !== "undefined" ? questio
 function shuffle(arr) { const a=arr.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
 
 // ====== MENU ======
-document.getElementById("quizModeBtn").onclick = () => { hideAll(); show(setupEl); examMode = false; };
+
 
 document.getElementById("quizModeBtn").onclick = () => {
   hideAll(); show(setupEl); examMode = false;
@@ -205,7 +205,7 @@ function selectAnswer(i) {
 function renderNavigator() {
   navigatorContainer.innerHTML = "";
   quizQuestions.forEach((q, i) => {
-    const dot = .createElement("button");
+    const dot = document.createElement("button"); // ← FIXED
     dot.className = "nav-dot";
     dot.textContent = i + 1;
 
@@ -215,11 +215,9 @@ function renderNavigator() {
     const ans = userAnswers[i];
     if (ans !== null) {
       if (!examMode) {
-        // quiz: color by correctness
         if (ans === q.correct) dot.classList.add("correct");
         else dot.classList.add("wrong");
       } else {
-        // exam: just show answered
         dot.classList.add("answered");
       }
     }
@@ -228,7 +226,6 @@ function renderNavigator() {
     navigatorContainer.appendChild(dot);
   });
 }
-
 // ====== STATUS BAR (remaining + flag) ======
 function updateStatusBar() {
   const answered = userAnswers.filter(v => v !== null).length;
