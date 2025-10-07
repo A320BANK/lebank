@@ -30,7 +30,6 @@ const finalScoreEl = document.getElementById("finalScore");
 const resultBadge = document.getElementById("resultBadge");
 
 const navigatorContainer = document.getElementById("navigatorContainer");
-const statusBar = document.getElementById("statusBar");
 const remainingText = document.getElementById("remainingText");
 const flagBtn = document.getElementById("flagBtn");
 
@@ -48,10 +47,36 @@ let currentIndex = 0;
 let score = 0;
 let examMode = false;
 let incorrectQs = [];
-let flaggedSet = new Set();
+let flaggedSet = new Set(); // indices within current run
 let timerInterval;
 let timeRemaining = 0;
 const PASS_MARK = 75;
+
+// ==========================
+// PERSISTENT FLAGS (per user)
+// ==========================
+const FLAGS_KEY = "a320bank_flags_v1";
+
+// stable id from question text
+function qid(q) {
+  const s = (q?.question || "").toString();
+  let h = 5381;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) + h) ^ s.charCodeAt(i);
+  return "q_" + (h >>> 0).toString(16);
+}
+
+function loadPersistentFlags() {
+  try {
+    const raw = localStorage.getItem(FLAGS_KEY);
+    return raw ? new Set(JSON.parse(raw)) : new Set();
+  } catch {
+    return new Set();
+  }
+}
+function savePersistentFlags(setOfIds) {
+  localStorage.setItem(FLAGS_KEY, JSON.stringify(Array.from(setOfIds)));
+}
+let flaggedIdSet = loadPersistentFlags(); // persists across sessions
 
 // ==========================
 // HELPERS
@@ -131,6 +156,12 @@ function startQuiz(){
   quizQuestions = shuffle(pool).slice(0, +numQuestionsInput.value);
   userAnswers = new Array(quizQuestions.length).fill(null);
   flaggedSet.clear();
+
+  // Map persisted flags into this run
+  quizQuestions.forEach((q, idx) => {
+    if (flaggedIdSet.has(qid(q))) flaggedSet.add(idx);
+  });
+
   score = 0; currentIndex = 0; incorrectQs = [];
   scoreText.textContent = "Score: 0";
   timerEl.classList.add("hidden");
@@ -146,6 +177,12 @@ function startExam(){
   quizQuestions = shuffle(allQuestions).slice(0, 100);
   userAnswers = new Array(quizQuestions.length).fill(null);
   flaggedSet.clear();
+
+  // Map persisted flags into this run
+  quizQuestions.forEach((q, idx) => {
+    if (flaggedIdSet.has(qid(q))) flaggedSet.add(idx);
+  });
+
   score = 0; currentIndex = 0; incorrectQs = [];
   scoreText.textContent = ""; // no running score in exam
   timeRemaining = 3 * 60 * 60;
@@ -260,8 +297,18 @@ function updateStatusBar(){
   flagBtn.textContent = flaggedSet.has(currentIndex) ? "🚩 Unflag Question" : "🚩 Flag Question";
 }
 flagBtn.onclick = () => {
-  if (flaggedSet.has(currentIndex)) flaggedSet.delete(currentIndex);
-  else flaggedSet.add(currentIndex);
+  const q = quizQuestions[currentIndex];
+  const id = qid(q);
+
+  if (flaggedSet.has(currentIndex)) {
+    flaggedSet.delete(currentIndex);
+    flaggedIdSet.delete(id);          // persist OFF
+  } else {
+    flaggedSet.add(currentIndex);
+    flaggedIdSet.add(id);             // persist ON
+  }
+
+  savePersistentFlags(flaggedIdSet);   // write to localStorage
   updateStatusBar();
   renderNavigator();
 };
@@ -319,6 +366,12 @@ function retryIncorrect(){
   quizQuestions = incorrectQs.slice();
   userAnswers = new Array(quizQuestions.length).fill(null);
   flaggedSet.clear();
+
+  // Map persisted flags to this retry deck
+  quizQuestions.forEach((q, idx) => {
+    if (flaggedIdSet.has(qid(q))) flaggedSet.add(idx);
+  });
+
   incorrectQs = [];
   score = 0; currentIndex = 0; examMode = false;
   hideAll(); show(quizEl);
@@ -398,6 +451,13 @@ function renderSearch(list){
     item.className = "search-item";
     item.innerHTML = `<p class="q">${q.category ? `[${q.category}] ` : ""}${i + 1}. ${q.question}</p>`;
 
+    // small persistent-flag badge
+    if (flaggedIdSet.has(qid(q))) {
+      const badge = document.createElement("span");
+      badge.textContent = " 🚩";
+      item.querySelector(".q").appendChild(badge);
+    }
+
     const ans = document.createElement("div");
     ans.className = "search-answers";
     ans.style.gridTemplateColumns = "1fr";
@@ -426,61 +486,6 @@ searchInput.oninput = () => {
   }
   renderSearch(filtered);
 };
-
-// ====== SAVE & RESTORE STATE ======
-function saveState() {
-  const state = {
-    mode: examMode ? "exam" : (quizQuestions.length ? "quiz" : "menu"),
-    currentIndex,
-    score,
-    userAnswers,
-    flagged: Array.from(flaggedSet),
-    timeRemaining,
-    quizQuestions,
-  };
-  localStorage.setItem("quizState", JSON.stringify(state));
-}
-
-function loadState() {
-  const saved = localStorage.getItem("quizState");
-  if (!saved) return false;
-  try {
-    const s = JSON.parse(saved);
-    if (!s.quizQuestions || !s.quizQuestions.length) return false;
-
-    examMode = s.mode === "exam";
-    quizQuestions = s.quizQuestions;
-    userAnswers = s.userAnswers;
-    flaggedSet = new Set(s.flagged);
-    currentIndex = s.currentIndex;
-    score = s.score;
-    timeRemaining = s.timeRemaining || 3 * 60 * 60;
-
-    hideAll(); show(quizEl);
-    if (examMode) {
-      timerEl.classList.remove("hidden");
-      startExamTimer();
-    } else {
-      timerEl.classList.add("hidden");
-      scoreText.textContent = `Score: ${score}`;
-    }
-    renderQuestion();
-    renderNavigator();
-    updateStatusBar();
-    return true;
-  } catch (err) {
-    console.error("Failed to load state:", err);
-    return false;
-  }
-}
-
-// Save progress whenever something changes
-window.addEventListener("beforeunload", saveState);
-
-// Try to restore when page loads
-window.addEventListener("load", () => {
-  if (!loadState()) {
-    hideAll();
     show(modeSelect);
   }
 });
