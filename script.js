@@ -1,4 +1,6 @@
-// ===== GLOBALS =====
+// ==========================
+// GLOBAL ELEMENTS
+// ==========================
 const modeSelect = document.getElementById("modeSelect");
 const setupEl = document.getElementById("setup");
 const quizEl = document.getElementById("quiz");
@@ -28,33 +30,50 @@ const searchInput = document.getElementById("searchInput");
 const searchList = document.getElementById("searchList");
 let categoryButtonsContainer = null;
 
+const navigatorContainer = document.getElementById("navigatorContainer");
+
+// ==========================
+// GLOBAL STATE
+// ==========================
 let allQuestions = typeof questions !== "undefined" ? questions.slice() : [];
 let quizQuestions = [];
 let currentIndex = 0;
 let score = 0;
 let examMode = false;
 let incorrectQs = [];
+let flaggedQs = new Set();
 let timerInterval;
 let timeRemaining = 0;
+let hints = {}; // {questionIndex: ["hint1", "hint2"]}
 
-// ===== HELPERS =====
+// ==========================
+// BASIC HELPERS
+// ==========================
 const hide = el => el?.classList.add("hidden");
 const show = el => el?.classList.remove("hidden");
-function hideAll() {
-  [modeSelect, setupEl, quizEl, resultsEl, reviewEl, searchEl].forEach(hide);
-}
-function getQuestionsArray() {
-  return typeof questions !== "undefined" ? questions.slice() : [];
+function hideAll() { [modeSelect, setupEl, quizEl, resultsEl, reviewEl, searchEl].forEach(hide); }
+function getQuestionsArray() { return typeof questions !== "undefined" ? questions.slice() : []; }
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
-// ===== MAIN MENU =====
+// ==========================
+// MENU BUTTONS
+// ==========================
 document.getElementById("quizModeBtn").onclick = () => { hideAll(); show(setupEl); examMode = false; };
 document.getElementById("examModeBtn").onclick = startExam;
 document.getElementById("searchModeBtn").onclick = startSearch;
 
 numQuestionsInput.oninput = () => numQuestionsLabel.textContent = numQuestionsInput.value;
 
-// ===== QUIZ/EXAM FUNCTIONS =====
+// ==========================
+// QUIZ / EXAM LOGIC
+// ==========================
 startQuizBtn.onclick = startQuiz;
 nextBtn.onclick = nextQuestion;
 prevBtn.onclick = prevQuestion;
@@ -66,17 +85,18 @@ reviewBtn.onclick = showReview;
 restartIncorrectBtn.onclick = retryIncorrect;
 
 function startQuiz() {
-  hideAll();
-  show(quizEl);
+  hideAll(); show(quizEl);
+  examMode = false;
   allQuestions = getQuestionsArray();
   quizQuestions = shuffle(allQuestions).slice(0, +numQuestionsInput.value);
   startQuizRun();
 }
 function startExam() {
-  hideAll(); show(quizEl); examMode = true;
+  hideAll(); show(quizEl);
+  examMode = true;
   allQuestions = getQuestionsArray();
   quizQuestions = shuffle(allQuestions).slice(0, 100);
-  timeRemaining = 3 * 60 * 60; // 3 hours
+  timeRemaining = 3 * 60 * 60;
   startExamTimer();
   startQuizRun();
 }
@@ -84,13 +104,15 @@ function startQuizRun() {
   currentIndex = 0;
   score = 0;
   incorrectQs = [];
+  flaggedQs.clear();
   renderQuestion();
+  renderNavigator();
 }
 function renderQuestion() {
   const q = quizQuestions[currentIndex];
   if (!q) return;
   progressText.textContent = `Question ${currentIndex + 1} of ${quizQuestions.length}`;
-  scoreText.textContent = `Score: ${score}`;
+  scoreText.textContent = examMode ? "" : `Score: ${score}`;
   questionText.textContent = q.question;
   answersContainer.innerHTML = "";
   q.answers.forEach((a, i) => {
@@ -100,6 +122,49 @@ function renderQuestion() {
     btn.onclick = () => selectAnswer(i);
     answersContainer.appendChild(btn);
   });
+
+  // Flag + remaining indicator + hint
+  const flagSection = document.createElement("div");
+  flagSection.style.textAlign = "center";
+  flagSection.style.marginTop = "12px";
+
+  const flagBtn = document.createElement("button");
+  flagBtn.textContent = flaggedQs.has(currentIndex) ? "🚩 Unflag Question" : "Flag Question";
+  flagBtn.className = "secondary";
+  flagBtn.onclick = () => toggleFlag(flagBtn);
+
+  const left = quizQuestions.length - currentIndex - 1;
+  const leftTxt = document.createElement("p");
+  leftTxt.style.marginTop = "8px";
+  leftTxt.style.opacity = "0.8";
+  leftTxt.textContent = `${left} question${left === 1 ? "" : "s"} left`;
+
+  const hintBox = document.createElement("div");
+  hintBox.innerHTML = `
+    <textarea id="hintInput" placeholder="Add a hint/comment..." style="width:100%;padding:8px;margin-top:8px;border-radius:8px;background:rgba(255,255,255,.05);color:inherit;border:1px solid rgba(255,255,255,.15);"></textarea>
+    <button id="saveHintBtn" class="secondary" style="margin-top:6px;">💬 Save Hint</button>
+  `;
+
+  flagSection.appendChild(flagBtn);
+  flagSection.appendChild(leftTxt);
+  flagSection.appendChild(hintBox);
+  answersContainer.appendChild(flagSection);
+
+  document.getElementById("saveHintBtn").onclick = saveHint;
+}
+function toggleFlag(btn) {
+  if (flaggedQs.has(currentIndex)) flaggedQs.delete(currentIndex);
+  else flaggedQs.add(currentIndex);
+  btn.textContent = flaggedQs.has(currentIndex) ? "🚩 Unflag Question" : "Flag Question";
+  renderNavigator();
+}
+function saveHint() {
+  const text = document.getElementById("hintInput").value.trim();
+  if (!text) return;
+  if (!hints[currentIndex]) hints[currentIndex] = [];
+  hints[currentIndex].push(text);
+  alert("Hint saved!");
+  document.getElementById("hintInput").value = "";
 }
 function selectAnswer(i) {
   const q = quizQuestions[currentIndex];
@@ -115,18 +180,14 @@ function selectAnswer(i) {
   if (i === correct) score++;
   else incorrectQs.push(q);
   if (!examMode) scoreText.textContent = `Score: ${score}`;
+  renderNavigator();
 }
 function nextQuestion() {
-  if (currentIndex < quizQuestions.length - 1) {
-    currentIndex++;
-    renderQuestion();
-  } else endQuiz();
+  if (currentIndex < quizQuestions.length - 1) { currentIndex++; renderQuestion(); renderNavigator(); }
+  else endQuiz();
 }
 function prevQuestion() {
-  if (currentIndex > 0) {
-    currentIndex--;
-    renderQuestion();
-  }
+  if (currentIndex > 0) { currentIndex--; renderQuestion(); renderNavigator(); }
 }
 function endQuiz() {
   hideAll(); show(resultsEl);
@@ -137,6 +198,26 @@ function endQuiz() {
   badge.innerHTML = `<span class="result-badge ${passed ? "result-pass" : "result-fail"}">${passed ? "PASS" : "FAIL"}</span>`;
   stopExamTimer();
 }
+
+// ==========================
+// NAVIGATOR DOTS
+// ==========================
+function renderNavigator() {
+  navigatorContainer.innerHTML = "";
+  quizQuestions.forEach((_, i) => {
+    const dot = document.createElement("button");
+    dot.className = "nav-dot";
+    dot.textContent = i + 1;
+    if (i === currentIndex) dot.classList.add("active");
+    if (flaggedQs.has(i)) dot.classList.add("flagged");
+    dot.onclick = () => { currentIndex = i; renderQuestion(); renderNavigator(); };
+    navigatorContainer.appendChild(dot);
+  });
+}
+
+// ==========================
+// TIMER (EXAM)
+// ==========================
 function startExamTimer() {
   show(timerEl);
   updateTimer();
@@ -153,9 +234,10 @@ function updateTimer() {
   const s = timeRemaining % 60;
   timerEl.textContent = `${h}:${m.toString().padStart(2,"0")}:${s.toString().padStart(2,"0")}`;
 }
-function goToMainMenu() { stopExamTimer(); hideAll(); show(modeSelect); }
 
-// ===== REVIEW MODE =====
+// ==========================
+// REVIEW + RETRY
+// ==========================
 function showReview() {
   hideAll(); show(reviewEl);
   const list = document.getElementById("reviewList");
@@ -175,13 +257,16 @@ function retryIncorrect() {
   score = 0;
   hideAll(); show(quizEl);
   renderQuestion();
+  renderNavigator();
 }
+function goToMainMenu() { stopExamTimer(); hideAll(); show(modeSelect); }
 
-// ===== SEARCH MODE =====
+// ==========================
+// SEARCH MODE
+// ==========================
 function startSearch() {
   allQuestions = getQuestionsArray();
   hideAll(); show(searchEl);
-
   searchInput.value = "";
   searchInput.focus();
 
@@ -194,7 +279,6 @@ function startSearch() {
 
   const categories = Array.from(new Set(allQuestions.map(q => q.category || "Uncategorised")));
   categoryButtonsContainer.innerHTML = "";
-
   const allBtn = document.createElement("button");
   allBtn.textContent = "All";
   allBtn.className = "secondary active-cat";
@@ -211,7 +295,6 @@ function startSearch() {
     };
     categoryButtonsContainer.appendChild(btn);
   });
-
   renderSearch(allQuestions);
 }
 function highlightCategory(activeBtn) {
@@ -220,10 +303,7 @@ function highlightCategory(activeBtn) {
 }
 function renderSearch(list) {
   searchList.innerHTML = "";
-  if (!list.length) {
-    searchList.innerHTML = "<p style='opacity:.7'>No questions found.</p>";
-    return;
-  }
+  if (!list.length) { searchList.innerHTML = "<p style='opacity:.7'>No questions found.</p>"; return; }
   list.forEach((q, i) => {
     const item = document.createElement("div");
     item.className = "search-item";
@@ -249,18 +329,6 @@ searchInput.oninput = () => {
   let filtered = allQuestions.filter(
     q => q.question.toLowerCase().includes(t) || q.answers.some(a => a.toLowerCase().includes(t))
   );
-  if (activeCategory !== "All") {
-    filtered = filtered.filter(q => (q.category || "Uncategorised") === activeCategory);
-  }
+  if (activeCategory !== "All") filtered = filtered.filter(q => (q.category || "Uncategorised") === activeCategory);
   renderSearch(filtered);
 };
-
-// ===== UTILITIES =====
-function shuffle(arr) {
-  const a = arr.slice();
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
