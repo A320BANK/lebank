@@ -1,13 +1,10 @@
-// ==========================
-// GLOBAL ELEMENTS
-// ==========================
+// ====== ELEMENTS ======
 const modeSelect = document.getElementById("modeSelect");
 const setupEl = document.getElementById("setup");
 const quizEl = document.getElementById("quiz");
 const resultsEl = document.getElementById("results");
 const reviewEl = document.getElementById("review");
 const searchEl = document.getElementById("search");
-const loadingScreen = document.getElementById("loading-screen");
 
 const startQuizBtn = document.getElementById("startQuizBtn");
 const numQuestionsInput = document.getElementById("numQuestions");
@@ -21,227 +18,232 @@ const timerEl = document.getElementById("timer");
 const nextBtn = document.getElementById("nextBtn");
 const prevBtn = document.getElementById("prevBtn");
 const mainMenuBtn = document.getElementById("mainMenuBtn");
-const mainMenuBtn2 = document.getElementById("mainMenuBtn2");
 const playAgainBtn = document.getElementById("playAgainBtn");
 const reviewBtn = document.getElementById("reviewBtn");
 const restartIncorrectBtn = document.getElementById("restartIncorrectBtn");
 const backToMenuFromSearch = document.getElementById("backToMenuFromSearch");
+
+const finalScoreEl = document.getElementById("finalScore");
+const resultBadge = document.getElementById("resultBadge");
+
+const navigatorContainer = document.getElementById("navigatorContainer");
+const statusBar = document.getElementById("statusBar");
+const remainingText = document.getElementById("remainingText");
+const flagBtn = document.getElementById("flagBtn");
+
 const searchInput = document.getElementById("searchInput");
 const searchList = document.getElementById("searchList");
 let categoryButtonsContainer = null;
 
-const navigatorContainer = document.getElementById("navigatorContainer");
-
-// ==========================
-// GLOBAL STATE
-// ==========================
+// ====== STATE ======
 let allQuestions = typeof questions !== "undefined" ? questions.slice() : [];
 let quizQuestions = [];
+let userAnswers = []; // per-run chosen index or null
 let currentIndex = 0;
 let score = 0;
 let examMode = false;
 let incorrectQs = [];
-let flaggedQs = new Set();
+let flaggedSet = new Set();
 let timerInterval;
 let timeRemaining = 0;
-let hints = {}; // {questionIndex: ["hint1", "hint2"]}
+const PASS_MARK = 75;
 
-// ==========================
-// BASIC HELPERS
-// ==========================
+// ====== HELPERS ======
 const hide = el => el?.classList.add("hidden");
 const show = el => el?.classList.remove("hidden");
 function hideAll() { [modeSelect, setupEl, quizEl, resultsEl, reviewEl, searchEl].forEach(hide); }
 function getQuestionsArray() { return typeof questions !== "undefined" ? questions.slice() : []; }
-function shuffle(arr) {
-  const a = arr.slice();
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
+function shuffle(arr) { const a=arr.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
 
-// ==========================
-// MENU BUTTONS
-// ==========================
+// ====== MENU ======
 document.getElementById("quizModeBtn").onclick = () => { hideAll(); show(setupEl); examMode = false; };
 document.getElementById("examModeBtn").onclick = startExam;
 document.getElementById("searchModeBtn").onclick = startSearch;
 
 numQuestionsInput.oninput = () => numQuestionsLabel.textContent = numQuestionsInput.value;
 
-// ==========================
-// QUIZ / EXAM LOGIC
-// ==========================
+// ====== QUIZ/EXAM BUTTONS ======
 startQuizBtn.onclick = startQuiz;
 nextBtn.onclick = nextQuestion;
 prevBtn.onclick = prevQuestion;
 mainMenuBtn.onclick = goToMainMenu;
-mainMenuBtn2.onclick = goToMainMenu;
 playAgainBtn.onclick = goToMainMenu;
 backToMenuFromSearch.onclick = goToMainMenu;
 reviewBtn.onclick = showReview;
 restartIncorrectBtn.onclick = retryIncorrect;
 
+// ====== RUN STARTERS ======
 function startQuiz() {
   hideAll(); show(quizEl);
   examMode = false;
   allQuestions = getQuestionsArray();
   quizQuestions = shuffle(allQuestions).slice(0, +numQuestionsInput.value);
-  startQuizRun();
+  userAnswers = new Array(quizQuestions.length).fill(null);
+  flaggedSet.clear();
+  score = 0; currentIndex = 0; incorrectQs = [];
+  scoreText.textContent = "Score: 0";
+  timerEl.classList.add("hidden");
+  renderQuestion();
+  renderNavigator();
+  updateStatusBar();
 }
+
 function startExam() {
   hideAll(); show(quizEl);
   examMode = true;
   allQuestions = getQuestionsArray();
   quizQuestions = shuffle(allQuestions).slice(0, 100);
+  userAnswers = new Array(quizQuestions.length).fill(null);
+  flaggedSet.clear();
+  score = 0; currentIndex = 0; incorrectQs = [];
+  scoreText.textContent = ""; // no running score in exam
   timeRemaining = 3 * 60 * 60;
+  timerEl.classList.remove("hidden");
   startExamTimer();
-  startQuizRun();
-}
-function startQuizRun() {
-  currentIndex = 0;
-  score = 0;
-  incorrectQs = [];
-  flaggedQs.clear();
   renderQuestion();
   renderNavigator();
+  updateStatusBar();
 }
+
+// ====== RENDER QUESTION ======
 function renderQuestion() {
   const q = quizQuestions[currentIndex];
-  if (!q) return;
   progressText.textContent = `Question ${currentIndex + 1} of ${quizQuestions.length}`;
-  scoreText.textContent = examMode ? "" : `Score: ${score}`;
   questionText.textContent = q.question;
+
   answersContainer.innerHTML = "";
   q.answers.forEach((a, i) => {
     const btn = document.createElement("button");
     btn.className = "answer-btn";
     btn.textContent = a;
+
+    // If already answered in this run, reflect it:
+    if (userAnswers[currentIndex] !== null) {
+      if (!examMode) {
+        // show correctness (quiz only)
+        btn.disabled = true;
+        if (i === q.correct) btn.classList.add("correct");
+        if (i === userAnswers[currentIndex] && i !== q.correct) btn.classList.add("wrong");
+      } else {
+        // exam: no correctness, but selected one can be visually indicated (blue in CSS if needed)
+        if (i === userAnswers[currentIndex]) btn.classList.add("selected");
+      }
+    }
+
     btn.onclick = () => selectAnswer(i);
     answersContainer.appendChild(btn);
   });
 
-  // Flag + remaining indicator + hint
-  const flagSection = document.createElement("div");
-  flagSection.style.textAlign = "center";
-  flagSection.style.marginTop = "12px";
-
-  const flagBtn = document.createElement("button");
-  flagBtn.textContent = flaggedQs.has(currentIndex) ? "🚩 Unflag Question" : "Flag Question";
-  flagBtn.className = "secondary";
-  flagBtn.onclick = () => toggleFlag(flagBtn);
-
-  const left = quizQuestions.length - currentIndex - 1;
-  const leftTxt = document.createElement("p");
-  leftTxt.style.marginTop = "8px";
-  leftTxt.style.opacity = "0.8";
-  leftTxt.textContent = `${left} question${left === 1 ? "" : "s"} left`;
-
-  const hintBox = document.createElement("div");
-  hintBox.innerHTML = `
-    <textarea id="hintInput" placeholder="Add a hint/comment..." style="width:100%;padding:8px;margin-top:8px;border-radius:8px;background:rgba(255,255,255,.05);color:inherit;border:1px solid rgba(255,255,255,.15);"></textarea>
-    <button id="saveHintBtn" class="secondary" style="margin-top:6px;">💬 Save Hint</button>
-  `;
-
-  flagSection.appendChild(flagBtn);
-  flagSection.appendChild(leftTxt);
-  flagSection.appendChild(hintBox);
-  answersContainer.appendChild(flagSection);
-
-  document.getElementById("saveHintBtn").onclick = saveHint;
+  updateNavButtons();
+  updateStatusBar();
 }
-function toggleFlag(btn) {
-  if (flaggedQs.has(currentIndex)) flaggedQs.delete(currentIndex);
-  else flaggedQs.add(currentIndex);
-  btn.textContent = flaggedQs.has(currentIndex) ? "🚩 Unflag Question" : "Flag Question";
-  renderNavigator();
-}
-function saveHint() {
-  const text = document.getElementById("hintInput").value.trim();
-  if (!text) return;
-  if (!hints[currentIndex]) hints[currentIndex] = [];
-  hints[currentIndex].push(text);
-  alert("Hint saved!");
-  document.getElementById("hintInput").value = "";
-}
+
+// ====== ANSWERING ======
 function selectAnswer(i) {
   const q = quizQuestions[currentIndex];
-  const correct = q.correct;
+  userAnswers[currentIndex] = i;
+
   if (!examMode) {
-    const buttons = document.querySelectorAll(".answer-btn");
+    // lock and show correctness immediately
+    const buttons = answersContainer.querySelectorAll(".answer-btn");
     buttons.forEach((b, idx) => {
       b.disabled = true;
-      if (idx === correct) b.classList.add("correct");
+      if (idx === q.correct) b.classList.add("correct");
       else if (idx === i) b.classList.add("wrong");
     });
+
+    if (i === q.correct) score++;
+    else incorrectQs.push(q);
+    scoreText.textContent = `Score: ${score}`;
   }
-  if (i === correct) score++;
-  else incorrectQs.push(q);
-  if (!examMode) scoreText.textContent = `Score: ${score}`;
+
   renderNavigator();
-}
-function nextQuestion() {
-  if (currentIndex < quizQuestions.length - 1) { currentIndex++; renderQuestion(); renderNavigator(); }
-  else endQuiz();
-}
-function prevQuestion() {
-  if (currentIndex > 0) { currentIndex--; renderQuestion(); renderNavigator(); }
-}
-function endQuiz() {
-  hideAll(); show(resultsEl);
-  const pct = Math.round((score / quizQuestions.length) * 100);
-  const passed = pct >= 75;
-  document.getElementById("finalScore").textContent = `${score} / ${quizQuestions.length} (${pct}%)`;
-  const badge = document.getElementById("resultBadge");
-  badge.innerHTML = `<span class="result-badge ${passed ? "result-pass" : "result-fail"}">${passed ? "PASS" : "FAIL"}</span>`;
-  stopExamTimer();
+  updateStatusBar();
+  updateNavButtons();
 }
 
-// ==========================
-// NAVIGATOR DOTS
-// ==========================
+// ====== NAVIGATOR ======
 function renderNavigator() {
   navigatorContainer.innerHTML = "";
-  quizQuestions.forEach((_, i) => {
+  quizQuestions.forEach((q, i) => {
     const dot = document.createElement("button");
     dot.className = "nav-dot";
     dot.textContent = i + 1;
+
     if (i === currentIndex) dot.classList.add("active");
-    if (flaggedQs.has(i)) dot.classList.add("flagged");
+    if (flaggedSet.has(i)) dot.classList.add("flagged");
+
+    const ans = userAnswers[i];
+    if (ans !== null) {
+      if (!examMode) {
+        // quiz: color by correctness
+        if (ans === q.correct) dot.classList.add("correct");
+        else dot.classList.add("wrong");
+      } else {
+        // exam: just show answered
+        dot.classList.add("answered");
+      }
+    }
+
     dot.onclick = () => { currentIndex = i; renderQuestion(); renderNavigator(); };
     navigatorContainer.appendChild(dot);
   });
 }
 
-// ==========================
-// TIMER (EXAM)
-// ==========================
-function startExamTimer() {
-  show(timerEl);
-  updateTimer();
-  timerInterval = setInterval(() => {
-    timeRemaining--;
-    updateTimer();
-    if (timeRemaining <= 0) { clearInterval(timerInterval); endQuiz(); }
-  }, 1000);
+// ====== STATUS BAR (remaining + flag) ======
+function updateStatusBar() {
+  const answered = userAnswers.filter(v => v !== null).length;
+  const left = quizQuestions.length - answered;
+  remainingText.textContent = `Left: ${left}`;
+  flagBtn.textContent = flaggedSet.has(currentIndex) ? "🚩 Unflag Question" : "🚩 Flag Question";
 }
-function stopExamTimer() { clearInterval(timerInterval); hide(timerEl); }
-function updateTimer() {
-  const h = Math.floor(timeRemaining / 3600);
-  const m = Math.floor((timeRemaining % 3600) / 60);
-  const s = timeRemaining % 60;
-  timerEl.textContent = `${h}:${m.toString().padStart(2,"0")}:${s.toString().padStart(2,"0")}`;
+flagBtn.onclick = () => {
+  if (flaggedSet.has(currentIndex)) flaggedSet.delete(currentIndex);
+  else flaggedSet.add(currentIndex);
+  updateStatusBar();
+  renderNavigator();
+};
+
+// ====== NAV BUTTONS ======
+function updateNavButtons() {
+  prevBtn.disabled = (currentIndex === 0);
+  nextBtn.textContent = (currentIndex === quizQuestions.length - 1) ? "Finish" : "Next →";
+  // In exam, require an answer before moving on
+  nextBtn.disabled = (examMode && userAnswers[currentIndex] === null);
+}
+function nextQuestion() {
+  if (currentIndex < quizQuestions.length - 1) { currentIndex++; renderQuestion(); renderNavigator(); }
+  else endRun();
+}
+function prevQuestion() {
+  if (currentIndex > 0) { currentIndex--; renderQuestion(); renderNavigator(); }
 }
 
-// ==========================
-// REVIEW + RETRY
-// ==========================
+// ====== FINISH / RESULTS ======
+function endRun() {
+  hideAll(); show(resultsEl);
+  const total = quizQuestions.length;
+  const rawScore = userAnswers.reduce((acc, ans, i) => acc + (ans === quizQuestions[i].correct ? 1 : 0), 0);
+  const pct = Math.round((rawScore / total) * 100);
+  const passed = pct >= PASS_MARK;
+
+  finalScoreEl.textContent = `${rawScore} / ${total} (${pct}%)`;
+  resultBadge.innerHTML = `<span class="result-badge ${passed ? "result-pass" : "result-fail"}">${passed ? "PASS" : "FAIL"}</span>`;
+
+  // build incorrect list for review
+  incorrectQs = quizQuestions.filter((q, i) => userAnswers[i] !== q.correct);
+  timerEl.classList.add("hidden");
+  stopExamTimer();
+}
+
 function showReview() {
   hideAll(); show(reviewEl);
   const list = document.getElementById("reviewList");
   list.innerHTML = "";
+  if (!incorrectQs.length) {
+    list.innerHTML = "<p style='opacity:.7'>Nothing to review 🎉</p>";
+    return;
+  }
   incorrectQs.forEach(q => {
     const div = document.createElement("div");
     div.className = "review-item";
@@ -249,24 +251,48 @@ function showReview() {
     list.appendChild(div);
   });
 }
+
 function retryIncorrect() {
   if (!incorrectQs.length) { goToMainMenu(); return; }
   quizQuestions = incorrectQs.slice();
+  userAnswers = new Array(quizQuestions.length).fill(null);
+  flaggedSet.clear();
   incorrectQs = [];
-  currentIndex = 0;
-  score = 0;
+  score = 0; currentIndex = 0; examMode = false;
   hideAll(); show(quizEl);
+  scoreText.textContent = "Score: 0";
   renderQuestion();
   renderNavigator();
+  updateStatusBar();
 }
-function goToMainMenu() { stopExamTimer(); hideAll(); show(modeSelect); }
 
-// ==========================
-// SEARCH MODE
-// ==========================
+function goToMainMenu() {
+  stopExamTimer();
+  hideAll(); show(modeSelect);
+}
+
+// ====== EXAM TIMER ======
+function startExamTimer() {
+  updateTimer();
+  timerInterval = setInterval(() => {
+    timeRemaining--;
+    updateTimer();
+    if (timeRemaining <= 0) { clearInterval(timerInterval); endRun(); }
+  }, 1000);
+}
+function stopExamTimer() { if (timerInterval) clearInterval(timerInterval); }
+function updateTimer() {
+  const h = Math.floor(timeRemaining / 3600);
+  const m = Math.floor((timeRemaining % 3600) / 60);
+  const s = timeRemaining % 60;
+  timerEl.textContent = `${h}:${m.toString().padStart(2,"0")}:${s.toString().padStart(2,"0")}`;
+}
+
+// ====== SEARCH ======
 function startSearch() {
   allQuestions = getQuestionsArray();
   hideAll(); show(searchEl);
+
   searchInput.value = "";
   searchInput.focus();
 
@@ -279,6 +305,7 @@ function startSearch() {
 
   const categories = Array.from(new Set(allQuestions.map(q => q.category || "Uncategorised")));
   categoryButtonsContainer.innerHTML = "";
+
   const allBtn = document.createElement("button");
   allBtn.textContent = "All";
   allBtn.className = "secondary active-cat";
@@ -295,6 +322,8 @@ function startSearch() {
     };
     categoryButtonsContainer.appendChild(btn);
   });
+
+  // Show all questions immediately
   renderSearch(allQuestions);
 }
 function highlightCategory(activeBtn) {
@@ -303,13 +332,17 @@ function highlightCategory(activeBtn) {
 }
 function renderSearch(list) {
   searchList.innerHTML = "";
-  if (!list.length) { searchList.innerHTML = "<p style='opacity:.7'>No questions found.</p>"; return; }
+  if (!list.length) {
+    searchList.innerHTML = "<p style='opacity:.7'>No questions found.</p>";
+    return;
+  }
   list.forEach((q, i) => {
     const item = document.createElement("div");
     item.className = "search-item";
     item.innerHTML = `<p class="q">${q.category ? `[${q.category}] ` : ""}${i + 1}. ${q.question}</p>`;
     const ans = document.createElement("div");
     ans.className = "search-answers";
+    ans.style.gridTemplateColumns = "1fr";
     q.answers.forEach((a, ix) => {
       const opt = document.createElement("div");
       opt.className = "opt";
@@ -318,7 +351,7 @@ function renderSearch(list) {
       ans.appendChild(opt);
     });
     item.appendChild(ans);
-    item.onclick = () => item.classList.toggle("open");
+    item.onclick = () => item.classList.toggle("open"); // answers only show when clicked
     searchList.appendChild(item);
   });
 }
