@@ -5,7 +5,7 @@ const quizEl = document.getElementById("quiz");
 const resultsEl = document.getElementById("results");
 const reviewEl = document.getElementById("review");
 const searchEl = document.getElementById("search");
-
+const quizCategorySel = document.getElementById("quizCategory");
 const startQuizBtn = document.getElementById("startQuizBtn");
 const numQuestionsInput = document.getElementById("numQuestions");
 const numQuestionsLabel = document.getElementById("numQuestionsLabel");
@@ -57,6 +57,38 @@ function shuffle(arr) { const a=arr.slice(); for(let i=a.length-1;i>0;i--){const
 
 // ====== MENU ======
 document.getElementById("quizModeBtn").onclick = () => { hideAll(); show(setupEl); examMode = false; };
+
+document.getElementById("quizModeBtn").onclick = () => {
+  hideAll(); show(setupEl); examMode = false;
+
+  // ensure questions are loaded
+  allQuestions = getQuestionsArray();
+
+  // populate categories once per open
+  const cats = getAllCategories(allQuestions);
+  quizCategorySel.innerHTML = "";
+  cats.forEach(c => {
+    const opt = document.createElement("option");
+    opt.value = c; opt.textContent = c;
+    quizCategorySel.appendChild(opt);
+  });
+
+  // set slider max based on current category
+  const applyMax = () => {
+    const cat = quizCategorySel.value;
+    const pool = (cat === "All") ? allQuestions : allQuestions.filter(q => (q.category||"Uncategorised") === cat);
+    numQuestionsInput.max = String(pool.length || 1);
+    // if current value exceeds new max, clamp it
+    if (+numQuestionsInput.value > +numQuestionsInput.max) {
+      numQuestionsInput.value = numQuestionsInput.max;
+      numQuestionsLabel.textContent = numQuestionsInput.value;
+    }
+  };
+
+  applyMax();
+  quizCategorySel.onchange = applyMax;
+};
+
 document.getElementById("examModeBtn").onclick = startExam;
 document.getElementById("searchModeBtn").onclick = startSearch;
 
@@ -76,8 +108,15 @@ restartIncorrectBtn.onclick = retryIncorrect;
 function startQuiz() {
   hideAll(); show(quizEl);
   examMode = false;
+
   allQuestions = getQuestionsArray();
-  quizQuestions = shuffle(allQuestions).slice(0, +numQuestionsInput.value);
+  const chosenCat = quizCategorySel.value || "All";
+  const pool = (chosenCat === "All")
+    ? allQuestions
+    : allQuestions.filter(q => (q.category || "Uncategorised") === chosenCat);
+
+  // sample from the pool
+  quizQuestions = shuffle(pool).slice(0, +numQuestionsInput.value);
   userAnswers = new Array(quizQuestions.length).fill(null);
   flaggedSet.clear();
   score = 0; currentIndex = 0; incorrectQs = [];
@@ -166,7 +205,7 @@ function selectAnswer(i) {
 function renderNavigator() {
   navigatorContainer.innerHTML = "";
   quizQuestions.forEach((q, i) => {
-    const dot = document.createElement("button");
+    const dot = .createElement("button");
     dot.className = "nav-dot";
     dot.textContent = i + 1;
 
@@ -365,3 +404,8 @@ searchInput.oninput = () => {
   if (activeCategory !== "All") filtered = filtered.filter(q => (q.category || "Uncategorised") === activeCategory);
   renderSearch(filtered);
 };
+
+function getAllCategories(list){
+  const set = new Set(list.map(q => q.category || "Uncategorised"));
+  return ["All", ...Array.from(set).sort()];
+}
