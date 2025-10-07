@@ -537,7 +537,7 @@ const questions = [
       "Pressing the knob generates a permanent overpressure"
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "Air systems"
   },
   {
     "question": "What is the effect of pressing the RESET control slide, after the oxygen mask has been used?",
@@ -548,7 +548,7 @@ const questions = [
       "It only cuts off the mask microphone"
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Air systems"
   },
   {
     "question": "Under normal operations, maximum reverse should not be used below what speed?",
@@ -559,7 +559,7 @@ const questions = [
       "75 kt"
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "Limitations"
   },
   {
     "question": "Which of the following correctly completes this statement? \"The pressurization system includes ...",
@@ -581,7 +581,7 @@ const questions = [
       "250 kt in clean configuration"
     ],
     "correct": 2,
-    "category": "Landing gear"
+    "category": "Limitations"
   },
   {
     "question": "When does the lavatory/galley extract fan operate?",
@@ -592,7 +592,7 @@ const questions = [
       "Only with galley power applied"
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "Air systems"
   },
   {
     "question": "In the event of electrical power supply loss ...",
@@ -614,7 +614,7 @@ const questions = [
       "No HYD PRESS is required for normal operation"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Hydraulics"
   },
   {
     "question": "Maximum tire ground speed is?",
@@ -625,7 +625,7 @@ const questions = [
       "185 kt"
     ],
     "correct": 0,
-    "category": "Navigation"
+    "category": "Limitations"
   },
   {
     "question": "The aural alerts of the Predictive Windshear System (PWS) ...",
@@ -636,7 +636,7 @@ const questions = [
       "Never have priority over TCAS and GPWS aural warnings"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "What is the maximum speed for operating the windshield wipers?",
@@ -647,7 +647,7 @@ const questions = [
       "230 kt"
     ],
     "correct": 3,
-    "category": "Hydraulics"
+    "category": "Limitations"
   },
   {
     "question": "Minimum oil temperature for start is?",
@@ -658,7 +658,7 @@ const questions = [
       "in the green on SD page"
     ],
     "correct": 1,
-    "category": "Hydraulics"
+    "category": "Engine"
   },
   {
     "question": "What does the NW STRG DISC memo on the E/WD indicate?",
@@ -669,7 +669,7 @@ const questions = [
       "The nose wheel steering computer has finished its self-test. Nose wheel steering is now available"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Landing gear"
   },
   {
     "question": "The AC ESS BUS is normally supplied by:",
@@ -5291,4 +5291,5 @@ const questions = [
     "category": "Air systems"
   }
 ];
+
 
