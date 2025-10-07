@@ -713,7 +713,7 @@ const questions = [
       "There is no restriction"
     ],
     "correct": 1,
-    "category": "Hydraulics"
+    "category": "Performance"
   },
   {
     "question": "What indication occurs during a pushback (including engine start), with the steering selector in the TOWING position?",
@@ -724,7 +724,7 @@ const questions = [
       "STRG is displayed (in amber) on the Wheels S.D."
     ],
     "correct": 2,
-    "category": "Engine"
+    "category": "Landing gear"
   },
   {
     "question": "What is the maximum runway slope?",
@@ -735,7 +735,7 @@ const questions = [
       "+2%/ -1%"
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Limitations"
   },
   {
     "question": "During your preliminary cockpit preparation you notice that the FLAPS lever is in the ZERO position but the E/WD shows the FLAPS extended. What should you do?",
@@ -746,7 +746,7 @@ const questions = [
       "You must check with the maintenance crew before applying hydraulic power"
     ],
     "correct": 3,
-    "category": "Hydraulics"
+    "category": "Flight controls"
   },
   {
     "question": "Navaids are normally autotuned by?",
@@ -757,7 +757,7 @@ const questions = [
       "FMGC"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Navigation"
   },
   {
     "question": "With the AUDIO SWITCHING knob in the CAPT 3 position:",
@@ -768,7 +768,7 @@ const questions = [
       "The AUDIO SWITCHING knob should be placed in STBY position"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "When does the F/CTL page appear on the flight deck during the flight control check?",
@@ -779,7 +779,7 @@ const questions = [
       "You can't see the page. The system is inoperative on ground"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "In ALTERNATE LAW, how do the indications change at the bottom of the speed scale?",
@@ -790,7 +790,7 @@ const questions = [
       "Alpha protection is replaced by VSTALL WARNING: it is possible to stall the aircraft."
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "What is the maximum speed for flight with a cockpit window open?",
@@ -801,7 +801,7 @@ const questions = [
       "250 knots"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Limitations"
   },
   {
     "question": "After take-off the A/THR will not become active until...",
@@ -823,7 +823,7 @@ const questions = [
       "AC ESS and TR 1"
     ],
     "correct": 1,
-    "category": "Hydraulics"
+    "category": "Electrical"
   },
   {
     "question": "If both pilots simultaneously deflect their side sticks fully back ...",
@@ -834,7 +834,7 @@ const questions = [
       "The pitch up order is twice as high as with only one stick deflected"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "Which of the following correctly completes this statement? \"Provided not on batteries only, the APU may be started ...",
@@ -867,7 +867,7 @@ const questions = [
       "when the agent DISCH light is illuminated"
     ],
     "correct": 1,
-    "category": "Engine"
+    "category": "Fire protection"
   },
   {
     "question": "Which of the following is true about the FADEC system?",
@@ -889,7 +889,7 @@ const questions = [
       "38 knots"
     ],
     "correct": 3,
-    "category": "Performance"
+    "category": "Limitations"
   },
   {
     "question": "The FIRE light on the pedestal illuminates, what does this indicate?",
@@ -911,7 +911,7 @@ const questions = [
       "215"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Limitations"
   },
   {
     "question": "What happens to the cabin lights in the event of excessive cabin altitude?",
@@ -966,7 +966,7 @@ const questions = [
       "AC BUS 1 and 2 will work in parallel with both generators as suppliers"
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Electrical"
   },
   {
     "question": "On the Speed Tape on the PFD, what does the \"F\" speed represent at take-off?",
@@ -977,7 +977,7 @@ const questions = [
       "Maximum speed for selecting one more stage of flaps."
     ],
     "correct": 0,
-    "category": "Auto flight"
+    "category": "Limitations"
   },
   {
     "question": "The FLEX temperature must not be lower than the actual OAT.",
@@ -999,7 +999,7 @@ const questions = [
       "Is controlled manually by the pilot through the ENG 1 and ENG 2 ANTI ICE pushbuttons"
     ],
     "correct": 3,
-    "category": "Engine"
+    "category": "Ice and rain protection"
   },
   {
     "question": "In what case are the batteries connected to the DC BAT BUS?",
@@ -1010,7 +1010,7 @@ const questions = [
       "When battery voltage is above 27.5 V"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Electrical"
   },
   {
     "question": "When is selection of reverse thrust in flight allowed?",
@@ -1043,7 +1043,7 @@ const questions = [
       "Pitch: +30Â°, Roll: 45Â°."
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "Flight controls"
   },
   {
     "question": "With the aircraft on the ground, which of the following is true with regard to the gear lever?",
@@ -1054,7 +1054,7 @@ const questions = [
       "It cannot be moved if the Green hydraulic system is pressurized."
     ],
     "correct": 1,
-    "category": "Electrical"
+    "category": "Landing gear"
   },
   {
     "question": "What is the effect of selecting the GEN 1 LINE switch to OFF on the EMER ELEC PWR panel?",
@@ -1065,7 +1065,7 @@ const questions = [
       "GEN 1 line contactor opens."
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Electrical"
   },
   {
     "question": "The STROBE lights selector is set to AUTO. In this position when do they stop flashing?",
@@ -1076,7 +1076,7 @@ const questions = [
       "When the last engine has been shut down"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Landing gear"
   },
   {
     "question": "What is maximum altitude that the landing gear may be extended?",
@@ -1098,7 +1098,7 @@ const questions = [
       "Clean -1 g to +2.5 g, slats extended -1 g to +2.5 g"
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "Flight controls"
   },
   {
     "question": "When the gear is retracted, which exterior lights extinguish automatically?",
@@ -1109,7 +1109,7 @@ const questions = [
       "LOGO and LAND"
     ],
     "correct": 0,
-    "category": "Fire protection"
+    "category": "Landing gear"
   },
   {
     "question": "You are performing a takeoff with the thrust levers in the FLEX position. Which of the following statements is true?",
@@ -1120,7 +1120,7 @@ const questions = [
       "A/THR is now in yellow"
     ],
     "correct": 1,
-    "category": "Performance"
+    "category": "Auto flight"
   },
   {
     "question": "When on an intercept heading, to join an ILS localizer, the Flight Path Vector (FPV) will be lined up with the ...",
@@ -1153,7 +1153,7 @@ const questions = [
       "20,000 ft."
     ],
     "correct": 3,
-    "category": "Hydraulics"
+    "category": "Limitations"
   },
   {
     "question": "What does the left (captain's) ND show when selected to ROSE ILS?",
@@ -1164,7 +1164,7 @@ const questions = [
       "ILS receiver No. 2 signals and the map."
     ],
     "correct": 2,
-    "category": "Auto flight"
+    "category": "Navigation"
   },
   {
     "question": "What does a red UNLK light indicate on the Landing Gear Indicator Panel?",
@@ -1186,7 +1186,7 @@ const questions = [
       "Yes, but only by using TOGA"
     ],
     "correct": 3,
-    "category": "Performance"
+    "category": "Engine"
   },
   {
     "question": "When does the bidirectional power transfer unit (PTU) enable the yellow system to pressurize the green system and vice versa?",
@@ -1208,7 +1208,7 @@ const questions = [
       "The flight crew should switch to APU bleed air to replace the unserviceable unit"
     ],
     "correct": 1,
-    "category": "Engine"
+    "category": "Ice and rain protection"
   },
   {
     "question": "In Normal law, if one side stick is rapidly pulled fully back, can the aircraft's maximum allowable G load be exceeded?",
@@ -1219,7 +1219,7 @@ const questions = [
       "No. The load factor protection overrides side stick commands to avoid excessive G loads"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "Which hydraulic systems have fluid shutoff valves and why?",
@@ -1241,7 +1241,7 @@ const questions = [
       "330Â°C"
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "Landing gear"
   },
   {
     "question": "On the overhead panel, when should the AUDIO SWITCHING be selected to CAPT 3?",
@@ -1252,7 +1252,7 @@ const questions = [
       "Both RMPs have failed."
     ],
     "correct": 1,
-    "category": "Auto flight"
+    "category": "Communications"
   },
   {
     "question": "With either AP engaged, which statement is true?",
@@ -1263,7 +1263,7 @@ const questions = [
       "Both side sticks are locked. By applying a certain force, the lock can be overridden but the AP will disengage"
     ],
     "correct": 3,
-    "category": "Electrical"
+    "category": "Auto flight"
   },
   {
     "question": "When RMP tuning of the NAVAIDS is in operation, which of the following statements is true?",
@@ -1274,7 +1274,7 @@ const questions = [
       "The ILS receivers are tuned by their respective RMP's."
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "Navigation"
   },
   {
     "question": "Which of the following is true with regard to the PTU?",
@@ -1296,7 +1296,7 @@ const questions = [
       "At 100 feet, alpha protection is lost; at 50 feet, the flare mode commences."
     ],
     "correct": 0,
-    "category": "Electrical"
+    "category": "Auto flight"
   },
   {
     "question": "Which statement is correct when the APU FIRE pb is pushed to release it?",
@@ -1329,7 +1329,7 @@ const questions = [
       "... NORM or HI due to single pack operation."
     ],
     "correct": 0,
-    "category": "Auto flight"
+    "category": "Air systems"
   },
   {
     "question": "On the HYD overhead panel, which of the following is true of any pump FAULT light?",
@@ -1340,7 +1340,7 @@ const questions = [
       "It is inhibited with engines running."
     ],
     "correct": 0,
-    "category": "Electrical"
+    "category": "Hydraulics"
   },
   {
     "question": "What is the maximum speed for each flap configuration?",
@@ -1351,7 +1351,7 @@ const questions = [
       "Vis speed"
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "Flight controls"
   },
   {
     "question": "What aircraft compartments are unpressurized?",
@@ -1373,7 +1373,7 @@ const questions = [
       "An ENG 2 BLEED LEAK will not be detected."
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Air systems"
   },
   {
     "question": "Regarding the pressurization system ... How are the safety valves controlled?",
@@ -1395,7 +1395,7 @@ const questions = [
       "when two IRS's are in disagreement regarding the aircraft position"
     ],
     "correct": 0,
-    "category": "Indicating/recording systems"
+    "category": "Navigation"
   },
   {
     "question": "What triggers the autobrake system after landing?",
@@ -1417,7 +1417,7 @@ const questions = [
       "100%."
     ],
     "correct": 3,
-    "category": "Hydraulics"
+    "category": "Electrical"
   },
   {
     "question": "What is the certified maximum number of seats on the A320?",
@@ -1428,7 +1428,7 @@ const questions = [
       "150"
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Limitations"
   },
   {
     "question": "In normal flight, what does sidestick deflection demand?",
@@ -1450,7 +1450,7 @@ const questions = [
       "LOC and G/S have been captured"
     ],
     "correct": 2,
-    "category": "Auto flight"
+    "category": "Navigation"
   },
   {
     "question": "For what areas does the Avionics ventilation system provide cooling?",
@@ -1461,7 +1461,7 @@ const questions = [
       "The avionics bay, the flight deck instruments and the aircraft batteries"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Air systems"
   },
   {
     "question": "Which of the following correctly describes the cross-bleed valve operation?",
@@ -1472,7 +1472,7 @@ const questions = [
       "In auto, it will be closed if the engine bleed valves are open."
     ],
     "correct": 3,
-    "category": "Hydraulics"
+    "category": "Air systems"
   },
   {
     "question": "On ground, with the BLUE hydraulic pump switch at AUTO and with the AC POWER available, when will the pump operate?",
@@ -1494,7 +1494,7 @@ const questions = [
       "52 knots"
     ],
     "correct": 1,
-    "category": "Hydraulics"
+    "category": "Limitations"
   },
   {
     "question": "The flight management part of the FMGC includes the following elements:",
@@ -1505,7 +1505,7 @@ const questions = [
       "AP and FD commands and flight envelope computations"
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Auto flight"
   },
   {
     "question": "Is it permissible to use reverse thrust to power back on the ground?",
@@ -1527,7 +1527,7 @@ const questions = [
       "15,000 ft"
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "APU"
   },
   {
     "question": "Which of the following defines Icing conditions?",
@@ -1538,7 +1538,7 @@ const questions = [
       "Before T/O: OAT 10Â°C or below, visible moisture, visibility less than 1 mile."
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "How is a rapid IRS alignment carried out?",
@@ -1560,7 +1560,7 @@ const questions = [
       "The right main LG lengthening mechanism must be reset using the reset position on the LDG GEAR GRVTY EXTN sw"
     ],
     "correct": 1,
-    "category": "Indicating/recording systems"
+    "category": "Landing gear"
   },
   {
     "question": "The APU may be started and operated, even if the LOW OIL LEVEL ECAM advisory is displayed.",
@@ -1571,7 +1571,7 @@ const questions = [
       "The APU doesn't need OIL below FL 200"
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "APU"
   },
   {
     "question": "When does the ECAM E/WD memo REFUELG appear?",
@@ -1582,7 +1582,7 @@ const questions = [
       "When the refueling control panel door is open."
     ],
     "correct": 3,
-    "category": "Indicating/recording systems"
+    "category": "Engine"
   },
   {
     "question": "What is the purpose of the safety valves in the pressurization system?",
@@ -1648,7 +1648,7 @@ const questions = [
       "loss or failure of a single loop A (Engine)"
     ],
     "correct": 2,
-    "category": "Indicating/recording systems"
+    "category": "Fire protection"
   },
   {
     "question": "How could you turn off RMP 1?",
@@ -1659,7 +1659,7 @@ const questions = [
       "It will switch off automatically if on batteries."
     ],
     "correct": 0,
-    "category": "Communications"
+    "category": "Commuications"
   },
   {
     "question": "What could be the cause if, during a pre-flight check, the IRS ALIGN lights are seen to be flashing?",
@@ -1692,7 +1692,7 @@ const questions = [
       "The first pilot to offset the handwheel has control."
     ],
     "correct": 2,
-    "category": "Electrical"
+    "category": "Landing gear"
   },
   {
     "question": "Regarding the Avionics Ventilation system, which of the following statements is true?",
@@ -1703,7 +1703,7 @@ const questions = [
       "The Inlet Valve should always be closed in flight."
     ],
     "correct": 3,
-    "category": "Electrical"
+    "category": "Air systems"
   },
   {
     "question": "Which of the following statements is correct with regard to the APU?",
@@ -1725,7 +1725,7 @@ const questions = [
       "MCDU PERF or PROG page inputs"
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "Engine"
   },
   {
     "question": "On the Engine Panel, what does an illuminated FAULT light indicate?",
@@ -1747,7 +1747,7 @@ const questions = [
       "50Â°"
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "Regarding cabin pressure, what are the maximum differential pressures?",
@@ -1758,7 +1758,7 @@ const questions = [
       "+8.06 PSI, -1.0 PSI"
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "Limitations"
   },
   {
     "question": "When is the FUEL USED indication (on the ECAM SD) reset to zero?",
@@ -1769,7 +1769,7 @@ const questions = [
       "During associated engine start-up sequence (at any time)."
     ],
     "correct": 2,
-    "category": "Indicating/recording systems"
+    "category": "Engine"
   },
   {
     "question": "What is the minimum oil quantity for dispatch?",
@@ -1780,7 +1780,7 @@ const questions = [
       "10.6 qt"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Engine"
   },
   {
     "question": "In the event of a hydraulic system overheat, the affected system will be indicated by a ...",
@@ -1824,7 +1824,7 @@ const questions = [
       "It can only be reset by maintenance action."
     ],
     "correct": 3,
-    "category": "Engine"
+    "category": "Air systems"
   },
   {
     "question": "Which of the following correctly completes the statement? \"In the event of a loss of the green system, the alternate braking is powered by the yellow system and ...",
@@ -1868,7 +1868,7 @@ const questions = [
       "... two Air Conditioning Units on the A320 and two additional emergency ram air inlets."
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Air systems"
   },
   {
     "question": "When are the PFD and ND decluttered?",
@@ -1890,7 +1890,7 @@ const questions = [
       "Use of the accumulator only."
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Hydraulics"
   },
   {
     "question": "What is the normal power source for the IRUs?",
@@ -1901,7 +1901,7 @@ const questions = [
       "DC Bat Bus only"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Electrical"
   },
   {
     "question": "What do you have to do to obtain 100% oxygen when using the oxygen mask?",
@@ -1912,7 +1912,7 @@ const questions = [
       "Move the N/100% selector to the 100% position and press the emergency test button."
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Air systems"
   },
   {
     "question": "In a fuel leak scenario, the fuel transfer system ...",
@@ -1923,7 +1923,7 @@ const questions = [
       "... is automatically deactivated."
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Engine"
   },
   {
     "question": "When does the APU bleed valve close automatically?",
@@ -1967,7 +1967,7 @@ const questions = [
       "THR FLX"
     ],
     "correct": 1,
-    "category": "Performance"
+    "category": "Engine"
   },
   {
     "question": "What is the meaning of the white arc on the N1 indication?",
@@ -1989,7 +1989,7 @@ const questions = [
       "SEC 1 and 2 fail"
     ],
     "correct": 2,
-    "category": "Landing gear"
+    "category": "Flight controls"
   },
   {
     "question": "How is a pack overheat indicated?",
@@ -2011,7 +2011,7 @@ const questions = [
       "Load factor, pitch angle, alpha floor, high speed and bank angle protections"
     ],
     "correct": 1,
-    "category": "Navigation"
+    "category": "Flight controls"
   },
   {
     "question": "After IRS realignment, the aircraft's position is automatically updated by ...",
@@ -2033,7 +2033,7 @@ const questions = [
       "A signal is sent to the flight attendant panel."
     ],
     "correct": 3,
-    "category": "Navigation"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "Which of the following is the correct statement? The Side Stick Take Over pushbutton ...",
@@ -2044,7 +2044,7 @@ const questions = [
       "... must be used in the event of a failure of the autopilot."
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "What is the maximum altitude for APU two-pack bleed air operation?",
@@ -2055,7 +2055,7 @@ const questions = [
       "15,000 ft"
     ],
     "correct": 3,
-    "category": "Hydraulics"
+    "category": "APU"
   },
   {
     "question": "At what temperature do the engine bleed valves close automatically?",
@@ -2066,7 +2066,7 @@ const questions = [
       "185Â°C"
     ],
     "correct": 1,
-    "category": "Hydraulics"
+    "category": "Engine"
   },
   {
     "question": "If the slats and/or flaps are not in the expected configuration ...",
@@ -2077,7 +2077,7 @@ const questions = [
       "... the aircraft will automatically enter ALTERNATE LAW."
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "Flight controls"
   },
   {
     "question": "When is the side-stick priority indication seen?",
@@ -2088,7 +2088,7 @@ const questions = [
       "When the aircraft is in ALTERNATE LAW."
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "What is the maximum altitude for landing gear operation?",
@@ -2099,7 +2099,7 @@ const questions = [
       "15,000 ft"
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "Landing gear"
   },
   {
     "question": "When an ELAC fails, what happens to the THS?",
@@ -2143,7 +2143,7 @@ const questions = [
       "When the outer wing tanks are empty."
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Engine"
   },
   {
     "question": "What are the pitch and roll limits in Normal Law?",
@@ -2187,7 +2187,7 @@ const questions = [
       "A general electrical failure."
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "How can the flight crew select manual pressurization?",
@@ -2209,7 +2209,7 @@ const questions = [
       "When the side-sticks are deflected simultaneously."
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "When does the Flight Augmentation Computer (FAC) become active?",
@@ -2231,7 +2231,7 @@ const questions = [
       "All cabin outflow valves are closed."
     ],
     "correct": 0,
-    "category": "Auto flight"
+    "category": "Air systems"
   },
   {
     "question": "What happens to the speed brake panels when the aircraft descends below 10,000 ft?",
@@ -2242,7 +2242,7 @@ const questions = [
       "They retract to the half-speed position."
     ],
     "correct": 1,
-    "category": "Landing gear"
+    "category": "Flight controls"
   },
   {
     "question": "When the landing gear is down, what happens to the T.O. CONFIG TEST pushbutton?",
@@ -2352,7 +2352,7 @@ const questions = [
       "When the aircraft reaches cruising altitude."
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Engine"
   },
   {
     "question": "What is the purpose of the oxygen system?",
@@ -2363,7 +2363,7 @@ const questions = [
       "To provide emergency oxygen for the crew only."
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Air systems"
   },
   {
     "question": "What happens to the aircraft systems when the RAT is deployed?",
@@ -2396,7 +2396,7 @@ const questions = [
       "To provide power to the essential systems during an electrical failure."
     ],
     "correct": 1,
-    "category": "Hydraulics"
+    "category": "Electrical"
   },
   {
     "question": "When do the speed brakes automatically retract?",
@@ -2407,7 +2407,7 @@ const questions = [
       "When the autopilot is engaged."
     ],
     "correct": 2,
-    "category": "Landing gear"
+    "category": "Flight controls"
   },
   {
     "question": "When does the T.O. CONFIG TEST pushbutton inhibit the take-off configuration warnings?",
@@ -2418,7 +2418,7 @@ const questions = [
       "When the aircraft is in the landing configuration."
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "What happens to the landing gear when the LGCIU detects a fault?",
@@ -2451,7 +2451,7 @@ const questions = [
       "The RAT powers the essential busses."
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "Electrical"
   },
   {
     "question": "What is the maximum altitude for APU start using battery power only?",
@@ -2484,7 +2484,7 @@ const questions = [
       "The cabin outflow valves open automatically."
     ],
     "correct": 1,
-    "category": "Auto flight"
+    "category": "Air systems"
   },
   {
     "question": "What is the purpose of the oxygen system?",
@@ -2495,7 +2495,7 @@ const questions = [
       "To provide emergency oxygen for the crew only."
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Air systems"
   },
   {
     "question": "What happens when the RAT is manually deployed?",
@@ -2517,7 +2517,7 @@ const questions = [
       "When the aircraft is in the landing configuration."
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "Indicating/reporting systems"
   },
   {
     "question": "What happens to the aircraft's electrical system when the emergency generator is operating?",
@@ -2528,7 +2528,7 @@ const questions = [
       "The RAT powers the essential busses."
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "Electrical"
   },
   {
     "question": "What is the limiting factor for opening the Ram Air Valve?",
@@ -2539,7 +2539,7 @@ const questions = [
       "Aircraft must be fully depressurized."
     ],
     "correct": 1,
-    "category": "Flight controls"
+    "category": "Air systems"
   },
   {
     "question": "The nosewheel steering tillers can turn the nosewheel up to how many degrees?",
@@ -2572,7 +2572,7 @@ const questions = [
       "The front triangle indicates the position of that gear and the back triangle indicates the status of the brakes of that gear"
     ],
     "correct": 1,
-    "category": "Indicating/recording systems"
+    "category": "Landing gear"
   },
   {
     "question": "Which of the following conditions will cause the cabin signs and lighting to illuminate?",
@@ -2583,7 +2583,7 @@ const questions = [
       "If the cabin altitude exceeds 14,000 feet."
     ],
     "correct": 0,
-    "category": "Navigation"
+    "category": "Air systems"
   },
   {
     "question": "What is important to remember to avoid damaging the IDG disconnection mechanism?",
@@ -2594,7 +2594,7 @@ const questions = [
       "You push the IDG pb until the GEN FAULT light comes on, but only for a maximum of 3 seconds"
     ],
     "correct": 3,
-    "category": "Electrical"
+    "category": "Engine"
   },
   {
     "question": "During a manual start, what function does the FADEC perform?",
@@ -2616,7 +2616,7 @@ const questions = [
       "Loss of all hydraulics."
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "In the MEL 'Remarks or Exceptions' column, what is signified by (O)?",
@@ -2627,7 +2627,7 @@ const questions = [
       "Dispatch is not allowed."
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "Which surfaces of the aircraft are anti-iced?",
@@ -2649,7 +2649,7 @@ const questions = [
       "All slats are anti-iced"
     ],
     "correct": 1,
-    "category": "Flight controls"
+    "category": "Ice and rain protection"
   },
   {
     "question": "Which of the following correctly completes the statement? 'VFE NEXT is...",
@@ -2660,7 +2660,7 @@ const questions = [
       "...the maximum speed for the present configuration."
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "Once opened, when do the fuel transfer valves close automatically?",
@@ -2671,7 +2671,7 @@ const questions = [
       "Manually closed by the refueler"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Engine"
   },
   {
     "question": "The control surfaces are electrically controlled, but are there any that have a mechanical backup?",
@@ -2682,7 +2682,7 @@ const questions = [
       "No, they all require some electrical power"
     ],
     "correct": 2,
-    "category": "Electrical"
+    "category": "Flight controls"
   },
   {
     "question": "After T/O, when does SRS (FMA) change to CLB?",
@@ -2726,7 +2726,7 @@ const questions = [
       "The wing pumps will stop when the slats are extended."
     ],
     "correct": 0,
-    "category": "Navigation"
+    "category": "Engine"
   },
   {
     "question": "Approximately how long do the ADIRS take for a full alignment?",
@@ -2781,7 +2781,7 @@ const questions = [
       "RED - immediate action"
     ],
     "correct": 3,
-    "category": "Auto flight"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "What does an amber line across the last two digits of the fuel quantity on the fuel page mean?",
@@ -2792,7 +2792,7 @@ const questions = [
       "The fuel quantity indication is inaccurate"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Engine"
   },
   {
     "question": "It is the first flight of the day. Before performing the APU fire test, you have to check that...",
@@ -2814,7 +2814,7 @@ const questions = [
       "Only in Direct Law"
     ],
     "correct": 1,
-    "category": "Hydraulics"
+    "category": "Flight controls"
   },
   {
     "question": "A-LOCK (alpha lock) is annunciated below the Slat/Flap indicator on the E/WD. Which of the following would cause this condition, and how would you recover?",
@@ -2836,7 +2836,7 @@ const questions = [
       "An excessive rate of descent will cause the IVSI to go RED."
     ],
     "correct": 2,
-    "category": "Electrical"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "What is the standard way for the flight crew to disengage the autopilot?",
@@ -2869,7 +2869,7 @@ const questions = [
       "There is no limitation"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Engine"
   },
   {
     "question": "When approaching to land, with FLAPS 3 on a fully serviceable aircraft, what is the correct action on the GPWS panel?",
@@ -2880,7 +2880,7 @@ const questions = [
       "Switch ON the FLAP MODE switch."
     ],
     "correct": 2,
-    "category": "Flight controls"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "Which of the following correctly completes this statement? 'The MAN V/S CTL switch on the CABIN PRESS panel is...",
@@ -2891,7 +2891,7 @@ const questions = [
       "...inoperative if the DITCHING switch is ON."
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Air systems"
   },
   {
     "question": "From which HYD system is the BRAKE & ACCU PRESS indicator (Triple BRAKE indicator located on the center instrument panel) indicating pressure?",
@@ -2913,7 +2913,7 @@ const questions = [
       "Green Dot"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Limitations"
   },
   {
     "question": "What is the maximum APU rotor speed (% N on ECAM) above which the APU shuts down automatically?",
@@ -2946,7 +2946,7 @@ const questions = [
       "Only other aircraft with the same transponder code"
     ],
     "correct": 1,
-    "category": "Navigation"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "What is the function of the GEN 1 LINE pb located on the EMER ELEC PWR panel?",
@@ -2957,7 +2957,7 @@ const questions = [
       "It allows the ILS and the slats/flaps to be connected to the APU battery for the approach"
     ],
     "correct": 1,
-    "category": "Auto flight"
+    "category": "Electrical"
   },
   {
     "question": "The lavatory and galley areas are ventilated using re-circulated cabin air. How is the system switched on?",
@@ -2968,7 +2968,7 @@ const questions = [
       "The system is fully automatic and is controlled by a weight-on wheels micro-switch on the gear"
     ],
     "correct": 1,
-    "category": "Navigation"
+    "category": "Air systems"
   },
   {
     "question": "What is the maximum speed for FLAP 3?",
@@ -2979,7 +2979,7 @@ const questions = [
       "205 knots"
     ],
     "correct": 1,
-    "category": "Flight controls"
+    "category": "Limitations"
   },
   {
     "question": "With reference to the engine fire system, which statement is correct?",
@@ -2990,7 +2990,7 @@ const questions = [
       "Each fire warning is only shown on the FIRE panel"
     ],
     "correct": 1,
-    "category": "Engine"
+    "category": "Fire protection"
   },
   {
     "question": "What happens in the event of failure of a cabin pressure controller?",
@@ -3001,7 +3001,7 @@ const questions = [
       "An emergency descent must be initiated."
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "Air systems"
   },
   {
     "question": "Regarding an Auto Start, which of the following is correct?",
@@ -3012,7 +3012,7 @@ const questions = [
       "Putting the MODE SEL to START closes the bleed valve."
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Engine"
   },
   {
     "question": "What is the default situation if electrical control to the Wing Anti-Ice and Engine Anti-Ice is lost?",
@@ -3023,7 +3023,7 @@ const questions = [
       "Both OFF."
     ],
     "correct": 0,
-    "category": "Engine"
+    "category": "Ice and rain protection"
   },
   {
     "question": "At the beginning of the takeoff roll, what will be the condition of the A/THR?",
@@ -3056,7 +3056,7 @@ const questions = [
       "SRS mode is not available"
     ],
     "correct": 0,
-    "category": "Electrical"
+    "category": "Auto flight"
   },
   {
     "question": "What happens in the event of SFCC 1 total failure?",
@@ -3067,7 +3067,7 @@ const questions = [
       "SLATS and FLAPS will operate at half speed."
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "Takeoff using FLEX thrust is permitted on contaminated runways...",
@@ -3089,7 +3089,7 @@ const questions = [
       "The center tank pumps will stop."
     ],
     "correct": 2,
-    "category": "Navigation"
+    "category": "Engine"
   },
   {
     "question": "Pushing the CABIN CALLS EMER pushbutton switch causes which of the following to occur?",
@@ -3100,7 +3100,7 @@ const questions = [
       "One high-low chime and red lights at the cabin area call panels."
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "Regarding the ACP, which of the following statements is true?",
@@ -3111,7 +3111,7 @@ const questions = [
       "The RESET key cancels all CALL lights."
     ],
     "correct": 3,
-    "category": "Electrical"
+    "category": "Communications"
   },
   {
     "question": "Regarding the ADIRS panel, which of the following statements is true?",
@@ -3122,7 +3122,7 @@ const questions = [
       "The IR Mode rotary selectors, when selected to NAV, enable the ADRs"
     ],
     "correct": 3,
-    "category": "Electrical"
+    "category": "Navigation"
   },
   {
     "question": "At what cabin altitude will the passenger oxygen masks automatically deploy?",
@@ -3155,7 +3155,7 @@ const questions = [
       "The reversers are now fully deployed"
     ],
     "correct": 3,
-    "category": "Flight controls"
+    "category": "Engine"
   },
   {
     "question": "What is the default situation if electrical control to the Wing Anti-Ice and Engine Anti-Ice is lost?",
@@ -3166,7 +3166,7 @@ const questions = [
       "Both OFF."
     ],
     "correct": 0,
-    "category": "Engine"
+    "category": "Ice and rain protection"
   },
   {
     "question": "What do amber boxes on a MCDU page indicate?",
@@ -3177,7 +3177,7 @@ const questions = [
       "The waypoint indicated will be overflown"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Navigation"
   },
   {
     "question": "What would cause TCAS: REDUCE RANGE to appear on the ND?",
@@ -3188,7 +3188,7 @@ const questions = [
       "It displays when a TA or RA is detected, and the ND range is above 40NM"
     ],
     "correct": 3,
-    "category": "Navigation"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "Which system/computer provides the reactive windshear detection function?",
@@ -3199,7 +3199,7 @@ const questions = [
       "SDAC"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Auto flight"
   },
   {
     "question": "When the PACK FLOW selector is positioned to HI, airflow is:",
@@ -3232,7 +3232,7 @@ const questions = [
       "It is only available if the aircraft is in the clean configuration"
     ],
     "correct": 1,
-    "category": "Electrical"
+    "category": "Auto flight"
   },
   {
     "question": "After a takeoff in CONFIG 1+F, what would happen if FLAP 0 is not selected as the aircraft accelerates?",
@@ -3243,7 +3243,7 @@ const questions = [
       "At 230 kt the slats and flaps will automatically retract changing the config from 1+F to 0. This prevents slat/flap overspeed"
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "Flight controls"
   },
   {
     "question": "What is the cockpit handset typically used for?",
@@ -3254,7 +3254,7 @@ const questions = [
       "For PAs and SATCOM"
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Communications"
   },
   {
     "question": "Which of the following statements best describes bank angle protection?",
@@ -3265,7 +3265,7 @@ const questions = [
       "Above 33Â° an input on the sidestick will be required to hold the bank attitude. Full deflection will give a roll rate of 15% and the bank angle will not exceed 67Â°"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "What impact does a HYD G+Y SYS LO PR alert have on the braking system?",
@@ -3276,7 +3276,7 @@ const questions = [
       "Normal braking will be lost. To recover brakes, the flight crew must manually select alternate brakes by moving the A/SKID and NW STRG switch to OFF. Up to 7 brake applications will be possible using the braking accumulator."
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Hydraulics"
   },
   {
     "question": "How is an armed slide indicated on the DOOR/OXY page?",
@@ -3298,7 +3298,7 @@ const questions = [
       "Ailerons and spoilers 4 and 5"
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "Speed brakes are provided by spoilers:",
@@ -3364,7 +3364,7 @@ const questions = [
       "A test result or maintenance information"
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "During final approach, when is LAND annunciated on the FMA?",
@@ -3386,7 +3386,7 @@ const questions = [
       "On the aft fuselage next to Water Filling and/or Draining service panel"
     ],
     "correct": 0,
-    "category": "Auto flight"
+    "category": "Air systems"
   },
   {
     "question": "What impact does a single lane failure of ACSC 2 have on the air conditioning system?",
@@ -3408,7 +3408,7 @@ const questions = [
       "The engine generator load is above 108%"
     ],
     "correct": 1,
-    "category": "Hydraulics"
+    "category": "Electrical"
   },
   {
     "question": "During a routine flight, which of the following would result after the loss of GEN 2 and the subsequent start of the APU?",
@@ -3419,7 +3419,7 @@ const questions = [
       "GEN 1 will power both AC bus 1 and 2. The APU generator will remain in standby for redundancy"
     ],
     "correct": 0,
-    "category": "APU"
+    "category": "Electrical"
   },
   {
     "question": "Which of the following statements is true regarding the APU Fire Extinguishing system (select the most complete answer)?",
@@ -3430,7 +3430,7 @@ const questions = [
       "3 sec after a fire warning, the APU automatically shuts down. The flight crew should follow ECAM actions to secure the APU and fire the squib"
     ],
     "correct": 0,
-    "category": "APU"
+    "category": "Fire protection"
   },
   {
     "question": "What is the significance of a flashing red light on a cabin door?",
@@ -3452,7 +3452,7 @@ const questions = [
       "Consult the C/B Tripped procedure in the QRH for guidance. On the ground the first step is to contact maintenance to identify the cause. In flight the C/B would not be reengaged unless the captain deems it necessary for the safe continuation of the flight (only one reengagement is permitted)."
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Electrical"
   },
   {
     "question": "How can the secondary flight plan be activated in flight?",
@@ -3463,7 +3463,7 @@ const questions = [
       "Use the ENABLE ALTN command in the lateral revision page for any waypoint on the flight plan."
     ],
     "correct": 0,
-    "category": "Flight controls"
+    "category": "Navigation"
   },
   {
     "question": "Which LGCIU normally controls the retraction cycle?",
@@ -3496,7 +3496,7 @@ const questions = [
       "2"
     ],
     "correct": 2,
-    "category": "Limitations"
+    "category": "Engine"
   },
   {
     "question": "Can you reset an IDG in flight?",
@@ -3518,7 +3518,7 @@ const questions = [
       "2 bottles shared by both engines and 2 bottles for the APU"
     ],
     "correct": 0,
-    "category": "APU"
+    "category": "Fire protection"
   },
   {
     "question": "Below what height do the FWCâs generate height announcements?",
@@ -3529,7 +3529,7 @@ const questions = [
       "2,000 ft"
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "Auto flight"
   },
   {
     "question": "What will happen to the flight guidance modes when the altitude knob is pulled on the FCU?",
@@ -3584,7 +3584,7 @@ const questions = [
       "Position 1 turns on the logo lights and the first set of navigation lights, position 2 turns on the logo lights and the second set of navigation lights"
     ],
     "correct": 3,
-    "category": "Navigation"
+    "category": "Other"
   },
   {
     "question": "What impact does selecting engine and or wing anti-ice have on the engines?",
@@ -3594,7 +3594,7 @@ const questions = [
       "Engine anti-ice reduces the N1 or EPR limit, wing anti-ice has a negligible effect on the maximum thrust output of the engines",
       "There is no impact on the maximum thrust of the engines"
     ],
-    "correct": 3,
+    "correct": 1,
     "category": "Engine"
   },
   {
@@ -3628,7 +3628,7 @@ const questions = [
       "A fire warning is triggered if a break occurs in both fire detection loops within 5 sec of each other (flame effect)."
     ],
     "correct": 3,
-    "category": "APU"
+    "category": "Fire protection"
   },
   {
     "question": "Is this alert HYD G ENG 1 PUMP LO PR a primary, secondary or independent failure? (PTU is operative, and hydraulic pressures are normal)",
@@ -3661,7 +3661,7 @@ const questions = [
       "During an automatic start on the ground only"
     ],
     "correct": 3,
-    "category": "Navigation"
+    "category": "Engine"
   },
   {
     "question": "When will the ground spoilers fully extend?",
@@ -3693,7 +3693,7 @@ const questions = [
       "The APPR pushbutton will arm the LOC and G/S modes independent of the approach selected in the active F-PLN. The LOC and G/S modes can be disarmed or disengaged by pushing the APPR pushbutton again.",
       "The APPR pushbutton will arm either the LOC and G/S modes or APP NAV and FINAL modes depending on the approach selected in the active F-PLN. Once engaged these approach modes will only disengage in the event of a go-around, or disconnection of AP and FD."
     ],
-    "correct": 2,
+    "correct": 1,
     "category": "Auto flight"
   },
   {
@@ -3716,7 +3716,7 @@ const questions = [
       "AC BUS 1"
     ],
     "correct": 1,
-    "category": "Hydraulics"
+    "category": "Electrical"
   },
   {
     "question": "What do two dashes across the last two digits of the fuel quantity indication mean?",
@@ -3727,7 +3727,7 @@ const questions = [
       "The fuel quantity indicated for one or more tanks is completely unreliable. The FUEL SD page can be used to determine which tanks are affected"
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "What is the normal voltage and frequency for the AC and DC systems on the A320?",
@@ -3738,7 +3738,7 @@ const questions = [
       "Single phase AC 230v 50Hz, and 12v DC"
     ],
     "correct": 1,
-    "category": "Navigation"
+    "category": "Electrical"
   },
   {
     "question": "What is the normal operating pressure of the hydraulic systems?",
@@ -3815,7 +3815,7 @@ const questions = [
       "At 50 ft RA"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Auto flight"
   },
   {
     "question": "The MAINT BUS switch is used to supply only ground services. Where is it located?",
@@ -3826,7 +3826,7 @@ const questions = [
       "Behind the co-pilot's seat"
     ],
     "correct": 2,
-    "category": "Auto flight"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "Cost index = 0 (zero) corresponds to:",
@@ -3837,7 +3837,7 @@ const questions = [
       "Minimum fuel consumption (max range)"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "If the Engine Interface Unit (EIU) fails, what information does the FADEC lose access to?",
@@ -3870,7 +3870,7 @@ const questions = [
       "38.1 m"
     ],
     "correct": 2,
-    "category": "Auto flight"
+    "category": "Limitations"
   },
   {
     "question": "Which busses can be powered from the emergency generator?",
@@ -3881,7 +3881,7 @@ const questions = [
       "DC ESS, DC ESS SHED, AC ESS and AC ESS SHED"
     ],
     "correct": 3,
-    "category": "Hydraulics"
+    "category": "Electrical"
   },
   {
     "question": "For routine access into the cockpit by the cabin crew, the buzzer sounds:",
@@ -3892,7 +3892,7 @@ const questions = [
       "For a few min"
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "If the FWC detects a failure it will trigger an ECAM alert, provided no flight phase inhibition is active. How many flight phases are there?",
@@ -3914,7 +3914,7 @@ const questions = [
       "20,000 ft"
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "Air systems"
   },
   {
     "question": "Select the most complete statement about mechanical backup",
@@ -3925,7 +3925,7 @@ const questions = [
       "If the aircraft finds itself in an abnormal attitude AoB > 125Â°, AoA >40Â°, IAS >440kt, the flight law will transition to mechanical backup and stay in this flight law for the remainder of the flight. USE MAN PITCH TRIM (amber) will be displayed on the PFD"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "What areas of the aircraft are anti-iced with hot air?",
@@ -3947,7 +3947,7 @@ const questions = [
       "INVALID DATA displayed on the affected DU(s)"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "Which unit is used as a short-term interface between the flight crew and FMGC?",
@@ -3958,7 +3958,7 @@ const questions = [
       "MCDU"
     ],
     "correct": 1,
-    "category": "Flight controls"
+    "category": "Auto flight"
   },
   {
     "question": "Where do the wing anti-ice indications appear on the ECAM screens?",
@@ -3980,7 +3980,7 @@ const questions = [
       "Both the avionics compartment and cockpit panels are cooled using air from the air conditioning system"
     ],
     "correct": 1,
-    "category": "Navigation"
+    "category": "Air systems"
   },
   {
     "question": "If power to the cockpit door fails:",
@@ -3991,7 +3991,7 @@ const questions = [
       "Power from the emergency bus is automatically routed to the door locks to keep them in place"
     ],
     "correct": 2,
-    "category": "Navigation"
+    "category": "Other"
   },
   {
     "question": "What would happen if the APU master switch was turned off immediately following the use of APU bleed?",
@@ -4013,7 +4013,7 @@ const questions = [
       "There are no protections in alternate law. High speed and low speed stabilities may be available"
     ],
     "correct": 2,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "Select the correct statement about the ADIRS panel.",
@@ -4035,7 +4035,7 @@ const questions = [
       "PA"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Communications"
   },
   {
     "question": "Both ECAM screens have failed. Can the E/WD be displayed on any of the remaining display units?",
@@ -4068,7 +4068,7 @@ const questions = [
       "177 kt"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Limitations"
   },
   {
     "question": "What are the minimum and maximum cabin differential pressure limits?",
@@ -4079,7 +4079,7 @@ const questions = [
       "+8.5 to -1 PSI"
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "Limitations"
   },
   {
     "question": "What is VMO/MMO for the A320?",
@@ -4090,7 +4090,7 @@ const questions = [
       "320/0.77"
     ],
     "correct": 1,
-    "category": "Performance"
+    "category": "Limitations"
   },
   {
     "question": "How long can you remain in TOGA thrust?",
@@ -4112,7 +4112,7 @@ const questions = [
       "250 kt"
     ],
     "correct": 2,
-    "category": "Landing gear"
+    "category": "Limitations"
   },
   {
     "question": "Which of the following statements regarding LP ground air limitations is true?",
@@ -4122,8 +4122,8 @@ const questions = [
       "LP air can be used to supplement the cooling air from the packs",
       "LP air and APU bleed must not be used at the same time"
     ],
-    "correct": 3,
-    "category": "Electrical"
+    "correct": 0,
+    "category": "Air systems"
   },
   {
     "question": "What is the cabin pressure safety relief valve setting?",
@@ -4134,7 +4134,7 @@ const questions = [
       "8.6PSI"
     ],
     "correct": 3,
-    "category": "Hydraulics"
+    "category": "Limitations"
   },
   {
     "question": "What is the maximum demonstrated crosswind for the A320?",
@@ -4145,7 +4145,7 @@ const questions = [
       "38 kt (mean wind)"
     ],
     "correct": 0,
-    "category": "Performance"
+    "category": "Limitations"
   },
   {
     "question": "What is the maximum speed at which the landing gear may be retracted (VLO retraction)?",
@@ -4156,7 +4156,7 @@ const questions = [
       "220 kt"
     ],
     "correct": 3,
-    "category": "Landing gear"
+    "category": "Limitations"
   },
   {
     "question": "Which of the following statements best describes high speed protection?",
@@ -4167,7 +4167,7 @@ const questions = [
       "High speed protection is activated at or above VMO/MMO (depending on the flight conditions), a permanent nose-up order is applied to aid recovery back towards normal flight conditions. With no sidestick input the aircraft will not to wings level, and the maximum bank angle is reduced to 40Â°"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Auto flight"
   },
   {
     "question": "If both autopilots are engaged, which FMGC is master and controls the A/THR?",
@@ -4211,7 +4211,7 @@ const questions = [
       "RMP 3"
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "Communications"
   },
   {
     "question": "Which units make up the Flight Management Guidance System (FMGS)?",
@@ -4277,7 +4277,7 @@ const questions = [
       "Mach No. is not displayed below 0.6"
     ],
     "correct": 1,
-    "category": "Electrical"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "What has happened if the ELEC system page appears automatically on the lower ECAM DU, and there are no accompanying ECAM alerts?",
@@ -4287,7 +4287,7 @@ const questions = [
       "An ADVISORY has occurred; the drifting parameter will be pulsing green",
       "An INDEPENDENT failure has occurred"
     ],
-    "correct": 2,
+    "correct": 1,
     "category": "Indicating/recording systems"
   },
   {
@@ -4299,7 +4299,7 @@ const questions = [
       "TAT (Total Air Temperature)"
     ],
     "correct": 3,
-    "category": "Flight controls"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "What impact does a FWS FWC 1+2 FAULT have?",
@@ -4310,7 +4310,7 @@ const questions = [
       "All ECAM cautions and warnings, rural warnings, master caution and master warning lights are lost"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Fire protection"
   },
   {
     "question": "What is the function of the landing gear SAFETY VALVE?",
@@ -4332,7 +4332,7 @@ const questions = [
       "Direct law is only available on the ground, and transitions into normal law during the first 5 sec after liftoff"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "Regarding an autoland approach, with both autopilots engaged, which FMGC is master?",
@@ -4365,7 +4365,7 @@ const questions = [
       "Slat retraction until landing gear extension"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Auto flight"
   },
   {
     "question": "How can armed FMA modes be identified on the PFD?",
@@ -4387,7 +4387,7 @@ const questions = [
       "LP and HP fuel shutoff valves"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Engine"
   },
   {
     "question": "What is cost index (CI)?",
@@ -4431,7 +4431,7 @@ const questions = [
       "When the pushbutton is selected OFF for all cases excluding reservoir overheat. The FAULT light will remain on as long as the overheat lasts"
     ],
     "correct": 3,
-    "category": "Fire protection"
+    "category": "Engine"
   },
   {
     "question": "How is a temporary flight plan indicated on the ND?",
@@ -4486,7 +4486,7 @@ const questions = [
       "The electrical system will not allow paralleling of generators"
     ],
     "correct": 3,
-    "category": "Hydraulics"
+    "category": "Electrical"
   },
   {
     "question": "How many flight control computers are there?",
@@ -4497,7 +4497,7 @@ const questions = [
       "7: 2 x ELACs, 3 x SECs, 2 x FACs"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "Which statement about the FAC is true?",
@@ -4508,7 +4508,7 @@ const questions = [
       "When the AP is engaged the master FMGC sends rudder trim orders to the FACs. The FACs sole purpose are to provide yaw damping, rudder trim and rudder travel limitation functions"
     ],
     "correct": 1,
-    "category": "Electrical"
+    "category": "Flight controls"
   },
   {
     "question": "How do you adjust the brightness of the FCU displays?",
@@ -4541,7 +4541,7 @@ const questions = [
       "The oxygen pressure in the low pressure circuit is low (60PSI)"
     ],
     "correct": 1,
-    "category": "Hydraulics"
+    "category": "Air systems"
   },
   {
     "question": "What are the two main functions of the FMGC?",
@@ -4552,7 +4552,7 @@ const questions = [
       "Flight management and yaw axis control"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Auto flight"
   },
   {
     "question": "Which of the following statements regarding the FWC, ELAC and FAC is true (select the most complete answer)?",
@@ -4563,7 +4563,7 @@ const questions = [
       "The FWC generates the OVERSPEED warnings, the ELAC performs the LOW SPEED protection, and the FAC only performs yaw related functions (rudder trim/limits/damping)"
     ],
     "correct": 0,
-    "category": "Electrical"
+    "category": "Auto flight"
   },
   {
     "question": "How can the flight crew dry crank an engine?",
@@ -4585,7 +4585,7 @@ const questions = [
       "915Â°C"
     ],
     "correct": 3,
-    "category": "Engine"
+    "category": "Limitations"
   },
   {
     "question": "Which flight control computers receive inputs from the sidestick?",
@@ -4606,7 +4606,7 @@ const questions = [
       "The ADR or IR part of an ADIRU can be individually switched OFF using the IR or ADR pushbutton. Setting the IR Mode Selector to OFF will remove power from the whole ADIRU",
       "If an IR is turned off by mistake in flight, it can be recovered provided it is switched back on within 5 min"
     ],
-    "correct": 3,
+    "correct": 2,
     "category": "Navigation"
   },
   {
@@ -4618,7 +4618,7 @@ const questions = [
       "The transfer valves will not open until the total fuel on board reaches 1,500 kg"
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "Engine"
   },
   {
     "question": "What happens to the avionics ventilation system if both the BLOWER and EXTRACT push buttons are set to override?",
@@ -4651,7 +4651,7 @@ const questions = [
       "Both cabin pressure controllers have failed, the flight crew will need to immediately initiate an emergency descent"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Air systems"
   },
   {
     "question": "During a single engine taxi, engine 1 is running and engine 2 is off. What happens when the ENG MODE selector is moved from NORM to IGN/START?",
@@ -4684,7 +4684,7 @@ const questions = [
       "Open"
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "Air systems"
   },
   {
     "question": "If the upper ECAM DU fails, or is switched off, how can a system or status page be displayed for review?",
@@ -4706,7 +4706,7 @@ const questions = [
       "Clean configuration"
     ],
     "correct": 3,
-    "category": "Hydraulics"
+    "category": "Flight controls"
   },
   {
     "question": "Which computer generates amber cautions?",
@@ -4717,7 +4717,7 @@ const questions = [
       "SDAC"
     ],
     "correct": 1,
-    "category": "Hydraulics"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "How many channels does a SFCC have?",
@@ -4728,7 +4728,7 @@ const questions = [
       "2 identical channels for redundancy"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "When is T.O. INHIBIT displayed on the EWD?",
@@ -4739,7 +4739,7 @@ const questions = [
       "1st eng to takeoff power to 800 ft (phases 3, 4 and 6)"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "What impact does a CAB PR SYS 1 FAULT alert have?",
@@ -4750,7 +4750,7 @@ const questions = [
       "The pressurisation system will be operating in semi-automatic mode. The flight crew must adjust the target landing elevation using the LDG ELEV rotary knob on the CABIN PRESS panel."
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Air systems"
   },
   {
     "question": "How is the outflow valve actuated?",
@@ -4783,7 +4783,7 @@ const questions = [
       "Yes, the crossbleed will automatically open after the wing anti-ice has been selected ON"
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "Ice and rain protection"
   },
   {
     "question": "How many independent channels are there in a Flight Augmentation Computer?",
@@ -4794,7 +4794,7 @@ const questions = [
       "2 identical channels for redundancy"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Flight controls"
   },
   {
     "question": "When will the autobrake system activate following a rejected takeoff?",
@@ -4849,7 +4849,7 @@ const questions = [
       "The ND will automatically transfer to the PFD"
     ],
     "correct": 1,
-    "category": "Navigation"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "The Air Conditioning System Controller 1 (ACSC 1):",
@@ -4893,7 +4893,7 @@ const questions = [
       "Normal"
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "Air systems"
   },
   {
     "question": "Regarding ECAM, which of the following statements is true?",
@@ -4904,7 +4904,7 @@ const questions = [
       "Independent failures are identified by a star (*) next to them"
     ],
     "correct": 1,
-    "category": "Electrical"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "On the ECAM E/WD, when does the LDG INHIBIT (magenta) memo appear?",
@@ -4937,7 +4937,7 @@ const questions = [
       "The WTBs activate in case of an uncommanded movement of the slats or flaps, such as runaway, asymmetry or overspeed. If any WTB is on, both slats and flaps are locked in position, and cannot be released in flight"
     ],
     "correct": 0,
-    "category": "Landing gear"
+    "category": "Flight controls"
   },
   {
     "question": "On the ECAM display, which colour is used to make the crew aware of an abnormal configuration or failure, and no immediate action is required?",
@@ -4948,7 +4948,7 @@ const questions = [
       "White"
     ],
     "correct": 2,
-    "category": "Hydraulics"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "When does the PTU operate?",
@@ -4970,7 +4970,7 @@ const questions = [
       "Dialog box in bottom left of T.O PERF page"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Performance"
   },
   {
     "question": "What is maximum value of Approach Correction",
@@ -4980,7 +4980,7 @@ const questions = [
       "10 kt"
     ],
     "correct": 1,
-    "category": "Auto flight"
+    "category": "Performance"
   },
   {
     "question": "What is the maximum speed (VFE) with CONF FULL for the A320",
@@ -4991,7 +4991,7 @@ const questions = [
       "175 kt"
     ],
     "correct": 0,
-    "category": "Other"
+    "category": "Limitations"
   },
   {
     "question": "What is the maximum tyre speed",
@@ -5002,7 +5002,7 @@ const questions = [
       "195 kt"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Limitations"
   },
   {
     "question": "On wich display(s) can the ground speed and TAS be viewed?",
@@ -5046,7 +5046,7 @@ const questions = [
       "Move the MASK-BOOM switch on the ACP back to the BOOM position"
     ],
     "correct": 1,
-    "category": "Navigation"
+    "category": "Air systems"
   },
   {
     "question": "What is the primary method of communication for datalink messages controlled via the ATSU?",
@@ -5057,7 +5057,7 @@ const questions = [
       "The datalink system uses a dedicated UHF radio"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Communications"
   },
   {
     "question": "The MIXER unit is connected to:",
@@ -5068,7 +5068,7 @@ const questions = [
       "Packs, re-circulated cabin air, emergency ram air inler, and LP ground connector"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Air systems"
   },
   {
     "question": "Select the correct statementa bout the AGENT pushbuttons on the FIRE panel",
@@ -5089,7 +5089,7 @@ const questions = [
       "ADIRU 3 will be providing all air, attitude and heading data",
       "ADIRU 1 will be providing air data, and ADIRU 3 attitude and heading data"
     ],
-    "correct": 0,
+    "correct": 3,
     "category": "Auto flight"
   },
   {
@@ -5101,7 +5101,7 @@ const questions = [
       "VHF, HF or SATCOM (where fitted and available)"
     ],
     "correct": 3,
-    "category": "Other"
+    "category": "Communications"
   },
   {
     "question": "Select the correct statement about the AGENT pushbuttons on the FIRE panel",
@@ -5123,7 +5123,7 @@ const questions = [
       "The active CPC is no longer receiving the landing field elevation automatically from the FMGS. The flight crew must adjust the target landing elevation using the LDG ELEV rotary knob on the CABIN PRESS panel"
     ],
     "correct": 3,
-    "category": "Flight controls"
+    "category": "Air systems"
   },
   {
     "question": "On the RMP, the ON/OFF switch controls:",
@@ -5178,7 +5178,7 @@ const questions = [
       "Level 1"
     ],
     "correct": 0,
-    "category": "Hydraulics"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "During gravity gear extension, in which direction should the GRAVITY GEAR EXTENSION handle be rotated, and what happens during each turn?",
@@ -5189,7 +5189,7 @@ const questions = [
       "Anti-clockwise, 3 turns. The first turn isolates the gear from the yellow hydraulic system, the second unlocks the doors, the third releases the up-locks and allows the gear to drop into the extended position"
     ],
     "correct": 1,
-    "category": "Navigation"
+    "category": "Landing gear"
   },
   {
     "question": "How many igniters are used during an automatic engine start?",
@@ -5211,7 +5211,7 @@ const questions = [
       "In the pylon nacelle, in the engine core, and in the engine fan section"
     ],
     "correct": 3,
-    "category": "Engine"
+    "category": "Fire protection"
   },
   {
     "question": "What is the significance of a NW STRG DISC memo?",
@@ -5222,7 +5222,7 @@ const questions = [
       "The PF has pushed the rudder PEDALS DISC push button on the hand wheel, to disconnect the rudder pedals from the nose wheel during the flight control check"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Landing gear"
   },
   {
     "question": "If a SEC fails, what happens to the spoiler(s) it controls?",
@@ -5277,7 +5277,7 @@ const questions = [
       "A failure requiring immediate action"
     ],
     "correct": 1,
-    "category": "Other"
+    "category": "Indicating/recording systems"
   },
   {
     "question": "When is pack flow automatically increased to HIGH, regardless of the position of the PACK FLOW control knob?",
@@ -5291,5 +5291,6 @@ const questions = [
     "category": "Air systems"
   }
 ];
+
 
 
