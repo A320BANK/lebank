@@ -45,6 +45,7 @@ const searchEl = document.getElementById("search");
 const searchInput = document.getElementById("searchInput");
 const searchList  = document.getElementById("searchList");
 const backToMenuFromSearch = document.getElementById("backToMenuFromSearch");
+let categoryButtonsContainer;
 
 // Navigator + flag + comments
 const questionNavigator = document.getElementById("questionNavigator");
@@ -68,12 +69,12 @@ let selected = [];
 let idx = 0;
 let userAnswers = [];
 let flagged = [];
-let MODE = "quiz";           // "quiz" | "exam"
+let MODE = "quiz";           
 let examTimer = null;
 let examRemaining = 0;
 const PASS_MARK = 75;
 
-// convenience
+// utility helpers
 function show(el){ el.classList.remove("hidden"); }
 function hide(el){ el.classList.add("hidden"); }
 function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
@@ -82,7 +83,7 @@ function fmtTime(s){ const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=
 function recomputeScore(){ return userAnswers.reduce((acc,ans,i)=> acc + (ans===selected[i]?.correct ? 1 : 0), 0); }
 function stopExamTimer(){ if(examTimer){ clearInterval(examTimer); examTimer=null; }}
 
-// simple stable id per question (hash of text)
+// id for comment storage
 function qid(q){ let h=0,s=String(q.question); for(let i=0;i<s.length;i++){h=(h*31 + s.charCodeAt(i))|0;} return String(h); }
 const COMMENT_KEY = "a320_comments";
 function loadAllComments(){ try{ return JSON.parse(localStorage.getItem(COMMENT_KEY)||"{}"); }catch{ return {}; } }
@@ -90,7 +91,9 @@ function saveAllComments(obj){ localStorage.setItem(COMMENT_KEY, JSON.stringify(
 function getCommentsFor(q){ const store=loadAllComments(); return store[qid(q)] || []; }
 function addCommentFor(q,text){ const store=loadAllComments(); const id=qid(q); if(!store[id]) store[id]=[]; store[id].push(text); saveAllComments(store); }
 
-// Central “go home”
+// ==========================
+// NAVIGATION / SCREENS
+// ==========================
 function goToMainMenu(){
   stopExamTimer();
   hide(setupEl); hide(quizEl); hide(resultsEl); hide(reviewEl); hide(searchEl);
@@ -100,10 +103,9 @@ function goToMainMenu(){
   hide(commentsSection);
   scoreEl.textContent = "Score: 0";
   timerEl.classList.add("hidden");
-  show(modeSelect);        // ONLY the three buttons
+  show(modeSelect);
 }
 
-// Hide everything but keep state; used on starts
 function hideAll(){
   hide(modeSelect); hide(setupEl); hide(quizEl); hide(resultsEl); hide(reviewEl); hide(searchEl);
 }
@@ -116,11 +118,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
   if(!allQuestions.length) allQuestions = getQuestionsArray();
   numRange.max = String(allQuestions.length || 100);
   numLabel.textContent = numRange.value;
-
-  // Start at main menu (slider hidden)
   goToMainMenu();
 
-  // Arrow key nav while in quiz/exam
   window.addEventListener("keydown", e=>{
     if(quizEl.classList.contains("hidden")) return;
     if(e.key==="ArrowRight"){ e.preventDefault(); nextBtn.click(); }
@@ -130,7 +129,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 numRange.addEventListener("input", () => numLabel.textContent = numRange.value);
 
 // ==========================
-// MODE CHOICES
+// MODE SELECTION
 // ==========================
 chooseQuiz.onclick  = ()=>{ MODE="quiz"; hide(modeSelect); show(setupEl); scoreEl.textContent="Score: 0"; timerEl.classList.add("hidden"); };
 chooseExam.onclick  = ()=>{ MODE="exam"; startExam(); };
@@ -159,9 +158,9 @@ function startExam(){
   selected=sample(allQuestions, Math.min(100, allQuestions.length));
   idx=0; userAnswers=new Array(selected.length).fill(null); flagged=[];
   hideAll(); show(quizEl);
-  scoreEl.textContent="Score: —";       // hide running score
+  scoreEl.textContent="Score: —";       
   timerEl.classList.remove("hidden");
-  examRemaining = 3*60*60;              // 3 hours
+  examRemaining = 3*60*60;              
   timerEl.textContent = fmtTime(examRemaining);
   stopExamTimer();
   examTimer = setInterval(()=>{
@@ -172,16 +171,13 @@ function startExam(){
 }
 
 // ==========================
-// RENDER ONE QUESTION
+// RENDER QUESTION
 // ==========================
 function renderQuestion(){
   const q = selected[idx];
   progressEl.textContent = `Question ${idx+1} of ${selected.length}`;
-
-  // Left: remaining unanswered (in this run)
   const answered = userAnswers.filter(a => a !== null).length;
   leftCountEl.textContent = `Left: ${selected.length - answered}`;
-
   questionText.textContent = q.question;
   answersContainer.innerHTML = "";
 
@@ -206,14 +202,13 @@ function renderQuestion(){
         scoreEl.textContent = `Score: ${recomputeScore()}`;
       }else{
         [...answersContainer.children].forEach(b=>b.classList.remove("selected"));
-        btn.classList.add("selected"); // light blue
+        btn.classList.add("selected");
       }
       renderNavigator();
       updateFlagButton();
       updateNavButtons();
       leftCountEl.textContent = `Left: ${selected.length - userAnswers.filter(a=>a!==null).length}`;
     };
-
     answersContainer.appendChild(btn);
   });
 
@@ -221,7 +216,6 @@ function renderQuestion(){
   updateFlagButton();
   updateNavButtons();
 
-  // Comments: only in quiz mode
   if(MODE==="quiz"){
     show(commentsSection);
     renderCommentsFor(q);
@@ -231,7 +225,7 @@ function renderQuestion(){
 }
 
 // ==========================
-// NAVIGATOR & FLAG
+// NAVIGATOR, FLAG & COMMENTS
 // ==========================
 function renderNavigator(){
   questionNavigator.innerHTML = "";
@@ -243,20 +237,16 @@ function renderNavigator(){
 
     if(i===idx) dot.classList.add("active");
     if(flagged.includes(i)) dot.classList.add("flagged");
-
     if(MODE==="quiz"){
       if(userAnswers[i]!==null){
         dot.classList.add(userAnswers[i]===q.correct ? "correct" : "wrong");
       }
-    }else{
-      if(userAnswers[i]!==null) dot.classList.add("answered");
-    }
+    }else if(userAnswers[i]!==null){ dot.classList.add("answered"); }
 
     dot.onclick = ()=>{ idx=i; renderQuestion(); };
     questionNavigator.appendChild(dot);
   });
 }
-
 function toggleFlag(){
   if(flagged.includes(idx)) flagged = flagged.filter(n=>n!==idx);
   else flagged.push(idx);
@@ -268,9 +258,6 @@ function updateFlagButton(){
 }
 flagBtn.onclick = toggleFlag;
 
-// ==========================
-// COMMENTS (QUIZ MODE ONLY)
-// ==========================
 function renderCommentsFor(q){
   commentsList.innerHTML = "";
   const entries = getCommentsFor(q);
@@ -298,7 +285,7 @@ saveCommentBtn.onclick = ()=>{
 };
 
 // ==========================
-// CONTROLS & FINISH
+// CONTROLS & RESULTS
 // ==========================
 function updateNavButtons(){
   prevBtn.disabled = (idx===0);
@@ -311,7 +298,6 @@ nextBtn.onclick = ()=>{ if(idx<selected.length-1){ idx++; renderQuestion(); } el
 function finishRun(){
   stopExamTimer();
   hide(quizEl); show(resultsEl);
-
   const score = recomputeScore();
   const incorrect = selected.filter((q,i)=> userAnswers[i]!==q.correct);
   const pct = Math.round((score/selected.length)*100);
@@ -323,7 +309,6 @@ function finishRun(){
       ${pct>=PASS_MARK ? "PASS" : "FAIL"} — Pass mark ${PASS_MARK}%
     </span>
   `;
-
   reviewBtn.onclick = ()=> showReview(incorrect);
   retryBtn.onclick  = ()=> startQuiz(incorrect);
   if(incorrect.length){ reviewBtn.classList.remove("hidden"); retryBtn.classList.remove("hidden"); }
@@ -348,19 +333,44 @@ backToResultsBtn.onclick = ()=>{ hide(reviewEl); show(resultsEl); };
 retryFromReviewBtn.onclick = ()=> startQuiz(selected.filter((q,i)=> userAnswers[i]!==q.correct));
 
 // ==========================
-// SEARCH MODE
+// SEARCH MODE (with categories)
 // ==========================
 function startSearch(){
   hideAll(); show(searchEl);
   searchInput.value=""; searchInput.focus();
+
+  // Build category buttons if not already
+  if(!categoryButtonsContainer){
+    categoryButtonsContainer = document.createElement("div");
+    categoryButtonsContainer.className = "mode-buttons";
+    searchEl.insertBefore(categoryButtonsContainer, searchInput);
+  }
+
+  const categories = Array.from(new Set(allQuestions.map(q => q.category || "Uncategorised")));
+  categoryButtonsContainer.innerHTML = "";
+  const allBtn = document.createElement("button");
+  allBtn.textContent = "All";
+  allBtn.className = "secondary";
+  allBtn.onclick = ()=> renderSearch(allQuestions);
+  categoryButtonsContainer.appendChild(allBtn);
+
+  categories.forEach(cat=>{
+    const btn = document.createElement("button");
+    btn.textContent = cat;
+    btn.className = "secondary";
+    btn.onclick = ()=> renderSearch(allQuestions.filter(q => (q.category||"Uncategorised") === cat));
+    categoryButtonsContainer.appendChild(btn);
+  });
+
   renderSearch(allQuestions);
 }
+
 function renderSearch(list){
   searchList.innerHTML="";
   list.forEach((q,i)=>{
     const item=document.createElement("div");
     item.className="search-item";
-    item.innerHTML = `<p class="q">${i+1}. ${q.question}</p>`;
+    item.innerHTML = `<p class="q">${q.category ? `[${q.category}] ` : ""}${i+1}. ${q.question}</p>`;
     const ans = document.createElement("div");
     ans.className="search-answers";
     q.answers.forEach((a,ix)=>{
