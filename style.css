@@ -124,3 +124,26 @@ body.dark .answer-btn{ border-color:rgba(255,255,255,.16) }
 body.dark .review-item { border-color: rgba(255,255,255,.16); }
 .review-q { font-weight:600; margin:0 0 6px 0; }
 .review-a { margin:0; opacity:.9; }
+
+/* Search view */
+.search-input{
+  width:100%; padding:10px 12px; margin:8px 0 12px;
+  border-radius:10px; border:1px solid rgba(0,0,0,.15);
+}
+body.dark .search-input{ border-color: rgba(255,255,255,.2); background: rgba(255,255,255,.04); color: inherit; }
+
+.search-list{ display:grid; gap:10px; max-height:60vh; overflow:auto; }
+.search-item{
+  padding:12px; border-radius:12px; border:1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.04); cursor:pointer;
+}
+body.dark .search-item{ border-color: rgba(255,255,255,.16); }
+.search-item .q{ font-weight:600; margin:0 0 6px 0 }
+.search-item .a{ margin:0; display:none }
+.search-item.open .a{ display:block }
+
+/* Timer badge */
+#timer{
+  background: rgba(0,0,0,.15); color: #fff; padding:6px 10px; border-radius:999px;
+  font-weight:700; letter-spacing:.5px;
+}
