@@ -168,6 +168,10 @@ button.active-cat {
   opacity: .8;
   cursor: not-allowed;
 }
+.answer-btn.selected{
+  border-color: var(--sky);
+  background: rgba(0,170,255,.15);
+}
 
 /* ===== Quiz Header ===== */
 .quiz-header {
