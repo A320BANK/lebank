@@ -111,3 +111,9 @@ button.secondary{ background:transparent; color:var(--sky); border:1px solid var
   background:rgba(255,255,255,.04); color:inherit;
   border:1px solid rgba(255,255,255,.2);
 }
+
+button.active-cat {
+  background: var(--sky);
+  color: #001018;
+  font-weight: 700;
+}
