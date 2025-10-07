@@ -1,15 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>A320 Question Bank</title>
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#00aaff" />
+
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Header -->
+
+  <!-- ===== Header ===== -->
   <header>
     <div class="header-left">
       <h2 class="airbus-text">AIRBUS</h2>
@@ -17,43 +18,30 @@
     </div>
   </header>
 
-  <!-- Main menu -->
+  <!-- ===== Mode Select (Home) ===== -->
   <main id="modeSelect">
-    <div class="mode-buttons">
-      <button id="quizModeBtn">Quiz</button>
-      <button id="examModeBtn">Exam (100)</button>
-      <button id="searchModeBtn" class="secondary">Search (browse all)</button>
-      <button id="srsModeBtn" class="secondary">Study SRS (incorrects)</button>
+    <div class="controls">
+      <div class="mode-buttons">
+        <button id="quizModeBtn">Quiz</button>
+        <button id="examModeBtn">Exam</button>
+        <button id="searchModeBtn" class="secondary">Search (browse all)</button>
+      </div>
     </div>
   </main>
 
-  <!-- Quiz Setup -->
-  <section id="setup" class="hidden">
-    <div class="quiz-setup">
-      <label for="quizCategory">Category:</label>
-      <select id="quizCategory"></select>
+  <!-- ===== Quiz Setup ===== -->
+  <section id="setup" class="quiz-setup hidden">
+    <label for="quizCategory">Category:</label>
+    <select id="quizCategory"></select>
 
-      <label for="numQuestions">Number of questions:</label>
-      <input type="range" id="numQuestions" min="1" max="483" value="10" />
-      <span id="numQuestionsLabel">10</span>
+    <label for="numQuestions">Number of questions:</label>
+    <input type="range" id="numQuestions" min="1" max="483" value="10" />
+    <span id="numQuestionsLabel">10</span>
 
-      <button id="startQuizBtn">Start Quiz</button>
-      <button id="backToMainFromSetup" class="secondary">Main Menu</button>
-    </div>
-
-    <!-- Custom Exam Builder -->
-    <div class="exam-builder">
-      <h3>Custom Exam Builder</h3>
-      <p class="muted">Pick categories & counts (total ≤ 100). Uses exam rules (answers revealed at the end).</p>
-      <div id="examBuilderList" class="builder-list"></div>
-      <div class="builder-actions">
-        <div><strong>Total:</strong> <span id="builderTotal">0</span> / 100</div>
-        <button id="startCustomExamBtn">Start Custom Exam</button>
-      </div>
-    </div>
+    <button id="startQuizBtn">Start Quiz</button>
   </section>
 
-  <!-- Quiz/Exam -->
+  <!-- ===== Quiz / Exam ===== -->
   <section id="quiz" class="hidden">
     <div class="quiz-header">
       <div id="progressText"></div>
@@ -66,6 +54,7 @@
       <div id="answersContainer" class="answers-grid"></div>
     </div>
 
+    <!-- Actions: Main Menu moved left, Prev/Next on right -->
     <div class="quiz-actions">
       <div class="left-actions">
         <button id="mainMenuBtn" class="secondary">🏠 Main Menu</button>
@@ -76,62 +65,50 @@
       </div>
     </div>
 
+    <!-- Navigator -->
     <div id="navigatorContainer" class="navigator"></div>
 
+    <!-- Status bar: remaining + flag -->
     <div id="statusBar" class="status-bar">
       <span id="remainingText">Left: —</span>
       <button id="flagBtn" class="secondary">🚩 Flag Question</button>
     </div>
   </section>
 
-  <!-- Results -->
+  <!-- ===== Results ===== -->
   <section id="results" class="hidden">
     <div class="question-card">
       <h2>Results</h2>
-      <div id="finalScore"></div>
-      <div id="resultBadge" style="margin:8px 0"></div>
-      <div id="categoryBreakdown"></div>
-      <div class="quiz-actions" style="justify-content:center">
-        <button id="reviewBtn">Review Incorrect</button>
-        <button id="restartIncorrectBtn" class="secondary">Retake Incorrect</button>
+      <p id="finalScore"></p>
+      <div id="resultBadge"></div>
+      <div class="quiz-actions" style="justify-content:center;gap:10px;">
+        <button id="reviewBtn" class="secondary">Review Incorrect</button>
+        <button id="restartIncorrectBtn">Retry Incorrect</button>
         <button id="playAgainBtn" class="secondary">Main Menu</button>
       </div>
     </div>
   </section>
 
-  <!-- Review (incorrect) -->
+  <!-- ===== Review Incorrect ===== -->
   <section id="review" class="hidden">
-    <div id="reviewList"></div>
-    <div class="quiz-actions" style="justify-content:center">
-      <button id="playAgainBtn2" class="secondary">Main Menu</button>
+    <div class="controls" style="text-align:center;">
+      <button id="playAgainBtn_review" class="secondary" onclick="document.getElementById('playAgainBtn').click()">Main Menu</button>
     </div>
+    <div id="reviewList" class="controls"></div>
   </section>
 
-  <!-- Search -->
+  <!-- ===== Search ===== -->
   <section id="search" class="hidden">
     <div class="controls search-controls">
+      <button id="backToMenuFromSearch" class="secondary">🏠 Main Menu</button>
       <input id="searchInput" class="search-input" placeholder="Search questions or answers…" />
+      <!-- Category buttons container will be injected here -->
     </div>
-    <div id="searchList" class="search-list"></div>
-    <div class="quiz-actions" style="justify-content:center">
-      <button id="backToMenuFromSearch" class="secondary">Main menu</button>
-    </div>
+    <div id="searchList" class="controls search-list"></div>
   </section>
 
-  <!-- Optional loading plane (kept, auto-fades) -->
-  <div id="loading-screen" class="hidden">
-    <div class="runway"></div>
-    <div class="plane" style="top:-20px"></div>
-  </div>
-
-  <!-- Data first -->
+  <!-- Scripts: questions then app script -->
   <script src="questions_categorized.js"></script>
-  <!-- App -->
-  <script src="script.js" defer></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js').catch(()=>{});
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
