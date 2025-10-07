@@ -51,11 +51,16 @@ header h1 {
   align-items: center;
   gap: 14px;
 }
-.airbus-logo {
-  height: 42px;
-  width: auto;
-  flex-shrink: 0;
-  filter: drop-shadow(0 0 4px rgba(0,170,255,.4));
+
+/* Simple AIRBUS text style */
+.airbus-text {
+  font-family: "Arial Black", "Helvetica Neue", sans-serif;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #00aaff;
+  font-size: 1.5rem;
+  text-shadow: 0 0 6px rgba(0,170,255,.4);
+  margin: 0;
 }
 
 /* ===== Buttons ===== */
