@@ -485,8 +485,9 @@ searchInput.oninput = () => {
     filtered = filtered.filter(q => (q.category || "Uncategorised") === activeCategory);
   }
   renderSearch(filtered);
+};
 
-  // ==========================
+// ==========================
 // KEYBOARD SHORTCUTS
 // ==========================
 
@@ -529,4 +530,3 @@ document.addEventListener("keydown", (e) => {
     flagBtn.click();
   }
 });
-};
