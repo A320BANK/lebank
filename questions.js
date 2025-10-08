@@ -4914,7 +4914,7 @@ const questions = [
       "Below 800 ft radio altitude",
       "With selection of GEAR DOWN"
     ],
-    "correct": 1,
+    "correct": 2,
     "category": "Indicating/recording systems"
   },
   {
@@ -5302,6 +5302,7 @@ const questions = [
     "category": "Air systems"
   }
 ];
+
 
 
 
