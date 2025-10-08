@@ -485,4 +485,48 @@ searchInput.oninput = () => {
     filtered = filtered.filter(q => (q.category || "Uncategorised") === activeCategory);
   }
   renderSearch(filtered);
+
+  // ==========================
+// KEYBOARD SHORTCUTS
+// ==========================
+
+// Allow navigation and answer selection via keyboard
+document.addEventListener("keydown", (e) => {
+  // Only active in quiz/exam mode
+  if (quizEl.classList.contains("hidden")) return;
+
+  // Ignore if typing in an input
+  if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
+
+  const key = e.key.toLowerCase();
+
+  // Navigation
+  if (key === "arrowright" && !nextBtn.disabled) {
+    nextQuestion();
+    return;
+  }
+  if (key === "arrowleft" && !prevBtn.disabled) {
+    prevQuestion();
+    return;
+  }
+
+  // Answer selection (A/S/Z/X)
+  const buttons = answersContainer.querySelectorAll(".answer-btn");
+  if (!buttons.length) return;
+
+  let index = null;
+  if (key === "a") index = 0; // top-left
+  if (key === "s") index = 1; // top-right
+  if (key === "z") index = 2; // bottom-left
+  if (key === "x") index = 3; // bottom-right
+
+  if (index !== null && buttons[index]) {
+    buttons[index].click(); // simulate click
+  }
+
+  // Optional: allow F to flag current question
+  if (key === "f") {
+    flagBtn.click();
+  }
+});
 };
