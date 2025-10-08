@@ -1930,7 +1930,7 @@ const questions = [
     "answers": [
       "When the APU is shut down.",
       "When the landing gear is selected down.",
-      "When APU N1 is below 50%.",
+      "When APU  is below 50%.",
       "When the APU bleed air pressure is sufficient."
     ],
     "correct": 0,
@@ -3561,7 +3561,7 @@ const questions = [
       "A PRIMARY failure has occurred",
       "An ADVISORY has occurred; the drifting parameter will be pulsing green"
     ],
-    "correct": 1,
+    "correct": 3,
     "category": "Indicating/recording systems"
   },
   {
@@ -4287,7 +4287,7 @@ const questions = [
       "An ADVISORY has occurred; the drifting parameter will be pulsing green",
       "An INDEPENDENT failure has occurred"
     ],
-    "correct": 1,
+    "correct": 2,
     "category": "Indicating/recording systems"
   },
   {
@@ -5291,6 +5291,7 @@ const questions = [
     "category": "Air systems"
   }
 ];
+
 
 
 
