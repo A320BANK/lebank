@@ -4738,7 +4738,7 @@ const questions = [
       "First engine to takeoff power to 1,500 ft (phases 3, 4 and 5)",
       "1st eng to takeoff power to 800 ft (phases 3, 4 and 6)"
     ],
-    "correct": 0,
+    "correct": 2,
     "category": "Indicating/recording systems"
   },
   {
@@ -5291,6 +5291,28 @@ const questions = [
     "category": "Air systems"
   },
   {
+    "question": "Following a double FMGC failure how can the navigation radios be tuned?",
+    "answers": [
+      "Select the NAV key (under the transparent switch guard) on RMP 1 and 2. Each RMP tunes it's respective onside VOR and ADF radios. Both ILS receivers can be tuned from either RMP 1 or 2",
+      "The MCDU can be used in a back-up tuning mode, allowing the MCDU to communicatoe directly with the navigation radios",
+      "Select the NAV key (under the transparent switch guard) on RMP 1 and 2. The ILS frequency must be tuned separately in each RMP to ensure that the localiser and gliseslope indications are available on both PFDs",
+      "Select the NAV key (under the transparent switch guard) on RMP 1, 2, or 3. Any RMP can tune any navigation radio"
+    ],
+    "correct": 0,
+    "category": "Navigation"
+  },
+  {
+    "question": "What is the normal mode of operation of the FMGS?",
+    "answers": [
+      "Backup navigation mode",
+      "Independent mode",
+      "Dual mode",
+      "Single mode"
+    ],
+    "correct": 2,
+    "category": "Auto flight"
+  },
+  {
     "question": "Select the correct statement about the potable water system",
     "answers": [
       "A vacuum generator is used to distribute potable water around the aircraft",
@@ -5302,6 +5324,7 @@ const questions = [
     "category": "Air systems"
   }
 ];
+
 
 
 
