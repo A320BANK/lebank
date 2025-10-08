@@ -230,11 +230,11 @@ function renderQuestion(){
 // ==========================
 // SELECT ANSWER
 // ==========================
-function selectAnswer(i){
+function selectAnswer(i) {
   const q = quizQuestions[currentIndex];
   userAnswers[currentIndex] = i;
 
-  if (!examMode){
+  if (!examMode) {
     // lock and show correctness immediately
     const buttons = answersContainer.querySelectorAll(".answer-btn");
     buttons.forEach((b, idx) => {
@@ -243,8 +243,28 @@ function selectAnswer(i){
       else if (idx === i) b.classList.add("wrong");
     });
 
-    if (i === q.correct) score++; else incorrectQs.push(q);
+    const isCorrect = (i === q.correct);
+    if (isCorrect) score++;
+    else incorrectQs.push(q);
     scoreText.textContent = `Score: ${score}`;
+
+    renderNavigator();
+    updateStatusBar();
+    updateNavButtons();
+
+    // ✅ NEW FEATURE: Auto-advance after 2s if correct
+    if (isCorrect) {
+      setTimeout(() => {
+        if (currentIndex < quizQuestions.length - 1) {
+          currentIndex++;
+          renderQuestion();
+          renderNavigator();
+        } else {
+          endRun(); // if it's the last question, end quiz
+        }
+      }, 2000);
+    }
+
   } else {
     // Exam: highlight chosen in blue and allow navigation
     const buttons = answersContainer.querySelectorAll(".answer-btn");
@@ -252,11 +272,11 @@ function selectAnswer(i){
       b.classList.remove("selected");
       if (idx === i) b.classList.add("selected");
     });
-  }
 
-  renderNavigator();
-  updateStatusBar();
-  updateNavButtons();
+    renderNavigator();
+    updateStatusBar();
+    updateNavButtons();
+  }
 }
 
 // ==========================
