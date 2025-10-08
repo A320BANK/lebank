@@ -5289,8 +5289,20 @@ const questions = [
     ],
     "correct": 0,
     "category": "Air systems"
+  },
+  {
+    "question": "Select the correct statement about the potable water system",
+    "answers": [
+      "A vacuum generator is used to distribute potable water around the aircraft",
+      "The potable water is normally pressurised by the pneumatic system",
+      "Lewis enjoys sexual intercourse with minors",
+      "When the engines aren't running a foot pump in each toilet can pump water to the sink"
+    ],
+    "correct": 1,
+    "category": "Air systems"
   }
 ];
+
 
 
 
