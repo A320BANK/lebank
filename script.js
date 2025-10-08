@@ -230,11 +230,11 @@ function renderQuestion(){
 // ==========================
 // SELECT ANSWER
 // ==========================
-function selectAnswer(i) {
+function selectAnswer(i){
   const q = quizQuestions[currentIndex];
   userAnswers[currentIndex] = i;
 
-  if (!examMode) {
+  if (!examMode){
     // lock and show correctness immediately
     const buttons = answersContainer.querySelectorAll(".answer-btn");
     buttons.forEach((b, idx) => {
@@ -243,28 +243,8 @@ function selectAnswer(i) {
       else if (idx === i) b.classList.add("wrong");
     });
 
-    const isCorrect = (i === q.correct);
-    if (isCorrect) score++;
-    else incorrectQs.push(q);
+    if (i === q.correct) score++; else incorrectQs.push(q);
     scoreText.textContent = `Score: ${score}`;
-
-    renderNavigator();
-    updateStatusBar();
-    updateNavButtons();
-
-    // ✅ NEW FEATURE: Auto-advance after 2s if correct
-    if (isCorrect) {
-      setTimeout(() => {
-        if (currentIndex < quizQuestions.length - 1) {
-          currentIndex++;
-          renderQuestion();
-          renderNavigator();
-        } else {
-          endRun(); // if it's the last question, end quiz
-        }
-      }, 2000);
-    }
-
   } else {
     // Exam: highlight chosen in blue and allow navigation
     const buttons = answersContainer.querySelectorAll(".answer-btn");
@@ -272,63 +252,39 @@ function selectAnswer(i) {
       b.classList.remove("selected");
       if (idx === i) b.classList.add("selected");
     });
-
-    renderNavigator();
-    updateStatusBar();
-    updateNavButtons();
   }
+
+  renderNavigator();
+  updateStatusBar();
+  updateNavButtons();
 }
 
 // ==========================
 // NAVIGATOR
 // ==========================
-function selectAnswer(i) {
-  const q = quizQuestions[currentIndex];
-  userAnswers[currentIndex] = i;
+function renderNavigator(){
+  navigatorContainer.innerHTML = "";
+  quizQuestions.forEach((q, i) => {
+    const dot = document.createElement("button");
+    dot.className = "nav-dot";
+    dot.textContent = i + 1;
 
-  if (!examMode) {
-    // lock and show correctness immediately
-    const buttons = answersContainer.querySelectorAll(".answer-btn");
-    buttons.forEach((b, idx) => {
-      b.disabled = true;
-      if (idx === q.correct) b.classList.add("correct");
-      else if (idx === i) b.classList.add("wrong");
-    });
+    if (i === currentIndex) dot.classList.add("active");
+    if (flaggedSet.has(i)) dot.classList.add("flagged");
 
-    const isCorrect = (i === q.correct);
-    if (isCorrect) score++;
-    else incorrectQs.push(q);
-    scoreText.textContent = `Score: ${score}`;
-
-    renderNavigator();
-    updateStatusBar();
-    updateNavButtons();
-
-    // ✅ NEW FEATURE: Auto-advance after 2s if correct
-    if (isCorrect) {
-      setTimeout(() => {
-        if (currentIndex < quizQuestions.length - 1) {
-          currentIndex++;
-          renderQuestion();
-          renderNavigator();
-        } else {
-          endRun(); // if it's the last question, end quiz
-        }
-      }, 2000);
+    const ans = userAnswers[i];
+    if (ans !== null){
+      if (!examMode){
+        if (ans === q.correct) dot.classList.add("correct");
+        else dot.classList.add("wrong");
+      } else {
+        dot.classList.add("answered");
+      }
     }
 
-  } else {
-    // Exam: highlight chosen in blue and allow navigation
-    const buttons = answersContainer.querySelectorAll(".answer-btn");
-    buttons.forEach((b, idx) => {
-      b.classList.remove("selected");
-      if (idx === i) b.classList.add("selected");
-    });
-
-    renderNavigator();
-    updateStatusBar();
-    updateNavButtons();
-  }
+    dot.onclick = () => { currentIndex = i; renderQuestion(); renderNavigator(); };
+    navigatorContainer.appendChild(dot);
+  });
 }
 
 // ==========================
@@ -531,6 +487,7 @@ searchInput.oninput = () => {
   renderSearch(filtered);
 };
 
+  // ==========================
 // ==========================
 // KEYBOARD SHORTCUTS
 // ==========================
