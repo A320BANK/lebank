@@ -3264,7 +3264,7 @@ const questions = [
       "The system will automatically select alternate brakes with anti-skid, using the yellow hydraulic system accumulator only. Anti-skid remains available because the BSCU is serviceable.",
       "Normal braking will be lost. To recover brakes, the flight crew must manually select alternate brakes by moving the A/SKID and NW STRG switch to OFF. Up to 7 brake applications will be possible using the braking accumulator."
     ],
-    "correct": 3,
+    "correct": 0,
     "category": "Hydraulics"
   },
   {
@@ -5313,6 +5313,7 @@ const questions = [
     "category": "Air systems"
   }
 ];
+
 
 
 
