@@ -201,8 +201,10 @@ function renderQuestion() {
   progressText.textContent = `Question ${currentIndex + 1} of ${quizQuestions.length}`;
   questionText.textContent = q.question;
 
-  // ✅ Create an array of answer indices (0..n-1) and shuffle them
-  const shuffledIndices = shuffle([...q.answers.keys()]);
+  // ✅ Shuffle answers
+  if (!q._order) q._order = shuffle([...q.answers.keys()]);
+  const shuffledIndices = q._order;
+
   answersContainer.innerHTML = "";
 
   shuffledIndices.forEach((shuffledIndex) => {
@@ -211,7 +213,6 @@ function renderQuestion() {
     btn.className = "answer-btn";
     btn.textContent = a;
 
-    // reflect previous selection if any
     const selectedAnswer = userAnswers[currentIndex];
     if (selectedAnswer !== null) {
       const correctIndex = q.correct;
@@ -229,9 +230,6 @@ function renderQuestion() {
     answersContainer.appendChild(btn);
   });
 
-  updateNavButtons();
-  updateStatusBar();
-}
   updateNavButtons();
   updateStatusBar();
 }
