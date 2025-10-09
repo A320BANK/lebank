@@ -196,33 +196,42 @@ function startExam(){
 // ==========================
 // RENDER QUESTION
 // ==========================
-function renderQuestion(){
+function renderQuestion() {
   const q = quizQuestions[currentIndex];
   progressText.textContent = `Question ${currentIndex + 1} of ${quizQuestions.length}`;
   questionText.textContent = q.question;
 
+  // ✅ Create an array of answer indices (0..n-1) and shuffle them
+  const shuffledIndices = shuffle([...q.answers.keys()]);
   answersContainer.innerHTML = "";
-  q.answers.forEach((a, i) => {
+
+  shuffledIndices.forEach((shuffledIndex) => {
+    const a = q.answers[shuffledIndex];
     const btn = document.createElement("button");
     btn.className = "answer-btn";
     btn.textContent = a;
 
     // reflect previous selection if any
-    if (userAnswers[currentIndex] !== null) {
+    const selectedAnswer = userAnswers[currentIndex];
+    if (selectedAnswer !== null) {
+      const correctIndex = q.correct;
       if (!examMode) {
         btn.disabled = true;
-        if (i === q.correct) btn.classList.add("correct");
-        if (i === userAnswers[currentIndex] && i !== q.correct) btn.classList.add("wrong");
+        if (shuffledIndex === correctIndex) btn.classList.add("correct");
+        if (shuffledIndex === selectedAnswer && selectedAnswer !== correctIndex)
+          btn.classList.add("wrong");
       } else {
-        // Exam: show selected in blue
-        if (i === userAnswers[currentIndex]) btn.classList.add("selected");
+        if (shuffledIndex === selectedAnswer) btn.classList.add("selected");
       }
     }
 
-    btn.onclick = () => selectAnswer(i);
+    btn.onclick = () => selectAnswer(shuffledIndex);
     answersContainer.appendChild(btn);
   });
 
+  updateNavButtons();
+  updateStatusBar();
+}
   updateNavButtons();
   updateStatusBar();
 }
