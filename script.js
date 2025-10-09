@@ -201,8 +201,11 @@ function renderQuestion() {
   progressText.textContent = `Question ${currentIndex + 1} of ${quizQuestions.length}`;
   questionText.textContent = q.question;
 
-  // ✅ Shuffle answers
-  if (!q._order) q._order = shuffle([...q.answers.keys()]);
+  // ✅ Ensure answers are a real array and shuffle indices
+  if (!Array.isArray(q.answers)) q.answers = Object.values(q.answers || {});
+  if (!q._order) {
+    q._order = shuffle([...Array(q.answers.length).keys()]); // [0,1,2,3] shuffled
+  }
   const shuffledIndices = q._order;
 
   answersContainer.innerHTML = "";
@@ -233,37 +236,54 @@ function renderQuestion() {
   updateNavButtons();
   updateStatusBar();
 }
-
 // ==========================
 // SELECT ANSWER
 // ==========================
-function selectAnswer(i){
+function selectAnswer(i) {
   const q = quizQuestions[currentIndex];
   userAnswers[currentIndex] = i;
 
-  if (!examMode){
-    // lock and show correctness immediately
-    const buttons = answersContainer.querySelectorAll(".answer-btn");
+  const buttons = answersContainer.querySelectorAll(".answer-btn");
+
+  if (!examMode) {
+    // Lock and show correctness immediately
     buttons.forEach((b, idx) => {
       b.disabled = true;
-      if (idx === q.correct) b.classList.add("correct");
-      else if (idx === i) b.classList.add("wrong");
+      const actualIndex = q._order[idx]; // match shuffled order
+      if (actualIndex === q.correct) b.classList.add("correct");
+      else if (actualIndex === i) b.classList.add("wrong");
     });
 
-    if (i === q.correct) score++; else incorrectQs.push(q);
+    const isCorrect = (i === q.correct);
+    if (isCorrect) score++; else incorrectQs.push(q);
     scoreText.textContent = `Score: ${score}`;
+
+    renderNavigator();
+    updateStatusBar();
+    updateNavButtons();
+
+    // ✅ Auto-next if correct (after 2 seconds)
+    if (isCorrect) {
+      setTimeout(() => {
+        if (currentIndex < quizQuestions.length - 1) {
+          currentIndex++;
+          renderQuestion();
+          renderNavigator();
+        } else {
+          endRun();
+        }
+      }, 2000);
+    }
   } else {
-    // Exam: highlight chosen in blue and allow navigation
-    const buttons = answersContainer.querySelectorAll(".answer-btn");
+    // Exam: highlight selected in blue
     buttons.forEach((b, idx) => {
       b.classList.remove("selected");
-      if (idx === i) b.classList.add("selected");
+      if (q._order[idx] === i) b.classList.add("selected");
     });
+    renderNavigator();
+    updateStatusBar();
+    updateNavButtons();
   }
-
-  renderNavigator();
-  updateStatusBar();
-  updateNavButtons();
 }
 
 // ==========================
