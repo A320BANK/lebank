@@ -143,17 +143,25 @@ restartIncorrectBtn.onclick = retryIncorrect;
 // ==========================
 // STARTERS
 // ==========================
-function startQuiz(){
-  hideAll(); show(quizEl);
+function startQuiz() {
+  hideAll();
+  show(quizEl);
   examMode = false;
 
   allQuestions = getQuestionsArray();
   const chosenCat = quizCategorySel.value || "All";
-  const pool = (chosenCat === "All")
-    ? allQuestions
-    : allQuestions.filter(q => (q.category || "Uncategorised") === chosenCat);
+  const pool =
+    chosenCat === "All"
+      ? allQuestions
+      : allQuestions.filter(
+          (q) => (q.category || "Uncategorised") === chosenCat
+        );
 
   quizQuestions = shuffle(pool).slice(0, +numQuestionsInput.value);
+
+  // ✅ Reset any previous answer order so they reshuffle each quiz
+  quizQuestions.forEach(q => delete q._order);
+
   userAnswers = new Array(quizQuestions.length).fill(null);
   flaggedSet.clear();
 
@@ -162,7 +170,9 @@ function startQuiz(){
     if (flaggedIdSet.has(qid(q))) flaggedSet.add(idx);
   });
 
-  score = 0; currentIndex = 0; incorrectQs = [];
+  score = 0;
+  currentIndex = 0;
+  incorrectQs = [];
   scoreText.textContent = "Score: 0";
   timerEl.classList.add("hidden");
   renderQuestion();
@@ -170,11 +180,16 @@ function startQuiz(){
   updateStatusBar();
 }
 
-function startExam(){
-  hideAll(); show(quizEl);
+function startExam() {
+  hideAll();
+  show(quizEl);
   examMode = true;
   allQuestions = getQuestionsArray();
   quizQuestions = shuffle(allQuestions).slice(0, 100);
+
+  // ✅ Reset any previous shuffle order for random answers every exam
+  quizQuestions.forEach(q => delete q._order);
+
   userAnswers = new Array(quizQuestions.length).fill(null);
   flaggedSet.clear();
 
@@ -183,7 +198,9 @@ function startExam(){
     if (flaggedIdSet.has(qid(q))) flaggedSet.add(idx);
   });
 
-  score = 0; currentIndex = 0; incorrectQs = [];
+  score = 0;
+  currentIndex = 0;
+  incorrectQs = [];
   scoreText.textContent = ""; // no running score in exam
   timeRemaining = 3 * 60 * 60;
   timerEl.classList.remove("hidden");
@@ -192,7 +209,6 @@ function startExam(){
   renderNavigator();
   updateStatusBar();
 }
-
 // ==========================
 // RENDER QUESTION
 // ==========================
