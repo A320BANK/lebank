@@ -4738,7 +4738,7 @@ const questions = [
       "If CPC 1 was active at the time of the failure, CPC 2 will take over automatically. This alert is for crew awareness only (Level 1 ECAM alert)",
       "The pressurisation system will be operating in semi-automatic mode. The flight crew must adjust the target landing elevation using the LDG ELEV rotary knob on the CABIN PRESS panel."
     ],
-    "correct": 0,
+    "correct": 2,
     "category": "Air systems"
   },
   {
@@ -5313,6 +5313,7 @@ const questions = [
     "category": "Air systems"
   }
 ];
+
 
 
 
