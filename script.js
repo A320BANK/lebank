@@ -201,13 +201,17 @@ function renderQuestion() {
   progressText.textContent = `Question ${currentIndex + 1} of ${quizQuestions.length}`;
   questionText.textContent = q.question;
 
-  // ✅ Ensure answers are a real array and shuffle indices
-  if (!Array.isArray(q.answers)) q.answers = Object.values(q.answers || {});
-  if (!q._order) {
-    q._order = shuffle([...Array(q.answers.length).keys()]); // [0,1,2,3] shuffled
+  // ✅ Always convert answers into a real array if not already
+  if (!Array.isArray(q.answers)) {
+    q.answers = Object.values(q.answers || {});
   }
-  const shuffledIndices = q._order;
 
+  // ✅ Shuffle answer order once per question
+  if (!q._order) {
+    q._order = shuffle([...Array(q.answers.length).keys()]);
+  }
+
+  const shuffledIndices = q._order;
   answersContainer.innerHTML = "";
 
   shuffledIndices.forEach((shuffledIndex) => {
@@ -246,23 +250,23 @@ function selectAnswer(i) {
   const buttons = answersContainer.querySelectorAll(".answer-btn");
 
   if (!examMode) {
-    // Lock and show correctness immediately
     buttons.forEach((b, idx) => {
       b.disabled = true;
-      const actualIndex = q._order[idx]; // match shuffled order
+      const actualIndex = q._order[idx]; // real answer index
       if (actualIndex === q.correct) b.classList.add("correct");
       else if (actualIndex === i) b.classList.add("wrong");
     });
 
     const isCorrect = (i === q.correct);
-    if (isCorrect) score++; else incorrectQs.push(q);
-    scoreText.textContent = `Score: ${score}`;
+    if (isCorrect) score++;
+    else incorrectQs.push(q);
 
+    scoreText.textContent = `Score: ${score}`;
     renderNavigator();
     updateStatusBar();
     updateNavButtons();
 
-    // ✅ Auto-next if correct (after 2 seconds)
+    // ✅ Auto-advance after 2 seconds if correct
     if (isCorrect) {
       setTimeout(() => {
         if (currentIndex < quizQuestions.length - 1) {
@@ -275,7 +279,6 @@ function selectAnswer(i) {
       }, 2000);
     }
   } else {
-    // Exam: highlight selected in blue
     buttons.forEach((b, idx) => {
       b.classList.remove("selected");
       if (q._order[idx] === i) b.classList.add("selected");
@@ -285,7 +288,6 @@ function selectAnswer(i) {
     updateNavButtons();
   }
 }
-
 // ==========================
 // NAVIGATOR
 // ==========================
