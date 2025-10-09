@@ -2520,17 +2520,6 @@ const questions = [
     "category": "Indicating/recording systems"
   },
   {
-    "question": "What happens to the aircraft's electrical system when the emergency generator is operating?",
-    "answers": [
-      "The essential busses are powered by the emergency generator.",
-      "All aircraft systems are powered by the emergency generator.",
-      "The main battery powers the essential busses.",
-      "The RAT powers the essential busses."
-    ],
-    "correct": 0,
-    "category": "Electrical"
-  },
-  {
     "question": "What is the limiting factor for opening the Ram Air Valve?",
     "answers": [
       "Aircraft altitude at or below 10,000 ft.",
@@ -5324,6 +5313,7 @@ const questions = [
     "category": "Air systems"
   }
 ];
+
 
 
 
