@@ -1893,7 +1893,7 @@ const questions = [
     "category": "Hydraulics"
   },
   {
-    "question": "What is the normal power source for the IRUs?",
+    "question": "What is the normal power source for the IRS's?",
     "answers": [
       "AC Bus 1 and AC Bus 2",
       "DC Bus 1 and DC Bus 2",
@@ -5313,6 +5313,7 @@ const questions = [
     "category": "Air systems"
   }
 ];
+
 
 
 
