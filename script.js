@@ -292,7 +292,7 @@ function selectAnswer(i) {
         } else {
           endRun();
         }
-      }, 2000);
+      }, 1000);
     }
   } else {
     buttons.forEach((b, idx) => {
