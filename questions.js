@@ -5312,4 +5312,137 @@
     "correct": 1,
     "category": "Air systems"
   }
+  {
+  "question": "What happens to the wing and engine anti-ice valves when the hot air supply is unavailable?",
+  "answers": [
+    "Wing anti-ice valves open, engine anti-ice valves open",
+    "Wing anti-ice valves close, engine anti-ice valves close",
+    "Wing anti-ice valves close, engine anti-ice valves open",
+    "Wing anti-ice valves open, engine anti-ice valves close"
+  ],
+  "correct": 1,
+  "category": "Anti-Ice"
+},
+{
+  "question": "How can you check that engine anti-ice has been selected on?",
+  "answers": [
+    "ENG A. ICE will be displayed on the status page",
+    "The ON (WHITE) lights on the ENG anti-ice push buttons are the only indications",
+    "ON (WHITE) light on one or more ENG anti-ice push buttons, ENG A. ICE memo displayed in AMBER on the EWD",
+    "ON (BLUE) light on one or more ENG anti-ice push buttons, ENG A. ICE memo displayed in GREEN on the EWD"
+  ],
+  "correct": 3,
+  "category": "Anti-Ice"
+},
+{
+  "question": "During a successful manual engine start when does the start valve close, and ignition cut off?",
+  "answers": [
+    "The FADEC automatically closes the start valve and cuts off ignition when N2 reaches 50%",
+    "The start valve closes when the flight crew set the MAN START push button to OFF, and the igniters cut-off when the MODE selector is returned to normal",
+    "The start valve closes when the MAN START push button is set to OFF. The ignition remains energised until the start sequence has completed, as indicated by a green AVAIL message on the EWD",
+    "The start valve closes and igniters cut off when the MAN START push button is set to OFF"
+  ],
+  "correct": 0,
+  "category": "Engines"
+},
+{
+  "question": "Where does the air data displayed on the ISIS come from?",
+  "answers": [
+    "ADIRU 1, ADIRU 3, or from its own internal transducers connected to the standby pilot probe and static ports",
+    "Only from its own internal transducers connected to the standby pilot probe and static ports",
+    "ADIRU 1, 2 or 3",
+    "Only ADIRU 3"
+  ],
+  "correct": 0,
+  "category": "Instruments"
+},
+{
+  "question": "What is the standard method for disconnecting the A/THR?",
+  "answers": [
+    "The A/THR instinctive disconnect pushbutton is the only standard method for disconnecting the A/THR",
+    "By moving the thrust levers forwards out of the CLB detent (AEO)",
+    "The flight crew press the A/THR instinctive disconnect pushbutton, or set both thrust levers to the IDLE detent",
+    "The flight crew press the A/THR button on the FCU"
+  ],
+  "correct": 2,
+  "category": "Autothrust"
+},
+{
+  "question": "The aircraft is on the ground with external power plugged into the aircraft, and the APU running. How can the APU generator be connected to the electrical system?",
+  "answers": [
+    "By pushing the APU MASTER SW pb-sw",
+    "By pushing the EXT PWR pb when the green AVAIL light is illuminated",
+    "By pushing the EXT PWR pb when the blue ON light is illuminated",
+    "By pushing the APU START pb-sw"
+  ],
+  "correct": 2,
+  "category": "Electrical"
+},
+{
+  "question": "Frequency selection on each RMP is done by concentric knobs:",
+  "answers": [
+    "The outer knob controls voice frequencies and the inner knob controls NAV aid frequencies",
+    "The outer knob controls whole numbers, the inner knob controls decimal fractions",
+    "The outer knob controls the active box and the inner knob the standby",
+    "The outer knob controls decimal fractions, the inner knob controls whole numbers"
+  ],
+  "correct": 1,
+  "category": "Radios"
+},
+{
+  "question": "When does the window (windshield) heating come on automatically?",
+  "answers": [
+    "When AC power is available",
+    "On the ground when AC power is available, and the outside temperature is less than 10°C",
+    "When at least one engine is running or in flight",
+    "After both engines are running or in flight"
+  ],
+  "correct": 2,
+  "category": "Anti-Ice"
+},
+{
+  "question": "Which of the following options contains only managed AP / FD modes?",
+  "answers": [
+    "NAV, LOC, GS, RWY, RWY TRK, GA TRK, FPA",
+    "NAV, OP CLB, OP DES, LOC, RWY, RWY TRK, GA TRK",
+    "NAV, HDG, LOC, RWY, RWY TRK",
+    "NAV, APPR, NAV, LOC, RWY, RWY TRK, GA TRK"
+  ],
+  "correct": 3,
+  "category": "Flight Director"
+},
+{
+  "question": "The crossfeed valve (X FEED) is:",
+  "answers": [
+    "Normally closed",
+    "Controlled by a single motor",
+    "Open for takeoff",
+    "Opened automatically when the MODE SEL pushbutton is set to AUTO, and the fuel imbalance reaches 1,500 kg"
+  ],
+  "correct": 0,
+  "category": "Fuel"
+},
+{
+  "question": "What are the basic modes of the AP / FD?",
+  "answers": [
+    "HDG and VS",
+    "SPD and HDG",
+    "ALT and NAV",
+    "Pitch and roll"
+  ],
+  "correct": 0,
+  "category": "Flight Director"
+},
+{
+  "question": "If the rudder pedals are at full deflection at normal taxi speed, what will the NWS angle be?",
+  "answers": [
+    "16°",
+    "6°",
+    "20°",
+    "10°"
+  ],
+  "correct": 1,
+  "category": "Flight Controls"
+}
 ];
+
