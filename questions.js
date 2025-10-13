@@ -5313,284 +5313,267 @@ const questions = [
     "category": "Air systems"
   }
   {
-  "question": "What happens to the wing and engine anti-ice valves when the hot air supply is unavailable?",
-  "answers": [
-    "Wing anti-ice valves open, engine anti-ice valves open",
-    "Wing anti-ice valves close, engine anti-ice valves close",
-    "Wing anti-ice valves close, engine anti-ice valves open",
-    "Wing anti-ice valves open, engine anti-ice valves close"
-  ],
-  "correct": 1,
-  "category": "Anti-Ice"
-},
-{
-  "question": "How can you check that engine anti-ice has been selected on?",
-  "answers": [
-    "ENG A. ICE will be displayed on the status page",
-    "The ON (WHITE) lights on the ENG anti-ice push buttons are the only indications",
-    "ON (WHITE) light on one or more ENG anti-ice push buttons, ENG A. ICE memo displayed in AMBER on the EWD",
-    "ON (BLUE) light on one or more ENG anti-ice push buttons, ENG A. ICE memo displayed in GREEN on the EWD"
-  ],
-  "correct": 3,
-  "category": "Anti-Ice"
-},
-{
-  "question": "During a successful manual engine start when does the start valve close, and ignition cut off?",
-  "answers": [
-    "The FADEC automatically closes the start valve and cuts off ignition when N2 reaches 50%",
-    "The start valve closes when the flight crew set the MAN START push button to OFF, and the igniters cut-off when the MODE selector is returned to normal",
-    "The start valve closes when the MAN START push button is set to OFF. The ignition remains energised until the start sequence has completed, as indicated by a green AVAIL message on the EWD",
-    "The start valve closes and igniters cut off when the MAN START push button is set to OFF"
-  ],
-  "correct": 0,
-  "category": "Engines"
-},
-{
-  "question": "Where does the air data displayed on the ISIS come from?",
-  "answers": [
-    "ADIRU 1, ADIRU 3, or from its own internal transducers connected to the standby pilot probe and static ports",
-    "Only from its own internal transducers connected to the standby pilot probe and static ports",
-    "ADIRU 1, 2 or 3",
-    "Only ADIRU 3"
-  ],
-  "correct": 0,
-  "category": "Instruments"
-},
-{
-  "question": "What is the standard method for disconnecting the A/THR?",
-  "answers": [
-    "The A/THR instinctive disconnect pushbutton is the only standard method for disconnecting the A/THR",
-    "By moving the thrust levers forwards out of the CLB detent (AEO)",
-    "The flight crew press the A/THR instinctive disconnect pushbutton, or set both thrust levers to the IDLE detent",
-    "The flight crew press the A/THR button on the FCU"
-  ],
-  "correct": 2,
-  "category": "Autothrust"
-},
-{
-  "question": "The aircraft is on the ground with external power plugged into the aircraft, and the APU running. How can the APU generator be connected to the electrical system?",
-  "answers": [
-    "By pushing the APU MASTER SW pb-sw",
-    "By pushing the EXT PWR pb when the green AVAIL light is illuminated",
-    "By pushing the EXT PWR pb when the blue ON light is illuminated",
-    "By pushing the APU START pb-sw"
-  ],
-  "correct": 2,
-  "category": "Electrical"
-},
-{
-  "question": "Frequency selection on each RMP is done by concentric knobs:",
-  "answers": [
-    "The outer knob controls voice frequencies and the inner knob controls NAV aid frequencies",
-    "The outer knob controls whole numbers, the inner knob controls decimal fractions",
-    "The outer knob controls the active box and the inner knob the standby",
-    "The outer knob controls decimal fractions, the inner knob controls whole numbers"
-  ],
-  "correct": 1,
-  "category": "Radios"
-},
-{
-  "question": "When does the window (windshield) heating come on automatically?",
-  "answers": [
-    "When AC power is available",
-    "On the ground when AC power is available, and the outside temperature is less than 10°C",
-    "When at least one engine is running or in flight",
-    "After both engines are running or in flight"
-  ],
-  "correct": 2,
-  "category": "Anti-Ice"
-},
-{
-  "question": "Which of the following options contains only managed AP / FD modes?",
-  "answers": [
-    "NAV, LOC, GS, RWY, RWY TRK, GA TRK, FPA",
-    "NAV, OP CLB, OP DES, LOC, RWY, RWY TRK, GA TRK",
-    "NAV, HDG, LOC, RWY, RWY TRK",
-    "NAV, APPR, NAV, LOC, RWY, RWY TRK, GA TRK"
-  ],
-  "correct": 3,
-  "category": "Flight Director"
-},
-{
-  "question": "The crossfeed valve (X FEED) is:",
-  "answers": [
-    "Normally closed",
-    "Controlled by a single motor",
-    "Open for takeoff",
-    "Opened automatically when the MODE SEL pushbutton is set to AUTO, and the fuel imbalance reaches 1,500 kg"
-  ],
-  "correct": 0,
-  "category": "Fuel"
-},
-{
-  "question": "What are the basic modes of the AP / FD?",
-  "answers": [
-    "HDG and VS",
-    "SPD and HDG",
-    "ALT and NAV",
-    "Pitch and roll"
-  ],
-  "correct": 0,
-  "category": "Flight Director"
-},
-{
-  "question": "If the rudder pedals are at full deflection at normal taxi speed, what will the NWS angle be?",
-  "answers": [
-    "16°",
-    "6°",
-    "20°",
-    "10°"
-  ],
-  "correct": 1,
-  "category": "Flight Controls"
-}
-{
-  "question": "What happens to the blue hydraulic system if the engine-driven pump for the green system fails?",
-  "answers": [
-    "The blue system automatically assists the green system via the PTU",
-    "The PTU operates to transfer power between the green and yellow systems only",
-    "The PTU operates to transfer power between the green and blue systems",
-    "Nothing — the blue system is independent and unaffected"
-  ],
-  "correct": 3,
-  "category": "Hydraulics"
-},
-{
-  "question": "What does the PTU do?",
-  "answers": [
-    "Transfers hydraulic fluid between systems",
-    "Transfers hydraulic power between green and yellow systems without fluid transfer",
-    "Allows the blue electric pump to pressurize the green system",
-    "Operates the yellow hydraulic system when pressure is lost"
-  ],
-  "correct": 1,
-  "category": "Hydraulics"
-},
-{
-  "question": "What is the primary purpose of the RAT (Ram Air Turbine)?",
-  "answers": [
-    "To provide electrical power to the AC essential bus during total electrical failure",
-    "To pressurize the blue hydraulic system in the event of an electrical or engine failure",
-    "To pressurize the green hydraulic system during normal operation",
-    "To provide bleed air to the packs during engine failure"
-  ],
-  "correct": 1,
-  "category": "Hydraulics"
-},
-{
-  "question": "How is the APU normally started?",
-  "answers": [
-    "Using the aircraft batteries",
-    "Using the yellow hydraulic system",
-    "Using the green electric pump",
-    "Using the blue hydraulic system"
-  ],
-  "correct": 0,
-  "category": "Electrical"
-},
-{
-  "question": "What does a steady amber FAULT light on the APU MASTER SW pushbutton indicate?",
-  "answers": [
-    "APU has shut down normally",
-    "APU has been started successfully",
-    "APU has failed to start or automatic shutdown has occurred",
-    "APU is running and available"
-  ],
-  "correct": 2,
-  "category": "Electrical"
-},
-{
-  "question": "What is the function of the engine FADEC?",
-  "answers": [
-    "Provides engine data to the flight management system",
-    "Automatically controls engine start, fuel flow, and limits engine parameters",
-    "Controls only the ignition and fuel metering during start",
-    "Manually controls thrust lever position"
-  ],
-  "correct": 1,
-  "category": "Engines"
-},
-{
-  "question": "What powers the FADEC during an automatic start?",
-  "answers": [
-    "Aircraft batteries",
-    "AC essential bus",
-    "Permanent Magnet Alternator (PMA) or aircraft electrical system if N2 < 15%",
-    "DC essential bus only"
-  ],
-  "correct": 2,
-  "category": "Engines"
-},
-{
-  "question": "What is the normal source of pressurization air for the aircraft?",
-  "answers": [
-    "Engine bleed air",
-    "APU bleed air only",
-    "RAT",
-    "Recirculated cabin air"
-  ],
-  "correct": 0,
-  "category": "Air Systems"
-},
-{
-  "question": "If the CAB PRESS MODE SEL pushbutton is set to MAN, what happens?",
-  "answers": [
-    "The outflow valve closes automatically",
-    "The automatic controllers are bypassed and manual control of the outflow valve is enabled",
-    "The safety valves open immediately",
-    "The cabin depressurizes automatically"
-  ],
-  "correct": 1,
-  "category": "Air Systems"
-},
-{
-  "question": "When will the cabin altitude warning trigger?",
-  "answers": [
-    "When cabin altitude exceeds 9,550 ft ± 350 ft",
-    "When cabin altitude exceeds 8,000 ft",
-    "When cabin altitude exceeds 10,000 ft",
-    "When differential pressure exceeds 8.6 psi"
-  ],
-  "correct": 0,
-  "category": "Air Systems"
-},
-{
-  "question": "What does the amber FAULT light on the ENG BLEED pushbutton indicate?",
-  "answers": [
-    "Overpressure or bleed air leak detected",
-    "Valve is closed",
-    "Bleed air is available",
-    "APU bleed is supplying the system"
-  ],
-  "correct": 0,
-  "category": "Air Systems"
-},
-{
-  "question": "What is indicated when the PACK FLOW selector is set to HI?",
-  "answers": [
-    "Higher airflow rate through the packs for hot or humid conditions",
-    "High pressure pack compressor operation",
-    "High temperature air to the cabin",
-    "Increased recirculation fan speed"
-  ],
-  "correct": 0,
-  "category": "Air Systems"
-}      
+    "question": "What happens to the wing and engine anti-ice valves when the hot air supply is unavailable?",
+    "answers": [
+      "Wing anti-ice valves open, engine anti-ice valves open",
+      "Wing anti-ice valves close, engine anti-ice valves close",
+      "Wing anti-ice valves close, engine anti-ice valves open",
+      "Wing anti-ice valves open, engine anti-ice valves close"
+    ],
+    "correct": 1,
+    "category": "Anti-Ice"
+  },
+  {
+    "question": "How can you check that engine anti-ice has been selected on?",
+    "answers": [
+      "ENG A. ICE will be displayed on the status page",
+      "The ON (WHITE) lights on the ENG anti-ice push buttons are the only indications",
+      "ON (WHITE) light on one or more ENG anti-ice push buttons, ENG A. ICE memo displayed in AMBER on the EWD",
+      "ON (BLUE) light on one or more ENG anti-ice push buttons, ENG A. ICE memo displayed in GREEN on the EWD"
+    ],
+    "correct": 3,
+    "category": "Anti-Ice"
+  },
+  {
+    "question": "During a successful manual engine start when does the start valve close, and ignition cut off?",
+    "answers": [
+      "The FADEC automatically closes the start valve and cuts off ignition when N2 reaches 50%",
+      "The start valve closes when the flight crew set the MAN START push button to OFF, and the igniters cut-off when the MODE selector is returned to normal",
+      "The start valve closes when the MAN START push button is set to OFF. The ignition remains energised until the start sequence has completed, as indicated by a green AVAIL message on the EWD",
+      "The start valve closes and igniters cut off when the MAN START push button is set to OFF"
+    ],
+    "correct": 0,
+    "category": "Engines"
+  },
+  {
+    "question": "Where does the air data displayed on the ISIS come from?",
+    "answers": [
+      "ADIRU 1, ADIRU 3, or from its own internal transducers connected to the standby pilot probe and static ports",
+      "Only from its own internal transducers connected to the standby pilot probe and static ports",
+      "ADIRU 1, 2 or 3",
+      "Only ADIRU 3"
+    ],
+    "correct": 0,
+    "category": "Instruments"
+  },
+  {
+    "question": "What is the standard method for disconnecting the A/THR?",
+    "answers": [
+      "The A/THR instinctive disconnect pushbutton is the only standard method for disconnecting the A/THR",
+      "By moving the thrust levers forwards out of the CLB detent (AEO)",
+      "The flight crew press the A/THR instinctive disconnect pushbutton, or set both thrust levers to the IDLE detent",
+      "The flight crew press the A/THR button on the FCU"
+    ],
+    "correct": 2,
+    "category": "Autothrust"
+  },
+  {
+    "question": "The aircraft is on the ground with external power plugged into the aircraft, and the APU running. How can the APU generator be connected to the electrical system?",
+    "answers": [
+      "By pushing the APU MASTER SW pb-sw",
+      "By pushing the EXT PWR pb when the green AVAIL light is illuminated",
+      "By pushing the EXT PWR pb when the blue ON light is illuminated",
+      "By pushing the APU START pb-sw"
+    ],
+    "correct": 2,
+    "category": "Electrical"
+  },
+  {
+    "question": "Frequency selection on each RMP is done by concentric knobs:",
+    "answers": [
+      "The outer knob controls voice frequencies and the inner knob controls NAV aid frequencies",
+      "The outer knob controls whole numbers, the inner knob controls decimal fractions",
+      "The outer knob controls the active box and the inner knob the standby",
+      "The outer knob controls decimal fractions, the inner knob controls whole numbers"
+    ],
+    "correct": 1,
+    "category": "Radios"
+  },
+  {
+    "question": "When does the window (windshield) heating come on automatically?",
+    "answers": [
+      "When AC power is available",
+      "On the ground when AC power is available, and the outside temperature is less than 10°C",
+      "When at least one engine is running or in flight",
+      "After both engines are running or in flight"
+    ],
+    "correct": 2,
+    "category": "Anti-Ice"
+  },
+  {
+    "question": "Which of the following options contains only managed AP / FD modes?",
+    "answers": [
+      "NAV, LOC, GS, RWY, RWY TRK, GA TRK, FPA",
+      "NAV, OP CLB, OP DES, LOC, RWY, RWY TRK, GA TRK",
+      "NAV, HDG, LOC, RWY, RWY TRK",
+      "NAV, APPR, NAV, LOC, RWY, RWY TRK, GA TRK"
+    ],
+    "correct": 3,
+    "category": "Flight Director"
+  },
+  {
+    "question": "The crossfeed valve (X FEED) is:",
+    "answers": [
+      "Normally closed",
+      "Controlled by a single motor",
+      "Open for takeoff",
+      "Opened automatically when the MODE SEL pushbutton is set to AUTO, and the fuel imbalance reaches 1,500 kg"
+    ],
+    "correct": 0,
+    "category": "Fuel"
+  },
+  {
+    "question": "What are the basic modes of the AP / FD?",
+    "answers": [
+      "HDG and VS",
+      "SPD and HDG",
+      "ALT and NAV",
+      "Pitch and roll"
+    ],
+    "correct": 0,
+    "category": "Flight Director"
+  },
+  {
+    "question": "If the rudder pedals are at full deflection at normal taxi speed, what will the NWS angle be?",
+    "answers": [
+      "16°",
+      "6°",
+      "20°",
+      "10°"
+    ],
+    "correct": 1,
+    "category": "Flight Controls"
+  },
+  {
+    "question": "What happens to the blue hydraulic system if the engine-driven pump for the green system fails?",
+    "answers": [
+      "The blue system automatically assists the green system via the PTU",
+      "The PTU operates to transfer power between the green and yellow systems only",
+      "The PTU operates to transfer power between the green and blue systems",
+      "Nothing — the blue system is independent and unaffected"
+    ],
+    "correct": 3,
+    "category": "Hydraulics"
+  },
+  {
+    "question": "What does the PTU do?",
+    "answers": [
+      "Transfers hydraulic fluid between systems",
+      "Transfers hydraulic power between green and yellow systems without fluid transfer",
+      "Allows the blue electric pump to pressurize the green system",
+      "Operates the yellow hydraulic system when pressure is lost"
+    ],
+    "correct": 1,
+    "category": "Hydraulics"
+  },
+  {
+    "question": "What is the primary purpose of the RAT (Ram Air Turbine)?",
+    "answers": [
+      "To provide electrical power to the AC essential bus during total electrical failure",
+      "To pressurize the blue hydraulic system in the event of an electrical or engine failure",
+      "To pressurize the green hydraulic system during normal operation",
+      "To provide bleed air to the packs during engine failure"
+    ],
+    "correct": 1,
+    "category": "Hydraulics"
+  },
+  {
+    "question": "How is the APU normally started?",
+    "answers": [
+      "Using the aircraft batteries",
+      "Using the yellow hydraulic system",
+      "Using the green electric pump",
+      "Using the blue hydraulic system"
+    ],
+    "correct": 0,
+    "category": "Electrical"
+  },
+  {
+    "question": "What does a steady amber FAULT light on the APU MASTER SW pushbutton indicate?",
+    "answers": [
+      "APU has shut down normally",
+      "APU has been started successfully",
+      "APU has failed to start or automatic shutdown has occurred",
+      "APU is running and available"
+    ],
+    "correct": 2,
+    "category": "Electrical"
+  },
+  {
+    "question": "What is the function of the engine FADEC?",
+    "answers": [
+      "Provides engine data to the flight management system",
+      "Automatically controls engine start, fuel flow, and limits engine parameters",
+      "Controls only the ignition and fuel metering during start",
+      "Manually controls thrust lever position"
+    ],
+    "correct": 1,
+    "category": "Engines"
+  },
+  {
+    "question": "What powers the FADEC during an automatic start?",
+    "answers": [
+      "Aircraft batteries",
+      "AC essential bus",
+      "Permanent Magnet Alternator (PMA) or aircraft electrical system if N2 < 15%",
+      "DC essential bus only"
+    ],
+    "correct": 2,
+    "category": "Engines"
+  },
+  {
+    "question": "What is the normal source of pressurization air for the aircraft?",
+    "answers": [
+      "Engine bleed air",
+      "APU bleed air only",
+      "RAT",
+      "Recirculated cabin air"
+    ],
+    "correct": 0,
+    "category": "Air Systems"
+  },
+  {
+    "question": "If the CAB PRESS MODE SEL pushbutton is set to MAN, what happens?",
+    "answers": [
+      "The outflow valve closes automatically",
+      "The automatic controllers are bypassed and manual control of the outflow valve is enabled",
+      "The safety valves open immediately",
+      "The cabin depressurizes automatically"
+    ],
+    "correct": 1,
+    "category": "Air Systems"
+  },
+  {
+    "question": "When will the cabin altitude warning trigger?",
+    "answers": [
+      "When cabin altitude exceeds 9,550 ft ± 350 ft",
+      "When cabin altitude exceeds 8,000 ft",
+      "When cabin altitude exceeds 10,000 ft",
+      "When differential pressure exceeds 8.6 psi"
+    ],
+    "correct": 0,
+    "category": "Air Systems"
+  },
+  {
+    "question": "What does the amber FAULT light on the ENG BLEED pushbutton indicate?",
+    "answers": [
+      "Overpressure or bleed air leak detected",
+      "Valve is closed",
+      "Bleed air is available",
+      "APU bleed is supplying the system"
+    ],
+    "correct": 0,
+    "category": "Air Systems"
+  },
+  {
+    "question": "What is indicated when the PACK FLOW selector is set to HI?",
+    "answers": [
+      "Higher airflow rate through the packs for hot or humid conditions",
+      "High pressure pack compressor operation",
+      "High temperature air to the cabin",
+      "Increased recirculation fan speed"
+    ],
+    "correct": 0,
+    "category": "Air Systems"
+  }
 ];
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
