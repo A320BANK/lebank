@@ -5311,7 +5311,30 @@
     ],
     "correct": 1,
     "category": "Air systems"
+  },
+  {
+    "question": "What is the standard method for disconnecting the A/THR?",
+    "answers": [
+      "The A/THR instinctive disconnect pushbutton is the only standard method for disconnecting the THR",
+      "By moving the thrust levers forwards out of the CLB detent (AEO)",
+      "The fight crew press the A/THR Instinctive disconnect pushbutton. or set both thrust levers to the IDLE detent",
+      "The flight crew press the A/THR instinctive disconnect pushbutton. or the A/THR button on the FCU"
+    ],
+    "correct": 2,
+    "category": "Auto flight"
+  },
+  {
+    "question": "The aircraft is on the ground with external power plugged into the aircraft, and the APU running. How can the APU generator be connected to the electrical system?",
+    "answers": [
+      "The pushing tha APU MASTER SW pb-sw",
+      "By pushing the EXT PWR pb when the green AVAIL light is iluminated",
+      "By pushing the EXT PWR pb when the blue ON light is illuminated",
+      "By pushing the APU START pb-sw"
+    ],
+    "correct": 2,
+    "category": "APU"
   }
 ];
+
 
 
