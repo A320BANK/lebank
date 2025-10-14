@@ -5321,7 +5321,7 @@
       "The flight crew press the A/THR instinctive disconnect pushbutton. or the A/THR button on the FCU"
     ],
     "correct": 2,
-    "category": "Auto flight"
+    "category": "New"
   },
   {
     "question": "The aircraft is on the ground with external power plugged into the aircraft, and the APU running. How can the APU generator be connected to the electrical system?",
@@ -5332,7 +5332,7 @@
       "By pushing the APU START pb-sw"
     ],
     "correct": 2,
-    "category": "APU"
+    "category": "New"
   },
   {
     "question": "Frequency selection on each RMP is done by concentric knobs:",
@@ -5343,7 +5343,7 @@
       "The outer knob controls decimal fractions and the inner knb whole numbers"
     ],
     "correct": 1,
-    "category": "Communications"
+    "category": "New"
   },
   {
     "question": "When does the window (windshiold) heating come on automatically?",
@@ -5354,7 +5354,7 @@
       "After both engines are running or in flight"
     ],
     "correct": 2,
-    "category": "Ice and rain protection"
+    "category": "New"
   },
   {
     "question": "Which of the following options contains only managed AP / FD modes?",
@@ -5365,7 +5365,7 @@
       "NAV, APPR NAV, LOC, RWY, RWY TRK, GA TRK"
     ],
     "correct": 3,
-    "category": "Auto flight"
+    "category": "New"
   },
   {
     "question": "The cross feed valve (X FEED) is:",
@@ -5376,7 +5376,7 @@
       "Opened automatically when the MODE SEL pushbutton is set to AUTO, and the fuel imbalance reaches 1,500 kg"
     ],
     "correct": 0,
-    "category": "Engine"
+    "category": "New"
   },
   {
     "question": "What are the basic modes of the AP/FD",
@@ -5387,7 +5387,7 @@
       "Pitch and roll"
     ],
     "correct": 0,
-    "category": "Auto flight"
+    "category": "New"
   },  
   {
     "question": "If the rudder pedals are at full deflection at normal taxi speed what will the NWS angle be? (Degrees)",
@@ -5398,7 +5398,7 @@
       "7"
     ],
     "correct": 2,
-    "category": "Landing gear"
+    "category": "New"
   },  
   {
     "question": "What happens to the wing and engine anti-ice valves when the hot air supply is unavailable?",
@@ -5409,7 +5409,7 @@
       "Wing anti-ice valves close, engine anti-ice valves close"
     ],
     "correct": 3,
-    "category": "Ice and rain protection"
+    "category": "New"
   }, 
   {
     "question": "During a succesful manual engine start when does the start valve close, and ignition cut off?",
@@ -5420,7 +5420,7 @@
       "The start valve closes and igniters cut off when the MAN START push button is set to OFF"
     ],
     "correct": 0,
-    "category": "Engine"
+    "category": "New"
   },
   {
     "question": "How can you check that engine anti-ice has been selected on",
@@ -5431,7 +5431,7 @@
       "ON (BLUE) light on one or more ENG anti-ice push buttons, ENGA. ICE memo displayed in GREEN on the EWD"
     ],
     "correct": 3,
-    "category": "Ice and rain protection"
+    "category": "New"
   },
   {
     "question": "Where does the air data displayed on the ISIS come from?",
@@ -5442,9 +5442,10 @@
       "Only ADIRU 3"
     ],
     "correct": 0,
-    "category": "Navigation"
+    "category": "New"
   }
 ];
+
 
 
 
