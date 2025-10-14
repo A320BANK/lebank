@@ -5346,7 +5346,7 @@
     "category": "New"
   },
   {
-    "question": "When does the window (windshiold) heating come on automatically?",
+    "question": "When does the window (windshield) heating come on automatically?",
     "answers": [
       "When AC power is available",
       "On the ground when AC power is available, and the outside temperature is less than 10°C",
@@ -5445,6 +5445,7 @@
     "category": "New"
   }
 ];
+
 
 
 
