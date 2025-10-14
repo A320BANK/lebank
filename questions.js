@@ -398,7 +398,7 @@
       "OBS only",
       "RWY, OBS, and VMC"
     ],
-    "correct": 1,
+    "correct": 0,
     "category": "Performance"
   },
   {
@@ -5445,6 +5445,7 @@
     "category": "New"
   }
 ];
+
 
 
 
