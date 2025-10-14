@@ -5333,7 +5333,7 @@
     ],
     "correct": 2,
     "category": "APU"
-  }
+  },
   {
     "question": "Frequency selection on each RMP is done by concentric knobs:",
     "answers": [
@@ -5345,7 +5345,7 @@
     "correct": 1,
     "category": "Communications"
   },
-   {
+  {
     "question": "When does the window (windshiold) heating come on automatically?",
     "answers": [
       "When AC power is available",
@@ -5445,6 +5445,7 @@
     "category": "Navigation"
   }
 ];
+
 
 
 
